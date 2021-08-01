@@ -1,0 +1,1 @@
+export default API_URL = 'https://norma.nomoreparties.space/api/ingredients';

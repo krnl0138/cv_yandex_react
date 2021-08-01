@@ -1,0 +1,16 @@
+.ingredientsTypeBar { 
+    display: flex;
+    justify-content: center; 
+}
+.galleries {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 60vh;
+}
+.galleries::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+  }
+.galleries::-webkit-scrollbar-thumb {
+    background-color: #545AA7;
+  }

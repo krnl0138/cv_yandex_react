@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    justify-content: center;
+
+    background-color: #131316;
+}
+
+.left {
+    width: 50vw;
+}
+
+.right {
+    width: 50vw;
+}
