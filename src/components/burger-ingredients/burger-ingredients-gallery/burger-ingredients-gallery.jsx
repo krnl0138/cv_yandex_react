@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import styles from './burger-ingredients-gallery.module.css';
-import { Counter, Icons, Tab, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import Card from './card/card';
 
@@ -20,7 +19,7 @@ export default function BurgerIngredientsGallery({id, title, ingredients}) {
 
 
 BurgerIngredientsGallery.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     ingredients: PropTypes.array.isRequired,
 }

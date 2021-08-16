@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from './burger-constructor.module.css';
-import { ConstructorElement, DragIcon, CurrencyIcon, Button, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import OrderDetails from '../order-details/order-details';
 
@@ -23,7 +23,7 @@ export default function BurgerConstructor({ ingredients }) {
     useEffect(() => {
         const getOrderCost = async () => {
             // TODO: вычесть стоимость верхней булки
-            const orderCost = await ingredients.reduce((acc, ing) => acc + ing.price, 0)
+            const orderCost = ingredients.reduce((acc, ing) => acc + ing.price, 0)
             setOrderCost(orderCost);
         }
         getOrderCost();

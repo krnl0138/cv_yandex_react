@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import styles from "./modal.module.css";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
-import { CloseIcon, Typography, Box } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export default function Modal(props) {
     const { children, onClose } = props;

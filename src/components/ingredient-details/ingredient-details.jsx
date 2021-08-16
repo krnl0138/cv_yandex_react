@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css';
-//import {ingredientsPropTypes} from '../../utils/dataPropTypes';
 
 import Modal from '../modal/modal';
 
@@ -42,17 +41,17 @@ IngredientDetails.propTypes = {
     onClose: PropTypes.func.isRequired,
 
    ingredient: PropTypes.shape({
-    _id: String,
-    name: String,
-    type: String,
-    proteins: Number,
-    fat: Number,
-    carbohydrates: Number,
-    calories: Number,
-    price: Number,
-    image: String,
-    image_mobile: String,
-    image_large: String,
-    __v:Number,
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    image_mobile: PropTypes.string,
+    image_large: PropTypes.string,
+    __v: PropTypes.number,
    }).isRequired
 }; 

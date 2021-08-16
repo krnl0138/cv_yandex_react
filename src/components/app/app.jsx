@@ -8,8 +8,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
 import dataOffline from '../../utils/data';
 
-import { Tab, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
-
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
 export default function App() {

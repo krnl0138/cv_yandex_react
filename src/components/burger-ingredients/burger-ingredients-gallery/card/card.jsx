@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import PropTypes from "prop-types";
 import styles from './card.module.css';
-import { Counter, CurrencyIcon, Tab, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientDetails from '../../../ingredient-details/ingredient-details';
 
@@ -34,17 +34,17 @@ export default function Card({ ingredient }) {
 
 Card.propTypes = {
     ingredient: PropTypes.shape({
-        _id: String,
-        name: String,
-        type: String,
-        proteins: Number,
-        fat: Number,
-        carbohydrates: Number,
-        calories: Number,
-        price: Number,
-        image: String,
-        image_mobile: String,
-        image_large: String,
-        __v:Number,
-       }).isRequired
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        type: PropTypes.string,
+        proteins: PropTypes.number,
+        fat: PropTypes.number,
+        carbohydrates: PropTypes.number,
+        calories: PropTypes.number,
+        price: PropTypes.number,
+        image: PropTypes.string,
+        image_mobile: PropTypes.string,
+        image_large: PropTypes.string,
+        __v: PropTypes.number,
+       })
 }
