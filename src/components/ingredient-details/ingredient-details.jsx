@@ -39,6 +39,20 @@ export default function IngredientDetails({ onClose, ingredient }) {
 };
 
 IngredientDetails.propTypes = {
-    onClose: PropTypes.func,
-   // ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+    onClose: PropTypes.func.isRequired,
+
+   ingredient: PropTypes.shape({
+    _id: String,
+    name: String,
+    type: String,
+    proteins: Number,
+    fat: Number,
+    carbohydrates: Number,
+    calories: Number,
+    price: Number,
+    image: String,
+    image_mobile: String,
+    image_large: String,
+    __v:Number,
+   }).isRequired
 }; 

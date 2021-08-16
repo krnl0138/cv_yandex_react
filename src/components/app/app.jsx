@@ -6,7 +6,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
-import DATA_OFFLINE from '../../utils/data';
+import dataOffline from '../../utils/data';
 
 import { Tab, Typography } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -22,8 +22,14 @@ export default function App() {
     useEffect(() => {
         const getIngredients = async () => {
             setState({...state, isLoading: true});
+            
             fetch(API_URL)
-                .then(res => res.json())
+                .then(res => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return Promise.reject(`Ошибка ${res.status}`);
+                })
                 .then(data => setState({...state, ingredients: data.data, isLoading:false}))
                 .catch(e => setState({...state, hasError: true, isLoading:false}))
         }

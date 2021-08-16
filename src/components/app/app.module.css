@@ -2,6 +2,9 @@
     display: flex;
     justify-content: center;
 
+    max-width: 75vw;
+    margin: 0 auto;
+
     background-color: #131316;
 }
 

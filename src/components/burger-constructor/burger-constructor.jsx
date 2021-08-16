@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button, Typography, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { ingredientsPropTypes } from '../../utils/dataPropTypes';
-
 import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details'
 
 export default function BurgerConstructor({ ingredients }) {
 
@@ -25,7 +22,8 @@ export default function BurgerConstructor({ ingredients }) {
     const [orderCost, setOrderCost] = useState('');
     useEffect(() => {
         const getOrderCost = async () => {
-            const orderCost = await ingredients.reduce((acc, ing) => acc + ing.price, 0)// - ingredients.find(ing => ing.type === 'bun').price;
+            // TODO: вычесть стоимость верхней булки
+            const orderCost = await ingredients.reduce((acc, ing) => acc + ing.price, 0)
             setOrderCost(orderCost);
         }
         getOrderCost();
@@ -37,13 +35,15 @@ export default function BurgerConstructor({ ingredients }) {
             Добавить параметр id */}
             <div className={`${styles.constructor} mb-4`} >
                 <span className="ml-8">
-                    <ConstructorElement type='top' isLocked={true} text={bun.name} thumbnail={bun.image} price={bun.price} />
+                    <ConstructorElement type='top' isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image} price={bun.price} />
                 </span>
+
+                <span className={styles.middle}>
                 {ingredients.filter(ingredient => ingredient.type !== 'bun')
                     .map(ingredient => {
                         const ing = ingredient;
                         return (
-                            <span className={styles.middleIngredients}>
+                            <span key={ingredient._id} className={styles.middleIngredients}>
                                 <span className={styles.dragIcon}>
                                     <DragIcon type="primary" />
                                 </span>
@@ -55,9 +55,11 @@ export default function BurgerConstructor({ ingredients }) {
                             </span>
                         )
                     })
-                }
+                } 
+                </span>
+                
                 <span className="ml-8">
-                    <ConstructorElement type='bottom' isLocked={true} text={bun.name} thumbnail={bun.image} price={bun.price} />
+                    <ConstructorElement type='bottom' isLocked={true} text={`${bun.name} (низ)`} thumbnail={bun.image} price={bun.price} />
                 </span>
 
 
@@ -81,5 +83,5 @@ export default function BurgerConstructor({ ingredients }) {
 
 BurgerConstructor.propTypes = {
 
-    ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 }

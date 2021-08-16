@@ -12,14 +12,15 @@ export default function BurgerIngredientsGallery({id, title, ingredients}) {
 
             </div>
             <div className={`${styles.gallery} mt-6 ml-4 mb-10`}>
-                {ingredients.map(el => <Card ingredient={el} /> )}
+                {ingredients.map(ingredient => <Card key={ingredient._id} ingredient={ingredient} /> )}
             </div>
         </div>
     )
 }
 
+
 BurgerIngredientsGallery.propTypes = {
-    id: PropTypes.number,
-    title: PropTypes.string,
-    ingredients: PropTypes.array,
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    ingredients: PropTypes.array.isRequired,
 }
