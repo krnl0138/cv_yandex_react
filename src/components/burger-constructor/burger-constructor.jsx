@@ -43,7 +43,7 @@ export default function BurgerConstructor({ ingredients }) {
                     .map(ingredient => {
                         const ing = ingredient;
                         return (
-                            <span key={ingredient._id} className={styles.middleIngredients}>
+                            <span key={ingredient._id} className={`${styles.middleIngredients} mb-2 mt-2`}>
                                 <span className={styles.dragIcon}>
                                     <DragIcon type="primary" />
                                 </span>
