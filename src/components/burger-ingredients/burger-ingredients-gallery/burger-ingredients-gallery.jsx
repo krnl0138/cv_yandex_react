@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styles from './burger-ingredients-gallery.module.css';
+import AppStateContext from '../../../services/app-context';
 
 import Card from './card/card';
 
-export default function BurgerIngredientsGallery({id, title, ingredients}) {
+export default function BurgerIngredientsGallery({id, title}) {
+    const {ingredients} = useContext(AppStateContext);
+
     return (
         <div id={id}>
             <div>

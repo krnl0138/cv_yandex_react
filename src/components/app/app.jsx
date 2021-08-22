@@ -5,10 +5,12 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import AppStateContext from '../../services/app-context';
 
 import dataOffline from '../../utils/data';
 
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import {API_URL} from '../../utils/constants';
+
 
 export default function App() {
     const [state, setState] = useState({
@@ -34,25 +36,24 @@ export default function App() {
         getIngredients();
     }, []);
 
-    console.log(state.ingredients)
-
     return (
-        <>
+        <AppStateContext.Provider value={state}>
             <div>
                 < AppHeader />
                 {!state.isLoading && !state.hasError && state.ingredients &&
                     <main className={styles.main}>
                         <div className={`${styles.left} mr-10 ml-10`}>
                             <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
-                            <BurgerIngredients ingredients={state.ingredients} />
+                            {/*<BurgerIngredients ingredients={state.ingredients} />*/}
+                            <BurgerIngredients />
                         </div>
                         <div className={`${styles.right} mt-25 mr-10`}>
-                            <BurgerConstructor ingredients={state.ingredients} />
+                            {/*<BurgerConstructor ingredients={state.ingredients} />*/}
+                            <BurgerConstructor />
                         </div>
                     </main>
                 }
             </div>
-        </>
-
+        </AppStateContext.Provider >
     )
 }

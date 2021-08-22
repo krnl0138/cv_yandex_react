@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import AppStateContext from '../../services/app-context';
 
 import BurgerIngredientsGallery from './burger-ingredients-gallery/burger-ingredients-gallery';
 
-export default function BurgerIngredients({ ingredients }) {
+export default function BurgerIngredients() {
+
+    const {ingredients} = useContext(AppStateContext);
 
     const [current, setCurrent] = useState('bun')
     return (
@@ -27,5 +30,5 @@ export default function BurgerIngredients({ ingredients }) {
 }
 
 BurgerIngredients.propTypes = {
-    ingredients: PropTypes.array.isRequired
+    //ingredients: PropTypes.array.isRequired
 }
