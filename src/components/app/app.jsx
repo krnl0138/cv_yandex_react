@@ -1,59 +1,70 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import AppStateContext from '../../services/app-context';
-
-import dataOffline from '../../utils/data';
-
-import {API_URL} from '../../utils/constants';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import { getIngredients } from '../../services/actions/ingredients';
+import { VISIBLE_ORDER_DETAILS, VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 
 export default function App() {
-    const [state, setState] = useState({
-        isLoading: false,
-        hasError: false,
-        ingredients: []
-    });
-
+    const dispatch = useDispatch();
+ 
     useEffect(() => {
-        const getIngredients = async () => {
-            setState({...state, isLoading: true});
-            
-            fetch(API_URL)
-                .then(res => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return Promise.reject(`Ошибка ${res.status}`);
-                })
-                .then(data => setState({...state, ingredients: data.data, isLoading:false}))
-                .catch(e => setState({...state, hasError: true, isLoading:false}))
-        }
-        getIngredients();
-    }, []);
+        dispatch(getIngredients());
+      }, [dispatch])
+
+    const { visibleOrderDetails, visibleIngredientDetails } = useSelector(state => state.modals);
+
+    const openModalOrderDetails = () => {
+        dispatch({ type: VISIBLE_ORDER_DETAILS, value: true })
+    }
+
+    const openModalIngredientDetails = () => {
+        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: true })
+    }
+
+    const closeModal = () => {
+        dispatch({ type: VISIBLE_ORDER_DETAILS, value: false })
+        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: false })
+    }
 
     return (
-        <AppStateContext.Provider value={state}>
-            <div>
-                < AppHeader />
-                {!state.isLoading && !state.hasError && state.ingredients &&
-                    <main className={styles.main}>
-                        <div className={`${styles.left} mr-10 ml-10`}>
-                            <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
-                            {/*<BurgerIngredients ingredients={state.ingredients} />*/}
-                            <BurgerIngredients />
-                        </div>
-                        <div className={`${styles.right} mt-25 mr-10`}>
-                            {/*<BurgerConstructor ingredients={state.ingredients} />*/}
-                            <BurgerConstructor />
-                        </div>
-                    </main>
-                }
-            </div>
-        </AppStateContext.Provider >
+        <>
+            < AppHeader />
+            <main className={styles.main}>
+                <DndProvider backend={HTML5Backend}>
+                <div className={`${styles.left} mr-10 ml-10`}>
+                    <BurgerIngredients
+                    openIngredientDetails={openModalIngredientDetails}
+                    />
+                </div>
+                <div className={`${styles.right} mt-25 mr-10`}>
+                    <BurgerConstructor 
+                    openIngredientDetails={openModalIngredientDetails}
+                    openOrderDetails={openModalOrderDetails}
+                    />
+                </div>
+                </DndProvider>
+            </main>
+            {visibleOrderDetails &&
+                <Modal onClose={closeModal}>
+                    <OrderDetails />
+                </Modal>
+            }
+            {visibleIngredientDetails &&
+                <Modal onClose={closeModal}>
+                    <IngredientDetails />
+                </Modal>
+            }
+        </>
     )
 }

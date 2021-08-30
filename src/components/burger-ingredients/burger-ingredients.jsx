@@ -1,34 +1,79 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import AppStateContext from '../../services/app-context';
+import { useDispatch, useSelector } from 'react-redux';
+import Card from './card/burger-ingerdients-card';
+import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
 
-import BurgerIngredientsGallery from './burger-ingredients-gallery/burger-ingredients-gallery';
+export default function BurgerIngredients({ openIngredientDetails }) {
+    const dispatch = useDispatch();
 
-export default function BurgerIngredients() {
+    const { ingredientsData } = useSelector(state => state.ingredients);
 
-    const {ingredients} = useContext(AppStateContext);
+    const refBun = useRef(null);
+    const refSauce = useRef(null);
+    const refMain = useRef(null);
 
     const [current, setCurrent] = useState('bun')
+    const handleScroll = (e) => {
+        setCurrent(e);
+        if (e === "bun") refBun.current.scrollIntoView({ behavior: 'smooth' });
+        if (e === "sauce") refSauce.current.scrollIntoView({ behavior: 'smooth' });
+        if (e === "main") refMain.current.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const handleActiveTab = (e) => {
+        const scrollTop = e.target.scrollTop;
+
+        const bunTop = refBun.current.getBoundingClientRect().top;
+        const sauceTop = refSauce.current.getBoundingClientRect().top;
+        const mainTop = refMain.current.getBoundingClientRect().top;
+
+        if (scrollTop < bunTop) setCurrent('bun');
+        if (scrollTop > bunTop && scrollTop < sauceTop) setCurrent('sauce');
+        if (scrollTop > mainTop) setCurrent('main');
+    }
+
+    const ingredientsList = (type) => {
+        return ingredientsData
+            .filter(ingredient => ingredient.type === type)
+            .map((ingredient, index) => {
+                const openDetails = () => {
+                    dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
+                    openIngredientDetails();
+                }
+
+                return (<Card item={ingredient} openDetails={openDetails} key={index} />)
+            });
+    };
+
     return (
         <section className={styles.main}>
 
+            <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
+
             <div className={`${styles.ingredientsTypeBar} mb-10`} >
-                <Tab value="bun" active={current === 'bun'} onClick={setCurrent}>Булки</Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>Соусы</Tab>
-                <Tab value="main" active={current === 'main'} onClick={setCurrent}>Начинки</Tab>
+                <Tab value="bun" active={current === 'bun'} onClick={handleScroll}>Булки</Tab>
+                <Tab value="sauce" active={current === 'sauce'} onClick={handleScroll}>Соусы</Tab>
+                <Tab value="main" active={current === 'main'} onClick={handleScroll}>Начинки</Tab>
             </div>
 
-            <section className={styles.galleries} >
-                <BurgerIngredientsGallery id='bun' title='Булки' ingredients={ingredients.filter(el => el.type === 'bun')} />
-                <BurgerIngredientsGallery id='sauce' title='Соусы' ingredients={ingredients.filter(el => el.type === 'sauce')} />
-                <BurgerIngredientsGallery id='main' title='Начинки' ingredients={ingredients.filter(el => el.type === 'main')} />
-            </section>
+            <div className={styles.ingredients} onScroll={handleActiveTab} >
+                <p className='text text_type_main-medium' ref={refBun} >Булки</p>
+                <div className={styles.ingredientsTab} > {ingredientsList('bun')} </div>
+
+                <p className='text text_type_main-medium' ref={refSauce} >Соусы</p>
+                <div className={styles.ingredientsTab} > {ingredientsList('sauce')} </div>
+
+                <p className='text text_type_main-medium' ref={refMain} >Начинка</p>
+                <div className={styles.ingredientsTab} > {ingredientsList('main')} </div>
+            </div>
+
         </section>
     )
 }
 
 BurgerIngredients.propTypes = {
-    //ingredients: PropTypes.array.isRequired
+    openIngredientDetails: PropTypes.func.isRequired
 }

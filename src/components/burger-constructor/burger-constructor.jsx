@@ -1,149 +1,161 @@
-import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import AppStateContext from '../../services/app-context';
-import OrderDetails from '../order-details/order-details';
-import {API_ORDER_URL} from "../../utils/constants";
-import OrderContext from "../../services/order-context";
+import { GET_ORDER_INGREDIENTS_ID } from '../../services/actions/order-details';
+import { ADD_CART_INGREDIENT, ADD_CART_INGREDIENT_BUN, DELETE_CART_INGREDIENT, MOVE_CART_INGREDIENT } from '../../services/actions/cart';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDrop, useDrag } from 'react-dnd';
 
-// [X] Вы можете использовать те данные, которые уже получаете из API для компонента BurgerIngredients. 
-// [X] Сохраняйте данные в Context и подпишите на него компонент BurgerConstructor. 
-// [X] Данные из контекста должны быть доступны при нажатии на кнопку «Оформить заказ» и в блоке с итоговой стоимостью.
+export default function BurgerConstructor({ openOrderDetails }) {
+  const dispatch = useDispatch();
 
-// [X] В отрендеренных данных может быть только один ингредиент с типом bun. 
-//      Это булки, возможность перетаскивать которые в дальнейшем будет заблокирована.
-// [X] Рендерить данные с типом bun потребуется дважды. Ведь булка должна быть сверху и снизу бургера. 
-// [X] Добавляйте к названию булки соответствующее упоминание: «верх» и «низ».
-// Учитывайте, что для расчётов итоговой стоимости потребуется цена каждой из этих булок. 
-// Подумайте, где в дальнейшем расположите вычисления итоговой стоимости.
+  const data = useSelector(state => state.cart.сartIngredients);
+  const bun = useSelector(state => state.cart.bunIngredients[0]);
 
-// Эндпоинт
-// POST https://norma.nomoreparties.space/api/orders
+  const orderCost = bun ? [bun, bun, ...data].reduce((acc, ing) => acc += ing.price, 0)
+    : data.reduce((acc, ing) => acc += ing.price, 0);
 
-// Тело запроса
-//{ 
-//    "ingredients": ["609646e4dc916e00276b286e","609646e4dc916e00276b2870"]
-//} 
+  const ingredientsIDs = data.map(item => item._id);
 
-// В теле запроса нужно передать _id всех ингредиентов, которые находятся в компоненте BurgerConstructor. Пример ответа:
-// {
-//   "name": "Краторный метеоритный бургер",
-//  "order": {
-//      "number": 6257
-//  },
-//  "success": true
-//} 
-// По возможности старайтесь обрабатывать ошибки при работе с API.
-// Если запрос прошёл успешно, сохраняйте номер заказа и отображайте его в OrderDetails.
+  const orderBurger = () => {
+    if (bun && data.length !== 0) {
+      openOrderDetails();
+      dispatch({ type: GET_ORDER_INGREDIENTS_ID, ingredientsIDs: ingredientsIDs })
+    }
+  }
 
-export default function BurgerConstructor() {
+  const deleteIngredient = (index) => {
+    dispatch({ type: DELETE_CART_INGREDIENT, ingredients: index })
+  }
 
-    const {ingredients } = useContext(AppStateContext);
+  const ConstructorElementMiddle = ({ item, index }) => {
+    const [{ opacity }, dragRef] = useDrag({
+      type: 'move',
+      item: () => {
+        return { item, index };
+      },
+      collect: monitor => ({
+        opacity: monitor.isDragging() ? 0.5 : 1
+      })
+    })
 
-    const ingredientsIDs = ingredients.map(ing => ing._id);
-    const [orderState, setOrderState] = useState({orderNumber: null, orderLoading: false});
-    useEffect(() => {
-        const getOrderNumber = async (ingredientsIDs) => {
-            setOrderState({ ...orderState, orderLoading: true })
-            const reqOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    'ingredients': ingredientsIDs
-                })
-            };
-            fetch(API_ORDER_URL, reqOptions)
-                .then(res => {
-                    console.log(res)
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return Promise.reject(`Error ${res.status}`);
-                })
-                .then(data => {
-                    setOrderState({ orderNumber: data.order.number, orderLoading: false });
-                })
-                .catch(() => console.log('error'));
-        }
-        getOrderNumber(ingredientsIDs);
-    }, [ingredients])
-
-    const [bun, setBun] = useState({})
-    useEffect(() => {
-        const getBun = async () => {
-            await setBun(ingredients.find(ing => ing.type === 'bun'));
-        }
-        getBun();
-    }, [])
-
-    const [modalOrder, setModalVisible] = useState(false);
-    const handleModalOpen = () => { 
-
-        setModalVisible(true); 
-    };
-    const handleModalClose = () => { setModalVisible(false); };
-
-    const [orderCost, setOrderCost] = useState(null);
-    useEffect(() => {
-        const getOrderCost = async () => {
-            const orderCost = ingredients.reduce((acc, ing) => acc + ing.price, 0)
-            setOrderCost(orderCost);
-        }
-        getOrderCost();
-    }, [])
+    const [{ padding }, dropRef] = useDrop({
+      accept: 'move',
+      drop(ingredients) {
+        dispatch({ type: MOVE_CART_INGREDIENT, ingredients, dropIndex: index })
+      },
+      collect: monitor => ({
+        padding: monitor.isOver()
+      })
+    });
 
     return (
-        <>
-            <div className={`${styles.constructor} mb-4`} >
-                <span className="ml-8">
-                    <ConstructorElement type='top' isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image} price={bun.price} />
-                </span>
-
-                <span className={styles.middle}>
-                {ingredients.filter(ingredient => ingredient.type !== 'bun')
-                    .map(ingredient => {
-                        const ing = ingredient;
-                        return (
-                            <span key={ingredient._id} className={`${styles.middleIngredients} mb-2 mt-2`}>
-                                <span className={styles.dragIcon}>
-                                    <DragIcon type="primary" />
-                                </span>
-                                <ConstructorElement
-                                    text={ingredient.name}
-                                    price={ingredient.price}
-                                    thumbnail={ingredient.image_mobile}
-                                />
-                            </span>
-                        )
-                    })
-                } 
-                </span>
-                
-                <span className="ml-8">
-                    <ConstructorElement type='bottom' isLocked={true} text={`${bun.name} (низ)`} thumbnail={bun.image} price={bun.price} />
-                </span>
-
-
-            </div>
-            <div className={styles.orderSection}>
-                <span className={`${styles.price} m-5`}>
-                    {/* CALCULATE PRICE HERE */}
-                    <p className="text text_type_digits-medium mr-2">{orderCost}</p>
-                    <CurrencyIcon type="primary" />
-                </span>
-                <Button type="primary" 
-                        size="medium" 
-                        onClick={handleModalOpen}>
-                    Оформить заказ
-                </Button>
-            </div>
-            {modalOrder && (
-                <OrderDetails onClose={handleModalClose} orderNum={orderState.orderNumber} />
-            )}
-        </>
+      <div ref={dragRef} style={{ opacity }}>
+        <div ref={dropRef} style={{ padding }}>
+          <span className={`${styles.item} ml-2 mr-6 mt-2 mb-2`}>
+            <DragIcon type='primary' />
+            <ConstructorElement
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
+              handleClose={() => deleteIngredient(index)}
+            />
+          </span>
+        </div>
+      </div>
     )
+  }
+
+  const [, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(ingredients) {
+      dispatch({ type: ADD_CART_INGREDIENT, ingredients: ingredients })
+    }
+  });
+
+  const [, bunDropTop] = useDrop({
+    accept: 'bun',
+    drop(ingredients) {
+      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredients })
+    }
+  });
+
+  const [, bunDropBottom] = useDrop({
+    accept: 'bun',
+    drop(ingredients) {
+      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredients })
+    }
+  });
+
+  return (
+    <section>
+      <div className={`${styles.constructor} mb-4`} >
+        {bun ?
+          (
+            <div ref={bunDropTop} className='ml-8 mr-8' >
+              <ConstructorElement type='top'
+                isLocked={true}
+                text={`${bun.name} (верх)`}
+                thumbnail={bun.image}
+                price={bun.price}
+              />
+            </div>
+          ) : (
+            <div ref={bunDropTop} className='ml-8 mr-8'>
+              <ConstructorElement type='top'
+                isLocked={true}
+              />
+            </div>
+          )
+        }
+
+        <div className={styles.middle} ref={dropTarget} >
+          {data.map((ingredient, index) => {
+            return (
+              <div className={styles.middleIngredients} key={`${ingredient._id}${index}`} >
+                <ConstructorElementMiddle item={ingredient} index={index} />
+              </div>
+            )
+          })
+          }
+        </div>
+
+        {bun ?
+          (
+            <div ref={bunDropBottom} className='ml-8 mr-8'>
+              <ConstructorElement type='bottom'
+                isLocked={true}
+                text={`${bun.name} (низ)`}
+                thumbnail={bun.image}
+                price={bun.price}
+              />
+            </div>
+          ) : (
+            <div ref={bunDropBottom} className='ml-8 mr-8'>
+              <ConstructorElement type='bottom'
+                isLocked={true}
+              />
+            </div>
+          )
+        }
+      </div>
+
+      <div className={styles.orderSection}>
+        <span className={`${styles.price} m-5`}>
+          <p className='text text_type_digits-medium mr-2'>{orderCost}</p>
+          <CurrencyIcon type='primary' />
+        </span>
+        <Button type='primary'
+          size='medium'
+          onClick={orderBurger}>
+          Оформить заказ
+        </Button>
+      </div>
+
+    </section>
+  )
 }
 
 BurgerConstructor.propTypes = {
+  openOrderDetails: PropTypes.func.isRequired
 }
