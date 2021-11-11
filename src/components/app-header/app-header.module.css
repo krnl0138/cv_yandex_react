@@ -1,9 +1,8 @@
 .header{
     justify-content: center;
-
     background: #1C1C21;
+    text-align: center;
 }
-
 
 .nav {
     display: flex;
@@ -14,22 +13,41 @@
 }
 
 .nav_element {
-display: flex;
-align-items: center;
+    display: flex;
+    align-items: center;
 
-background: #1C1C21;
-border-radius: 40%;
+    background: #1C1C21;
+    border-radius: 40%;
 }
 
 .nav_element_left {
     display: flex;
-    }
+}
 
-        
 .push_right {
     margin-left: auto;
-    }
+}
     
 .center {
-        margin: auto;
-        }
+    margin: auto;
+}
+
+.link {
+    text-decoration: none;
+}
+.link:visited {
+    color: #8585AD;
+}
+
+.activeLink {
+    text-decoration: none;
+    color: #fff;
+}
+.activeLink:visited {
+    text-decoration: none;
+    color: #fff;
+}
+
+.burger {
+    color: red;
+}

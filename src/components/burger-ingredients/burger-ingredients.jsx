@@ -1,13 +1,16 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './card/burger-ingerdients-card';
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export default function BurgerIngredients({ openIngredientDetails }) {
-    const dispatch = useDispatch();
+    let dispatch = useDispatch();
+    let history = useHistory();
+    let location = useLocation();
 
     const { ingredientsData } = useSelector(state => state.ingredients);
 
@@ -41,6 +44,9 @@ export default function BurgerIngredients({ openIngredientDetails }) {
             .map((ingredient, index) => {
                 const openDetails = () => {
                     dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
+
+                    history.replace({ pathname: `/ingredients/${ingredient._id}`, state: {background: location} })
+                    //history.goBack();
                     openIngredientDetails();
                 }
 
@@ -49,7 +55,7 @@ export default function BurgerIngredients({ openIngredientDetails }) {
     };
 
     return (
-        <section className={styles.main}>
+        <section>
 
             <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
 

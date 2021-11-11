@@ -5,6 +5,7 @@ import { ingredientsReducer } from './ingredients';
 import { modalsReducer } from './modals';
 import { ingredientDetailsReducer } from './ingredient-details';
 import { orderDetailsReducer } from './order-details';
+import { forgotPasswordReducer } from './forgot-password';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     modals: modalsReducer,
     ingredientDetails: ingredientDetailsReducer,
     orderDetails: orderDetailsReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    forgotPassword: forgotPasswordReducer,
 })
 
 export const store = createStore(rootReducer, enhancer);

@@ -1,9 +1,19 @@
 import styles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 export default function IngredientDetails() {
+    const ingredients = useSelector(state => state.ingredients.ingredientsData);
 
-    const ingredient = useSelector(state => state.ingredientDetails.activeIngredient);
+    let ingredient = useSelector(state => state.ingredientDetails.activeIngredient);
+    console.log(ingredient);
+
+    // СЦЕНАРИЙ: переход по прямой ссылке
+    const location = useLocation();
+    const ingredientID = location.pathname.split('/')[2];
+    if (ingredientID && Object.keys(ingredient).length === 0) {
+        ingredient = ingredients.find(ing => ing._id === ingredientID);
+    }
 
     return (
         <div className={`${styles.card} pt-10 pb-10`}>
