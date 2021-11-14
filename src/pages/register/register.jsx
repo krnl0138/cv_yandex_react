@@ -1,12 +1,15 @@
 import styles from './register.module.css';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { useAuth } from '../../services/auth';
+import { register } from '../../services/actions/authR';
 
 export default function Register() {
     const history = useHistory();
-    let auth = useAuth();
+    const dispatch = useDispatch();
+
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({
         username: '',
@@ -20,11 +23,11 @@ export default function Register() {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        auth.register(form);
+        dispatch(register(form));
         history.replace({ pathname: '/' });
     }
 
-    if (auth.user) {
+    if (user.username) {
         return (
             <Redirect to={{ pathname: '/' }} />
         )

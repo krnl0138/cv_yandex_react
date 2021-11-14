@@ -6,8 +6,8 @@ import { useDrag } from "react-dnd";
 
 export default function Card({ item, openDetails }) {
 
-  const cartIngredients = useSelector(state => state.cart.сartIngredients);
-  const buns = useSelector(state => state.cart.bunIngredients);
+  const cartIngredients = useSelector(store => store.cart.сartIngredients);
+  const buns = useSelector(store => store.cart.bunIngredients);
 
   const counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;
 

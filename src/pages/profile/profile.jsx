@@ -1,24 +1,23 @@
 import styles from './profile.module.css';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useAuth } from '../../services/auth';
+import { getUserData, patchUserData, logout } from '../../services/actions/authR';
 
 export default function Profile() {
     const history = useHistory();
-    let auth = useAuth();
-    let location = useLocation();
-    console.log(location.state);
+    const dispatch = useDispatch();
+    const user = useSelector(store => store.user);
 
-    const user = auth.user.user;
-    const [form, setForm] = useState({ username: user.name, email: user.email, password: '' });
+    const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
 
     const resetProfileFormValue = () => {
         setForm(prev => ({ ...prev, username: user.name, email: user.email, password: '' }));
     }
 
     useEffect(() => {
-        auth.getUserData();
+        getUserData();
     }, [])
 
     // handle form clicks
@@ -51,7 +50,7 @@ export default function Profile() {
     const onSubmit = (e) => {
         e.preventDefault();
         if (e.nativeEvent.submitter.value === 'update') {
-            auth.patchUserData(form);
+            patchUserData();
         }
         if (e.nativeEvent.submitter.value === 'cancel') {
             resetProfileFormValue();
@@ -59,10 +58,8 @@ export default function Profile() {
     }
 
     const onClickLogout = useCallback((e) => {
-        auth.logout().then(() => {
-            history.replace({ pathname: '/login' });
-        });
-    }, [auth, history]);
+        dispatch(logout());
+    }, []);
 
     return (
         <div className={styles.main} ref={mainRef}>
@@ -83,7 +80,7 @@ export default function Profile() {
 
                 <Link
                     onClick={onClickLogout}
-                    to={{ pathname: '/404' }}
+                    to={{ pathname: '/' }}
                     className={`text text_type_main-large text-color-inactive ${styles.navChild}`}>
                     Выход
                 </Link>

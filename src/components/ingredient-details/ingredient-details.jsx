@@ -1,21 +1,27 @@
 import styles from './ingredient-details.module.css';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function IngredientDetails() {
-    const ingredients = useSelector(state => state.ingredients.ingredientsData);
-
-    let ingredient = useSelector(state => state.ingredientDetails.activeIngredient);
-    console.log(ingredient);
-
-    // СЦЕНАРИЙ: переход по прямой ссылке
     const location = useLocation();
+    const [ingredient, setIngredient] = useState({});
     const ingredientID = location.pathname.split('/')[2];
-    if (ingredientID && Object.keys(ingredient).length === 0) {
-        ingredient = ingredients.find(ing => ing._id === ingredientID);
-    }
+
+    const { ingredientsData, isLoading } = useSelector(store => store.ingredients);
+    const activeIngredient = useSelector(store => store.ingredientDetails.activeIngredient);
+
+    useEffect(() => {
+        if (Object.keys(activeIngredient).length === 0 && ingredientsData.length !== 0) {
+            return setIngredient(ingredientsData.find(ing => ing._id === ingredientID));
+        }
+        setIngredient(activeIngredient);
+    }, [ingredientsData])
 
     return (
+        isLoading  
+        ? (<p>Waiting for downloading data..</p>)
+        :(
         <div className={`${styles.card} pt-10 pb-10`}>
             <h3 className={`${styles.header} ml-15 mt-5 text text_type_main-large`}>Детали ингредиента</h3>
             <img className={`${styles.mainImage} mt-10`} src={ingredient.image_large} alt={ingredient.name} />
@@ -41,5 +47,6 @@ export default function IngredientDetails() {
                 </li>
             </ul>
         </div>
+        )
     )
 };

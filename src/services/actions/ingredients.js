@@ -1,26 +1,23 @@
-import { API_URL } from '../../utils/constants';
+import { GET_INGREDIENTS_URL } from '../../utils/api-urls';
+import { checkResponse } from '../../utils/helpers';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_ERROR = 'GET_INGREDIENTS_ERROR';
 
-export const getIngredients = () => {
-  return function(dispatch) {
+export function getIngredients() {
+
+  return async function (dispatch) {
     dispatch({ type: GET_INGREDIENTS_REQUEST });
-    
-    fetch(API_URL)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
-      .then(res => dispatch({ type: GET_INGREDIENTS_SUCCESS, payload: res.data }))
-      .catch(e => {
-        dispatch({
-          type: GET_INGREDIENTS_ERROR
-        });
-        console.log(e);
-      });
+
+    try {
+      const res = await fetch(GET_INGREDIENTS_URL);
+      const data = await checkResponse(res);
+      dispatch({ type: GET_INGREDIENTS_SUCCESS, payload: data.data })
+    } catch (e) {
+      dispatch({ type: GET_INGREDIENTS_ERROR });
+      console.log(e);
+    }
+
   }
 };

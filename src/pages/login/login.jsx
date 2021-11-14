@@ -1,13 +1,14 @@
 import styles from './login.module.css';
-import { Box, Button, Input, PasswordInput, } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, Input, PasswordInput, } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useState } from 'react';
-import { useAuth } from '../../services/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../services/actions/authR';
 
 export default function Login() {
     const history = useHistory();
-
-    let auth = useAuth();
+    const dispatch = useDispatch();
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({
         email: '',
@@ -20,11 +21,11 @@ export default function Login() {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        auth.login(form);
+        dispatch(login(form));
         history.replace({ pathname: '/' });
     }
 
-    if (auth.user) {
+    if (user.username) {
         return (
             <Redirect to={{ pathname: '/' }} />
         )

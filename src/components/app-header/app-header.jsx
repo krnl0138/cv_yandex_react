@@ -1,9 +1,8 @@
 import styles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function AppHeader() {
-    let location = useLocation();
 
     return (
         <header className={`${styles.header}

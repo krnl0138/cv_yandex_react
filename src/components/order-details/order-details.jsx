@@ -6,7 +6,7 @@ import { getOrderNumber } from '../../services/actions/order-details';
 
 export default function OrderDetails() {
     const dispatch = useDispatch();
-    const { ingredientsIDs, orderNumber } = useSelector(state => state.orderDetails);
+    const { ingredientsIDs, orderNumber } = useSelector(store => store.orderDetails);
 
     useEffect(() => {
         dispatch(getOrderNumber(ingredientsIDs));

@@ -6,13 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from './card/burger-ingerdients-card';
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
 import { useHistory, useLocation } from 'react-router-dom';
+import { VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+
 
 export default function BurgerIngredients({ openIngredientDetails }) {
-    let dispatch = useDispatch();
-    let history = useHistory();
-    let location = useLocation();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation();
 
-    const { ingredientsData } = useSelector(state => state.ingredients);
+    const { ingredientsData } = useSelector(store => store.ingredients);
 
     const refBun = useRef(null);
     const refSauce = useRef(null);
@@ -38,15 +40,14 @@ export default function BurgerIngredients({ openIngredientDetails }) {
         if (scrollTop > mainTop) setCurrent('main');
     }
 
+
     const ingredientsList = (type) => {
         return ingredientsData
             .filter(ingredient => ingredient.type === type)
             .map((ingredient, index) => {
                 const openDetails = () => {
                     dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
-
-                    history.replace({ pathname: `/ingredients/${ingredient._id}`, state: {background: location} })
-                    //history.goBack();
+                    history.push({ pathname: `/ingredients/${ingredient._id}`, state: {background: location} })
                     openIngredientDetails();
                 }
 
