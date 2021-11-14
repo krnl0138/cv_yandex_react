@@ -16,7 +16,7 @@ export function ProtectedRoute({ children, ...rest }) {
   useEffect(() => {
     getUserData();
     setUserLoaded(true);
-  }, [getUserData]);
+  }, []);
 
   if (!isUserLoaded) {
     return null;

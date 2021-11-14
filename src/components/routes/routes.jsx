@@ -11,7 +11,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Route, Switch, useLocation, useHistory, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback } from 'react';
 import { getIngredients } from '../../services/actions/ingredients';
 
 import PageNotFound from '../../pages/page-not-found/page-not-found';
@@ -20,7 +20,6 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import Profile from '../../pages/profile/profile';
 import Register from '../../pages/register/register';
 import ResetPassword from '../../pages/reset-password/reset-password';
-import Test from '../test/test';
 
 import { ProtectedRoute } from '../protected-route';
 
@@ -55,24 +54,23 @@ export default function Routes() {
         history.goBack();
     }
 
-    let background = location.state?.background;
+    const background = location.state?.background;
 
-    function deleteBackground() {
+    const deleteBackground = useCallback(() => {
         const match = matchPath(location.pathname, {
             path: "/ingredients/:id",
             exact: true,
             strict: true
         });
         if (match?.isExact) history.replace({pathname: location.pathname, state: null}) 
-    }
+    }, [location.pathname, history]);
     
     useEffect(() => {
         window.addEventListener("beforeunload", deleteBackground);
         return () => {
             window.removeEventListener("beforeunload", deleteBackground);
         };
-    }, []);
-    console.log(location)
+    }, [deleteBackground]);
     
     return (
         <>

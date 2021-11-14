@@ -16,14 +16,14 @@ export default function IngredientDetails() {
             return setIngredient(ingredientsData.find(ing => ing._id === ingredientID));
         }
         setIngredient(activeIngredient);
-    }, [ingredientsData])
+    }, [ingredientsData, activeIngredient, ingredientID]);
 
     return (
         isLoading  
         ? (<p>Waiting for downloading data..</p>)
         :(
-        <div className={`${styles.card} pt-10 pb-10`}>
-            <h3 className={`${styles.header} ml-15 mt-5 text text_type_main-large`}>Детали ингредиента</h3>
+        <div className={`${styles.card}`}>
+            <h3 className={`mt-5 text text_type_main-large`}>Детали ингредиента</h3>
             <img className={`${styles.mainImage} mt-10`} src={ingredient.image_large} alt={ingredient.name} />
             <p className={`${styles.name} pt-4 pb-6 text text_type_main-medium`}>
                 {ingredient.name}

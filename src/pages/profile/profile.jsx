@@ -1,12 +1,11 @@
 import styles from './profile.module.css';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Link, NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { getUserData, patchUserData, logout } from '../../services/actions/authR';
 
 export default function Profile() {
-    const history = useHistory();
     const dispatch = useDispatch();
     const user = useSelector(store => store.user);
 
@@ -59,7 +58,7 @@ export default function Profile() {
 
     const onClickLogout = useCallback((e) => {
         dispatch(logout());
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className={styles.main} ref={mainRef}>

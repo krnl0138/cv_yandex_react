@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from './card/burger-ingerdients-card';
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
 import { useHistory, useLocation } from 'react-router-dom';
-import { VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
-
 
 export default function BurgerIngredients({ openIngredientDetails }) {
     const dispatch = useDispatch();
@@ -39,7 +37,6 @@ export default function BurgerIngredients({ openIngredientDetails }) {
         if (scrollTop > bunTop && scrollTop < sauceTop) setCurrent('sauce');
         if (scrollTop > mainTop) setCurrent('main');
     }
-
 
     const ingredientsList = (type) => {
         return ingredientsData
