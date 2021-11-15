@@ -1,15 +1,18 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PASSWORD_FORGOT_RESTORE } from '../../services/actions/forgot-password';
-import { resetPassword } from '../../services/actions/authR';
+import { resetPassword } from '../../services/actions/auth';
 
 export default function ResetPassword() {
+    const history = useHistory();
     const dispatch = useDispatch();
-    const user = useSelector(store => store.user());
+    const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
+
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({ password: '', token: '' });
 
@@ -20,7 +23,14 @@ export default function ResetPassword() {
     const onFormSubmit = (e) => {
         e.preventDefault();
         dispatch({ type: PASSWORD_FORGOT_RESTORE });
-        dispatch(resetPassword());
+        dispatch(resetPassword(form));
+        history.replace({ pathname: '/login' });
+    }
+
+    if (!isPasswordForgotten) {
+        return (
+            <Redirect to={{ pathname: '/' }} />
+        )
     }
 
     if (user.username) {

@@ -6,6 +6,6 @@ export const TOKEN_REFRESH_POST_URL = API_URL + 'auth/token'; //POST
 export const GET_USER_DATA_URL = API_URL + 'auth/user'; //GET - эндпоинт получения данных о пользователе.
 export const PATCH_USER_DATA_URL = API_URL + 'auth/user'; //PATCH - эндпоинт обновления данных о пользователе.
 export const PASSWORD_FORGET_POST_URL = API_URL + 'password-reset'; // POST
-export const PASSWORD_RESET_POST_URL = API_URL + 'password-reset/reset'; // POST
+export const PASSWORD_RESET_POST_URL = API_URL + 'password-reset'; // POST
 export const GET_INGREDIENTS_URL = API_URL + 'ingredients';
 export const POST_ORDER_URL = API_URL + 'orders';

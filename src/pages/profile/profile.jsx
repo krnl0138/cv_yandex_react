@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { getUserData, patchUserData, logout } from '../../services/actions/authR';
+import { patchUserData, logout } from '../../services/actions/auth';
 
 export default function Profile() {
     const dispatch = useDispatch();
@@ -14,10 +14,6 @@ export default function Profile() {
     const resetProfileFormValue = () => {
         setForm(prev => ({ ...prev, username: user.name, email: user.email, password: '' }));
     }
-
-    useEffect(() => {
-        getUserData();
-    }, [])
 
     // handle form clicks
     const mainRef = useRef();
@@ -49,7 +45,7 @@ export default function Profile() {
     const onSubmit = (e) => {
         e.preventDefault();
         if (e.nativeEvent.submitter.value === 'update') {
-            patchUserData();
+            dispatch(patchUserData());
         }
         if (e.nativeEvent.submitter.value === 'cancel') {
             resetProfileFormValue();

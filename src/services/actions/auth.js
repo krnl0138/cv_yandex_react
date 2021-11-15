@@ -86,6 +86,7 @@ export function logout() {
                 dispatch({ type: 'USER_LOGOUT' });
                 deleteCookie('accessToken');
                 localStorage.removeItem('refreshToken');
+                console.log(localStorage.getItem('refreshToken'));
                 dispatch({ type: 'LOGOUT_SUCCESS' })
             })
             .catch(e => {
@@ -97,6 +98,8 @@ export function logout() {
 }
 
 export function getUserData() {
+    console.log('token IS: ')
+    console.log(localStorage.getItem('refreshToken'))
     return async function (dispatch) {
         dispatch({ type: 'GET_USER_DATA_REQUEST' });
 
@@ -108,9 +111,16 @@ export function getUserData() {
             },
             ...otherReqOpt
         };
+        console.log(requestOptions);
 
         console.log('proceed to GET user info');
-        await fetchWithRefresh(GET_USER_DATA_URL, requestOptions)
+        await fetchWithRefresh(GET_USER_DATA_URL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            }
+        })
             .then(data => {
                 console.log(data);
                 dispatch({ type: 'USER_SET_CREDENTIALS', user: data.user });
@@ -136,8 +146,7 @@ export function patchUserData({ email, username, password }) {
         }
 
         console.log('proceed to PATCH user info');
-        await fetch(PATCH_USER_DATA_URL, requestOptions)
-            .then(res => checkResponse(res))
+        await fetchWithRefresh(PATCH_USER_DATA_URL, requestOptions)
             .then(data => {
                 console.log(`response is successful`)
                 dispatch({ type: 'PATCH_USER_DATA_SUCCESS', user: data.user });
@@ -177,26 +186,28 @@ export function forgotPassword({ email }) {
 }
 
 export function resetPassword({ password, token }) {
-    return async function(dispatch) {
+    return async function (dispatch) {
         dispatch({ type: 'RESET_PASSWORD_REQUEST' });
+        console.log(PASSWORD_RESET_POST_URL);
 
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: password, token: token }),
-        ...otherReqOpt
-    }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: password, token: token }),
+            ...otherReqOpt
+        }
 
-    console.log('proceed to password reset request');
-    await fetch(PASSWORD_RESET_POST_URL, requestOptions)
-        .then(res => checkResponse(res))
-        .then(data => {
-            console.log(data);
-            dispatch({ type: 'RESET_PASSWORD_SUCCESS' });
-        })
-        .catch(e => {
-            console.error(e);
-            dispatch({ type: 'RESET_PASSWORD_FAILED' });
-        })
+        console.log('proceed to password reset request');
+        await fetch(PASSWORD_RESET_POST_URL, requestOptions)
+            .then(res => checkResponse(res))
+            .then(data => {
+                console.log(data);
+                dispatch({ type: 'RESET_PASSWORD_SUCCESS' });
+
+            })
+            .catch(e => {
+                console.error(e);
+                dispatch({ type: 'RESET_PASSWORD_FAILED' });
+            })
     }
 }

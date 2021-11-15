@@ -3,7 +3,7 @@ import styles from './forgot-password.module.css';
 import { useState } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword } from '../../services/actions/authR';
+import { forgotPassword } from '../../services/actions/auth';
 
 export default function ForgotPassword() {
     const dispatch = useDispatch();

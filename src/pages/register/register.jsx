@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { register } from '../../services/actions/authR';
+import { register } from '../../services/actions/auth';
 
 export default function Register() {
     const history = useHistory();

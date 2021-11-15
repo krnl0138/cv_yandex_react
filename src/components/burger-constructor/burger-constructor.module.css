@@ -7,11 +7,11 @@
 }
 
 .middle {
-    overflow-y: scroll;
+    overflow-y: overlay;
     overflow-x: hidden;
     min-height: 10vh;
-    max-height: 30vh;
 }
+
 .middle::-webkit-scrollbar {
     width: 8px;
     background-color: #2f2f37;

@@ -1,18 +1,19 @@
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab, Box } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from './card/burger-ingerdients-card';
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
 import { useHistory, useLocation } from 'react-router-dom';
+import Loader from '../loader/loader';
 
 export default function BurgerIngredients({ openIngredientDetails }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
 
-    const { ingredientsData } = useSelector(store => store.ingredients);
+    const { ingredientsData, isLoading } = useSelector(store => store.ingredients);
 
     const refBun = useRef(null);
     const refSauce = useRef(null);
@@ -44,7 +45,7 @@ export default function BurgerIngredients({ openIngredientDetails }) {
             .map((ingredient, index) => {
                 const openDetails = () => {
                     dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
-                    history.push({ pathname: `/ingredients/${ingredient._id}`, state: {background: location} })
+                    history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                     openIngredientDetails();
                 }
 
@@ -53,28 +54,32 @@ export default function BurgerIngredients({ openIngredientDetails }) {
     };
 
     return (
-        <section>
+        isLoading ? (
+            <Loader />
+        ) : (
+            <section>
 
-            <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
+                <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
 
-            <div className={`${styles.ingredientsTypeBar} mb-10`} >
-                <Tab value="bun" active={current === 'bun'} onClick={handleScroll}>Булки</Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={handleScroll}>Соусы</Tab>
-                <Tab value="main" active={current === 'main'} onClick={handleScroll}>Начинки</Tab>
-            </div>
+                <div className={`${styles.ingredientsTypeBar} mb-10`} >
+                    <Tab value="bun" active={current === 'bun'} onClick={handleScroll}>Булки</Tab>
+                    <Tab value="sauce" active={current === 'sauce'} onClick={handleScroll}>Соусы</Tab>
+                    <Tab value="main" active={current === 'main'} onClick={handleScroll}>Начинки</Tab>
+                </div>
 
-            <div className={styles.ingredients} onScroll={handleActiveTab} >
-                <p className='text text_type_main-medium' ref={refBun} >Булки</p>
-                <div className={styles.ingredientsTab} > {ingredientsList('bun')} </div>
+                <div className={styles.ingredients} onScroll={handleActiveTab} >
+                    <p className='text text_type_main-medium mb-5' ref={refBun} >Булки</p>
+                    <div className={styles.ingredientsTab} > {ingredientsList('bun')} </div>
 
-                <p className='text text_type_main-medium' ref={refSauce} >Соусы</p>
-                <div className={styles.ingredientsTab} > {ingredientsList('sauce')} </div>
+                    <p className='text text_type_main-medium mb-5 mt-10' ref={refSauce} >Соусы</p>
+                    <div className={styles.ingredientsTab} > {ingredientsList('sauce')} </div>
 
-                <p className='text text_type_main-medium' ref={refMain} >Начинка</p>
-                <div className={styles.ingredientsTab} > {ingredientsList('main')} </div>
-            </div>
+                    <p className='text text_type_main-medium mb-5 mt-10' ref={refMain} >Начинка</p>
+                    <div className={styles.ingredientsTab} > {ingredientsList('main')} </div>
+                </div>
 
-        </section>
+            </section>
+        )
     )
 }
 

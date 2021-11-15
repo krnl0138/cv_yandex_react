@@ -32,7 +32,7 @@ export default function Card({ item, openDetails }) {
       style={{ opacity }}>
 
       {
-        counter > 0 
+        counter > 0
           ? (< Counter count={item.type === 'bun' ? counter + 1 : counter} size="default" />)
           : ('')
       }

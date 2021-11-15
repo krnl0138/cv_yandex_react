@@ -23,11 +23,7 @@
 .nav_element_left {
     display: flex;
 }
-
-.push_right {
-    margin-left: auto;
-}
-    
+  
 .center {
     margin: auto;
 }

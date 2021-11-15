@@ -11,7 +11,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Route, Switch, useLocation, useHistory, matchPath } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { getIngredients } from '../../services/actions/ingredients';
 
 import PageNotFound from '../../pages/page-not-found/page-not-found';
@@ -23,6 +23,8 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 
 import { ProtectedRoute } from '../protected-route';
 
+import { getUserData } from '../../services/actions/auth';
+
 import { VISIBLE_ORDER_DETAILS, VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 export default function Routes() {
@@ -30,15 +32,22 @@ export default function Routes() {
     const location = useLocation();
     const history = useHistory();
 
-    // const [background, setBackground] = useState(location.state?.background);
+    const background = location.state?.background;
+    console.log(location);
 
     useEffect(() => {
         dispatch(getIngredients());
+        dispatch(getUserData());
     }, [dispatch])
 
-    const { visibleOrderDetails, visibleIngredientDetails } = useSelector(store => store.modals);
+    useEffect(() => {
+        return background && history.replace({
+            pathname: location.pathname,
+            state: undefined
+        })
+    }, [])
 
-    const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
+    const { visibleOrderDetails, visibleIngredientDetails } = useSelector(store => store.modals);
 
     const openModalOrderDetails = () => {
         dispatch({ type: VISIBLE_ORDER_DETAILS, value: true })
@@ -51,27 +60,11 @@ export default function Routes() {
     const closeModal = () => {
         dispatch({ type: VISIBLE_ORDER_DETAILS, value: false })
         dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: false })
-        history.goBack();
+        if (background) {
+            history.replace({ pathname: background.pathname });
+        }
     }
 
-    const background = location.state?.background;
-
-    const deleteBackground = useCallback(() => {
-        const match = matchPath(location.pathname, {
-            path: "/ingredients/:id",
-            exact: true,
-            strict: true
-        });
-        if (match?.isExact) history.replace({pathname: location.pathname, state: null}) 
-    }, [location.pathname, history]);
-    
-    useEffect(() => {
-        window.addEventListener("beforeunload", deleteBackground);
-        return () => {
-            window.removeEventListener("beforeunload", deleteBackground);
-        };
-    }, [deleteBackground]);
-    
     return (
         <>
             <Switch location={background || location}>
@@ -88,11 +81,9 @@ export default function Routes() {
                     <ForgotPassword />
                 </Route>
 
-                {isPasswordForgotten &&
-                    <Route path='/reset-password'>
-                        <ResetPassword />
-                    </Route>
-                }
+                <Route path='/reset-password'>
+                    <ResetPassword />
+                </Route>
 
                 <Route exact={true} path='/ingredients/:id'>
                     <IngredientDetails />
@@ -142,5 +133,3 @@ export default function Routes() {
         </>
     )
 }
-
-//export default withRouter(Routes);
