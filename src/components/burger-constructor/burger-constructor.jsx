@@ -23,7 +23,7 @@ export default function BurgerConstructor({ openOrderDetails }) {
 
   const orderBurger = () => {
     if (!user.username) {
-      history.push({ pathname: '/login' });
+      return history.push({ pathname: '/login',  });
     }
 
     if (bun && data.length !== 0) {

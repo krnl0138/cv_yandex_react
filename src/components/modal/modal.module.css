@@ -7,7 +7,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: black;
+    padding: 50px 0;
+
+    background-color: #1C1C21;
 
     border: 1px solid var(--border-color);
     border-radius: 40px;

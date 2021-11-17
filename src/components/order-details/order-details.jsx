@@ -13,7 +13,7 @@ export default function OrderDetails() {
     }, [dispatch, ingredientsIDs])
 
     return (
-        <div className={`${styles.card} pt-10 pb-10`}>
+        <div className={`${styles.card}`}>
             <h3 className={`${styles.order} pt-3 text text_type_digits-large`}>{orderNumber}</h3>
             <p className='text text_type_main-medium pt-1'>идентификатор заказа</p>
             <span className={`${styles.icon} mt-20 mb-20`}><CheckMarkIcon /></span>
