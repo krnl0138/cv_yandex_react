@@ -18,6 +18,5 @@ export function getIngredients() {
       dispatch({ type: GET_INGREDIENTS_ERROR });
       console.log(e);
     }
-
   }
 };

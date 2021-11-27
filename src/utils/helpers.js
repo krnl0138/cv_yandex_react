@@ -1,5 +1,5 @@
 import { TOKEN_REFRESH_POST_URL } from './api-urls';
-import { setCookie, getCookie, deleteCookie } from './cookies';
+import { setCookie, getCookie } from './cookies';
 
 export const checkResponse = res => {
     if (res.ok) {
@@ -9,9 +9,7 @@ export const checkResponse = res => {
 }
 
 export const refreshToken = async () => {
-    console.log(getCookie('accessToken'));
     const token = localStorage.getItem('refreshToken');
-    console.log('token is: ' + token);
 
     const options = {
         method: 'POST',
@@ -33,8 +31,6 @@ export const refreshToken = async () => {
 }
 
 export const fetchWithRefresh = async (url, options) => {
-    console.log('start fetch with refresh')
-    console.log(options);
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);

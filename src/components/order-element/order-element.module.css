@@ -1,0 +1,84 @@
+.main {
+    max-width: 580px;
+
+    margin-bottom: 10px;
+    padding: 15px 25px 0;
+
+    background-color: #1C1C21;
+    border-radius: 10%;
+
+    /* hot fix */
+    margin-right: 20px;
+}
+
+.content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icons {
+    position: relative;
+    margin-left: -40px;
+}
+
+.ing:not(:last-child) {
+    margin-right: -100px;
+
+}
+
+.ing::before {
+    content: "";
+    position: absolute;
+    height:60px;
+    width:60px;
+    border-radius: 50%;
+    background-color: #000;
+    margin-left: 40px;
+    margin-top: 3px;
+
+    border: 2px solid rgb(163, 40, 219);
+}
+
+.iconNumber {
+    position: absolute;
+    font-size: 18px;
+    text-align: center;
+    line-height: 60px;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.1);
+    top: 8%;
+    left: 80%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.ingIcons {
+    transform: scale(0.8);
+}
+
+.value {
+    display: flex;
+}
+
+.statusDone {
+    color: rgb(78, 180, 149);
+}
+
+.statusCancelled {
+    color: rgb(202, 47, 47);
+}
+
+.statusInProcess {
+    color: #fff;
+}

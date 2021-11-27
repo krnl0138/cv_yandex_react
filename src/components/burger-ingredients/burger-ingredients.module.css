@@ -1,3 +1,7 @@
+.main {
+  min-width: 50%;
+}
+
 .ingredientsTypeBar { 
     display: flex;
     justify-content: space-evenly; 

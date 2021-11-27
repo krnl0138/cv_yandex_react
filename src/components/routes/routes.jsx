@@ -8,7 +8,7 @@ import Modal from '../modal/modal';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { Route, Switch, useLocation, useHistory, matchPath } from 'react-router-dom';
+import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useEffect } from 'react';
@@ -20,46 +20,32 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import Profile from '../../pages/profile/profile';
 import Register from '../../pages/register/register';
 import ResetPassword from '../../pages/reset-password/reset-password';
+import ProfileOrders from '../../pages/profile-orders/profile-orders';
+import Feed from '../../pages/feed/feed';
+import OrderView from '../order-view/order-view';
 
 import { ProtectedRoute } from '../protected-route';
 
 import { getUserData } from '../../services/actions/auth';
-
-import { VISIBLE_ORDER_DETAILS, VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 export default function Routes() {
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
 
+    const { visibleOrderDetails, visibleIngredientDetails, visibleOrdersDetails } = useSelector(store => store.modals);
+
     const background = location.state?.background;
-    console.log(location);
+    // console.log(location);
 
     useEffect(() => {
         dispatch(getIngredients());
         dispatch(getUserData());
     }, [dispatch])
 
-    useEffect(() => {
-        return background && history.replace({
-            pathname: location.pathname,
-            state: undefined
-        })
-    }, [])
-
-    const { visibleOrderDetails, visibleIngredientDetails } = useSelector(store => store.modals);
-
-    const openModalOrderDetails = () => {
-        dispatch({ type: VISIBLE_ORDER_DETAILS, value: true })
-    }
-
-    const openModalIngredientDetails = () => {
-        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: true })
-    }
-
     const closeModal = () => {
-        dispatch({ type: VISIBLE_ORDER_DETAILS, value: false })
-        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: false })
+        dispatch({ type: 'VISIBLE_ORDER_DETAILS', value: false })
+        dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: false })
         if (background) {
             history.replace({ pathname: background.pathname });
         }
@@ -89,24 +75,31 @@ export default function Routes() {
                     <IngredientDetails />
                 </Route>
 
-                <ProtectedRoute path='/profile'>
+                <Route exact={true} path='/feed'>
+                    <Feed />
+                </Route>
+
+                <Route exact={true} path='/feed/:id'>
+                    <OrderView />
+                </Route>
+
+                <ProtectedRoute exact={true} path='/profile'>
                     <Profile />
+                </ProtectedRoute>
+
+                <ProtectedRoute exact={true} path='/profile/orders'>
+                    <ProfileOrders />
+                </ProtectedRoute>
+
+                <ProtectedRoute path='/profile/orders/:id'>
+                    <OrderView />
                 </ProtectedRoute>
 
                 <Route exact={true} path='/'>
                     <main className={styles.main}>
                         <DndProvider backend={HTML5Backend}>
-                            <section className={`${styles.left} mr-10 ml-10`}>
-                                <BurgerIngredients
-                                    openIngredientDetails={openModalIngredientDetails}
-                                />
-                            </section>
-                            <section className={`${styles.right} mt-25 mr-10`}>
-                                <BurgerConstructor
-                                    openIngredientDetails={openModalIngredientDetails}
-                                    openOrderDetails={openModalOrderDetails}
-                                />
-                            </section>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
                         </DndProvider>
                     </main>
 
@@ -130,6 +123,16 @@ export default function Routes() {
                     </Modal>
                 </Route>
             }
+
+            {
+                background && visibleOrdersDetails &&
+                <Route exact={true} path={`${background.pathname}/:id`}>
+                    <Modal onClose={closeModal}>
+                        <OrderView modal={true} order={location.state.order} />
+                    </Modal>
+                </Route>
+            }
+
         </>
     )
 }

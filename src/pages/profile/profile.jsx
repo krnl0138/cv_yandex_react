@@ -38,7 +38,6 @@ export default function Profile() {
     };
 
     const onChange = (e) => {
-        console.log(e.target.name, e.target.value);
         setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     }
 

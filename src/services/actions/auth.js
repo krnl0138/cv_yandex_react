@@ -86,7 +86,7 @@ export function logout() {
                 dispatch({ type: 'USER_LOGOUT' });
                 deleteCookie('accessToken');
                 localStorage.removeItem('refreshToken');
-                console.log(localStorage.getItem('refreshToken'));
+                // console.log(localStorage.getItem('refreshToken'));
                 dispatch({ type: 'LOGOUT_SUCCESS' })
             })
             .catch(e => {
@@ -98,8 +98,6 @@ export function logout() {
 }
 
 export function getUserData() {
-    console.log('token IS: ')
-    console.log(localStorage.getItem('refreshToken'))
     return async function (dispatch) {
         dispatch({ type: 'GET_USER_DATA_REQUEST' });
 
@@ -111,7 +109,6 @@ export function getUserData() {
             },
             ...otherReqOpt
         };
-        console.log(requestOptions);
 
         console.log('proceed to GET user info');
         await fetchWithRefresh(GET_USER_DATA_URL, {
@@ -122,7 +119,7 @@ export function getUserData() {
             }
         })
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 dispatch({ type: 'USER_SET_CREDENTIALS', user: data.user });
                 dispatch({ type: 'GET_USER_DATA_SUCCESS' });
             })
@@ -188,7 +185,6 @@ export function forgotPassword({ email }) {
 export function resetPassword({ password, token }) {
     return async function (dispatch) {
         dispatch({ type: 'RESET_PASSWORD_REQUEST' });
-        console.log(PASSWORD_RESET_POST_URL);
 
         const requestOptions = {
             method: 'POST',

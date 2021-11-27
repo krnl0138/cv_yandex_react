@@ -1,17 +1,6 @@
 .main {
-    display: flex;
-    /* justify-content: center; */
-
     max-width: 75vw;
+    display: flex;
     margin: 0 auto;
-
     background-color: #131316;
-}
-
-.left {
-    min-width: 50%;
-}
-
-.right {
-    min-width: 50%;
 }

@@ -1,14 +1,12 @@
-import { useState, useRef } from 'react';
-import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css';
-import { Tab, Box } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from './card/burger-ingerdients-card';
-import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import Card from './card/burger-ingerdients-card';
 import Loader from '../loader/loader';
 
-export default function BurgerIngredients({ openIngredientDetails }) {
+export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
@@ -44,9 +42,10 @@ export default function BurgerIngredients({ openIngredientDetails }) {
             .filter(ingredient => ingredient.type === type)
             .map((ingredient, index) => {
                 const openDetails = () => {
-                    dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
+                    dispatch({ type: 'SET_ACTIVE_INGREDIENT', activeIngredient: ingredient })
                     history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
-                    openIngredientDetails();
+                    dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: true })
+
                 }
 
                 return (<Card item={ingredient} openDetails={openDetails} key={index} />)
@@ -57,7 +56,7 @@ export default function BurgerIngredients({ openIngredientDetails }) {
         isLoading ? (
             <Loader />
         ) : (
-            <section>
+            <section className={`${styles.main} mr-10 ml-10`}>
 
                 <h2 className='text text_type_main-large mt-10 mb-5'>Соберите бургер</h2>
 
@@ -81,8 +80,4 @@ export default function BurgerIngredients({ openIngredientDetails }) {
             </section>
         )
     )
-}
-
-BurgerIngredients.propTypes = {
-    openIngredientDetails: PropTypes.func.isRequired
 }

@@ -1,8 +1,11 @@
 import {
-  GET_ORDER_NUMBER_REQUEST,
-  GET_ORDER_NUMBER_SUCCESS,
-  GET_ORDER_NUMBER_FAILED,
-  GET_ORDER_INGREDIENTS_ID
+  POST_ORDER_REQUEST,
+  POST_ORDER_SUCCESS,
+  POST_ORDER_FAILED,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  DELETE_ORDER_NUMBER
 } from '../actions/order-details';
 
 const initialState = {
@@ -10,34 +13,56 @@ const initialState = {
     orderNumber: null,
     isLoading: false,
     hasError: false,
+    order: {},
 }
 
-export const orderDetailsReducer = (state = initialState, { type, ingredientsIDs, orderNumber }) => {
+export const orderDetailsReducer = (state = initialState, { type, ingredientsIDs, orderNumber, order }) => {
     switch (type) {
-      case GET_ORDER_NUMBER_REQUEST: {
+      case POST_ORDER_REQUEST: {
         return {
           ...state,
           isLoading: true
         }
       }
-      case GET_ORDER_NUMBER_SUCCESS: {
+      case POST_ORDER_SUCCESS: {
         return {
           ...state,
           isLoading: false,
           orderNumber: orderNumber,
+          ingredientsIDs: ingredientsIDs
         }
       }
-      case GET_ORDER_NUMBER_FAILED: {
+      case POST_ORDER_FAILED: {
         return {
           ...state,
           isLoading: false,
           hasError: true,
         }
       }
-      case GET_ORDER_INGREDIENTS_ID: {
+      case GET_ORDER_REQUEST: {
         return {
           ...state,
-          ingredientsIDs: ingredientsIDs
+          isLoading: true
+        }
+      }
+      case GET_ORDER_SUCCESS: {
+        return {
+          ...state,
+          isLoading: false,
+          order: order,
+        }
+      }
+      case GET_ORDER_FAILED: {
+        return {
+          ...state,
+          isLoading: false,
+          hasError: true,
+        }
+      }
+      case DELETE_ORDER_NUMBER: {
+        return {
+          ...state,
+          orderNumber: null
         }
       }
       default: {

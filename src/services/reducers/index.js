@@ -7,13 +7,18 @@ import { ingredientDetailsReducer } from './ingredient-details';
 import { orderDetailsReducer } from './order-details';
 import { forgotPasswordReducer } from './forgot-password';
 import { userReducer } from './user';
+import { wsReducer } from './socket';
+
+import { socketMiddleware } from '../middlewares/socketMiddleware';
+
+import logger from 'redux-logger';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(logger, thunk, socketMiddleware()));
 
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -22,7 +27,8 @@ const rootReducer = combineReducers({
     orderDetails: orderDetailsReducer,
     cart: cartReducer,
     forgotPassword: forgotPasswordReducer,
-    user: userReducer
+    user: userReducer,
+    ws: wsReducer,
 })
 
 export const store = createStore(rootReducer, enhancer);

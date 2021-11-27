@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { GET_ORDER_INGREDIENTS_ID } from '../../services/actions/order-details';
-import { ADD_CART_INGREDIENT, ADD_CART_INGREDIENT_BUN, DELETE_CART_INGREDIENT, MOVE_CART_INGREDIENT } from '../../services/actions/cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop, useDrag } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
+import { postOrder } from '../../services/actions/order-details';
 
 export default function BurgerConstructor({ openOrderDetails }) {
   const dispatch = useDispatch();
@@ -23,18 +21,18 @@ export default function BurgerConstructor({ openOrderDetails }) {
 
   const orderBurger = () => {
     if (!user.username) {
-      return history.push({ pathname: '/login',  });
+      return history.push({ pathname: '/login', });
     }
 
     if (bun && data.length !== 0) {
-      openOrderDetails();
-      dispatch({ type: GET_ORDER_INGREDIENTS_ID, ingredientsIDs: ingredientsIDs })
+      dispatch({ type: 'VISIBLE_ORDER_DETAILS', value: true })
+      dispatch(postOrder(ingredientsIDs));
       history.replace({ pathname: '/', state: { from: location.pathname } });
     }
   }
 
   const deleteIngredient = (index) => {
-    dispatch({ type: DELETE_CART_INGREDIENT, ingredients: index })
+    dispatch({ type: 'DELETE_CART_INGREDIENT', ingredients: index })
   }
 
   const ConstructorElementMiddle = ({ item, index }) => {
@@ -51,7 +49,7 @@ export default function BurgerConstructor({ openOrderDetails }) {
     const [{ paddingLeft }, dropRef] = useDrop({
       accept: 'move',
       drop(ingredients) {
-        dispatch({ type: MOVE_CART_INGREDIENT, ingredients, dropIndex: index })
+        dispatch({ type: 'MOVE_CART_INGREDIENT', ingredients, dropIndex: index })
       },
       collect: monitor => ({
         paddingLeft: monitor.isOver() ? 30 : 0
@@ -78,26 +76,26 @@ export default function BurgerConstructor({ openOrderDetails }) {
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(ingredients) {
-      dispatch({ type: ADD_CART_INGREDIENT, ingredients: ingredients })
+      dispatch({ type: 'ADD_CART_INGREDIENT', ingredients: ingredients })
     }
   });
 
   const [, bunDropTop] = useDrop({
     accept: 'bun',
     drop(ingredients) {
-      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredients })
+      dispatch({ type: 'ADD_CART_INGREDIENT_BUN', ingredients })
     }
   });
 
   const [, bunDropBottom] = useDrop({
     accept: 'bun',
     drop(ingredients) {
-      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredients })
+      dispatch({ type: 'ADD_CART_INGREDIENT_BUN', ingredients })
     }
   });
 
   return (
-    <section>
+    <section className={`${styles.main} mt-25 mr-10`}>
       <div className={`${styles.constructor} mb-4`} >
         {bun ?
           (
@@ -164,8 +162,4 @@ export default function BurgerConstructor({ openOrderDetails }) {
 
     </section>
   )
-}
-
-BurgerConstructor.propTypes = {
-  openOrderDetails: PropTypes.func.isRequired
 }

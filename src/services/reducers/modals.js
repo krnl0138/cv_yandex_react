@@ -1,11 +1,13 @@
 import {
   VISIBLE_ORDER_DETAILS,
-  VISIBLE_INGREDIENT_DETAILS
+  VISIBLE_INGREDIENT_DETAILS,
+  VISIBLE_ORDERS_DETAILS
 } from '../actions/modals';
 
 const initialState = {
   visibleOrderDetails: false,
-  visibleIngredientDetails: false
+  visibleIngredientDetails: false,
+  visibleOrdersDetails: false
 }
 
 export const modalsReducer = (state = initialState, { type, value }) => {
@@ -20,6 +22,12 @@ export const modalsReducer = (state = initialState, { type, value }) => {
       return {
         ...state,
         visibleIngredientDetails: value
+      }
+    }
+    case VISIBLE_ORDERS_DETAILS: {
+      return {
+        ...state,
+        visibleOrdersDetails: value
       }
     }
     default: {
