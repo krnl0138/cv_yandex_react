@@ -28,7 +28,7 @@ export default function ProfileOrders() {
     }, [messages]);
 
     const onClick = (order) => {
-        history.push({ pathname: `/profile/orders/${order.number}`, state: { background: location, order: order } })
+        history.replace({ pathname: `/profile/orders/${order.number}`, state: { background: location, order: order } })
         dispatch({ type: 'VISIBLE_ORDERS_DETAILS', value: true })
     }
 
@@ -70,7 +70,7 @@ export default function ProfileOrders() {
                 {orders ? (
                     orders.slice(0).reverse().map(order => { // for some reason server returns it reversed, weird
                         return (
-                            <OrderElement key={order._id} order={order} onClick={() => onClick(order)} from='profile' />
+                            <OrderElement onClick={() => onClick(order)} key={order._id} order={order} from='profile' />
                         )
                     })
                 )

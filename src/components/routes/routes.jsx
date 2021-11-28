@@ -36,7 +36,7 @@ export default function Routes() {
     const { visibleOrderDetails, visibleIngredientDetails, visibleOrdersDetails } = useSelector(store => store.modals);
 
     const background = location.state?.background;
-    // console.log(location);
+    console.log(location);
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -47,7 +47,7 @@ export default function Routes() {
         dispatch({ type: 'VISIBLE_ORDER_DETAILS', value: false })
         dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: false })
         if (background) {
-            history.replace({ pathname: background.pathname });
+            history.replace({ pathname: background.pathname, state: null });
         }
     }
 

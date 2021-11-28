@@ -10,22 +10,16 @@ import 'moment/locale/ru';
 
 import { getOrder } from '../../services/actions/order-details';
 
-
 export default function OrderView({ order, modal }) {
     const location = useLocation();
     const dispatch = useDispatch();
     const { ingredientsData } = useSelector(store => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState([]);
     const [doneWithIngredients, setDoneWithIngredients] = useState(false);
-    
-    const orderNumber = location.pathname.split('/')[2]; // e.g. '3053'
-    
-    const orderNotProp = useSelector(store => store.orderDetails.order);
     const [result, setResult] = useState({});
-    const [status, setStatus] = useState({
-        statusValue: '',
-        statusColor: ''
-    })
+    
+    // result of dispatch(getOrder(orderNumber)) call when there is NO order in props
+    const orderNotInProps = useSelector(store => store.orderDetails.order);
     
     const getIngredientsFromOrder = useCallback((order) => {
         const matchedIngs = [];
@@ -42,6 +36,41 @@ export default function OrderView({ order, modal }) {
         setDoneWithIngredients(true);
     }, [ingredientsData])
     
+    let orderNumber;
+    if (location.pathname.startsWith('/profile/orders/')) {
+        orderNumber = location.pathname.split('/')[3]; // e.g. '/profile/orders/3053'
+    }
+    if (location.pathname.startsWith('/feed/')) {
+        orderNumber = location.pathname.split('/')[2]; // e.g. '/feed/3053'
+    }
+
+    useEffect(() => {
+        if (!order) {
+            dispatch(getOrder(orderNumber)); // will change 'orderNotInProps' variable
+            return;
+        }
+
+        setResult({ ...result, ...order })
+        getIngredientsFromOrder(order);
+        setStatusVariables(order.status)
+    }, [])
+    
+    useEffect(() => {
+        // Если не было order в пропсах: 'orderNotInProps' получена от сервера и обновлена в сторе
+        if (order) return;
+        if (Object.keys(orderNotInProps).length === 0) return;
+        
+        setResult({ ...result, ...orderNotInProps });
+        getIngredientsFromOrder(orderNotInProps)
+        setStatusVariables(orderNotInProps.status)
+    }, [orderNotInProps])
+    
+    // Handling order statuses
+    const [status, setStatus] = useState({
+        statusValue: '',
+        statusColor: ''
+    })
+
     const setStatusVariables = (s) => {
         if (s === 'done') {
             setStatus({statusValue: 'Выполнен', statusColor: 'statusDone'})
@@ -53,28 +82,6 @@ export default function OrderView({ order, modal }) {
             setStatus({statusValue: 'Отменен', statusColor: 'statusCancelled'})
         }
     }
-
-    useEffect(() => {
-        if (order) {
-            setResult({ ...result, ...order })
-            getIngredientsFromOrder(order);
-            setStatusVariables(order.status)
-        }
-
-        if (!order) {
-            dispatch(getOrder(orderNumber)); // will change 'orderNotProp' variable
-        }
-    }, [])
-
-    useEffect(() => {
-        // Если не было order в пропсах: 'orderNotProp' получена от сервера и обновлена в сторе
-        if (Object.keys(orderNotProp).length === 0) return;
-        
-        setResult({ ...result, ...orderNotProp });
-        getIngredientsFromOrder(orderNotProp)
-        setStatusVariables(orderNotProp.status)
-    }, [orderNotProp])
-
 
     return (
         result ? (
