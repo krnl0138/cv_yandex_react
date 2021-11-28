@@ -29,20 +29,20 @@ export default function OrderElement({ onClick, order, from }) {
     }
 
     useEffect(() => {
-        if (order?.ingredients && ingredientsData) {
-            const matchedIngs = [];
+        if (!order?.ingredients || !ingredientsData) return;
 
-            order.ingredients.forEach(orderIng => {
-                const matched = ingredientsData.find(dataIng => dataIng._id === orderIng);
-                matchedIngs.push(matched);
-            })
+        const matchedIngs = [];
 
-            if (ingredientsInOrder.length !== matchedIngs.length) {
-                setIngredientsInOrder([...ingredientsInOrder, ...matchedIngs]);
-            }
+        order.ingredients.forEach(orderIng => {
+            const matched = ingredientsData.find(dataIng => dataIng._id === orderIng);
+            matchedIngs.push(matched);
+        })
 
-            setDoneIngredients(true);
+        if (ingredientsInOrder.length !== matchedIngs.length) {
+            setIngredientsInOrder([...ingredientsInOrder, ...matchedIngs]);
         }
+
+        setDoneIngredients(true);
     }, [ingredientsData]);
 
     return (

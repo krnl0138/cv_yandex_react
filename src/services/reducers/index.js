@@ -18,7 +18,7 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(logger, thunk, socketMiddleware()));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
 
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,

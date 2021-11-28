@@ -75,3 +75,8 @@
 .ordersDone {
     color: #00CED1;
 }
+
+.wrapper {
+    display: flex;
+    /* columns: 2 auto; */
+}

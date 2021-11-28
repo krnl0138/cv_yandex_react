@@ -21,10 +21,11 @@ export default function ProfileOrders() {
     }, [dispatch])
 
     useEffect(() => {
-        if (messages[messages.length - 1]) {
-            const parsedMessage = JSON.parse(messages[messages.length - 1]);
-            setOrders(parsedMessage.orders);
-        }
+        if (!messages[messages.length - 1]) return; 
+        
+        const parsedMessage = JSON.parse(messages[messages.length - 1]);
+        setOrders(parsedMessage.orders);
+        
     }, [messages]);
 
     const onClick = useCallback(() => {

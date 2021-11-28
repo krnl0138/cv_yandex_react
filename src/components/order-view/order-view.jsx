@@ -68,11 +68,11 @@ export default function OrderView({ order, modal }) {
 
     useEffect(() => {
         // Если не было order в пропсах: 'orderNotProp' получена от сервера и обновлена в сторе
-        if (Object.keys(orderNotProp).length > 0) {
-            setResult({ ...result, ...orderNotProp });
-            getIngredientsFromOrder(orderNotProp)
-            setStatusVariables(orderNotProp.status)
-        }
+        if (Object.keys(orderNotProp).length === 0) return;
+        
+        setResult({ ...result, ...orderNotProp });
+        getIngredientsFromOrder(orderNotProp)
+        setStatusVariables(orderNotProp.status)
     }, [orderNotProp])
 
 
