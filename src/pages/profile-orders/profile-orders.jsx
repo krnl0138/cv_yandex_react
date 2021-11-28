@@ -25,13 +25,12 @@ export default function ProfileOrders() {
         
         const parsedMessage = JSON.parse(messages[messages.length - 1]);
         setOrders(parsedMessage.orders);
-        
     }, [messages]);
 
-    const onClick = useCallback(() => {
-        history.push({ pathname: `/profile/orders/133`, state: { background: location } })
+    const onClick = (order) => {
+        history.push({ pathname: `/profile/orders/${order.number}`, state: { background: location, order: order } })
         dispatch({ type: 'VISIBLE_ORDERS_DETAILS', value: true })
-    }, [dispatch, history, location]);
+    }
 
     const onClickLogout = useCallback((e) => {
         dispatch(logout());
@@ -71,7 +70,7 @@ export default function ProfileOrders() {
                 {orders ? (
                     orders.slice(0).reverse().map(order => { // for some reason server returns it reversed, weird
                         return (
-                            <OrderElement key={order._id} order={order} onClick={onClick} from='profile' />
+                            <OrderElement key={order._id} order={order} onClick={() => onClick(order)} from='profile' />
                         )
                     })
                 )

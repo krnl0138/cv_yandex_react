@@ -79,7 +79,7 @@ export default function Routes() {
                     <Feed />
                 </Route>
 
-                <Route exact={true} path='/feed/:id'>
+                <Route path='/feed/:id'>
                     <OrderView />
                 </Route>
 
