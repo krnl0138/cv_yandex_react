@@ -1,0 +1,51 @@
+import { TOKEN_REFRESH_POST_URL } from './api-urls';
+import { setCookie, getCookie } from './cookies';
+import { TRequestOptions } from '../types/types';
+
+export const checkResponse = (res: Response) => {
+    if (res.ok) {
+        return res.json();
+    }
+    return Promise.reject(`Error ${res.status}`);
+}
+
+export const refreshToken = async () => {
+    const token = localStorage.getItem('refreshToken');
+
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+    }
+
+    console.log('PROCEED TO REFRESH_TOKEN');
+
+    try {
+        const res = await fetch(TOKEN_REFRESH_POST_URL, options);
+        const data = await checkResponse(res);
+        console.log(data);
+        setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', data.refreshToken);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export const fetchWithRefresh = async (url: string, options: TRequestOptions) => {
+    try {
+        const res = await fetch(url, options);
+        return await checkResponse(res);
+    }
+    catch (err) {
+        await refreshToken();
+        console.log('after refresh token')
+        const res = await fetch(url, {
+            method: options.method,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + getCookie('accessToken')
+            }
+        });
+        return await checkResponse(res);
+    }
+}
