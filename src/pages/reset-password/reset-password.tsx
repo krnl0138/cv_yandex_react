@@ -18,7 +18,9 @@ export default function ResetPassword() {
     const [form, setForm] = useState({ password: '', token: '' });
 
     const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setForm(prev => ({ ...prev, [e.currentTarget.name]: e.currentTarget.value }));
+        const formValue = e.currentTarget.value;
+        const formName = e.currentTarget.name;
+        setForm(prev => ({...prev, [formName]: formValue }))
     };
 
     const onFormSubmit = (e: React.SyntheticEvent) => {

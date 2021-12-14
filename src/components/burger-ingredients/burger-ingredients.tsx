@@ -49,7 +49,7 @@ export default function BurgerIngredients() {
                     dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: true })
                 }
 
-                return (<Card item={ingredient} openDetails={() => openDetails} key={index} />)
+                return (<Card item={ingredient} openDetails={openDetails} key={index} />)
             });
     };
 

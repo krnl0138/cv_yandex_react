@@ -7,7 +7,7 @@ import { TIngredient } from '../../../types/types';
 
 type TCardProps = {
   item: TIngredient;
-  openDetails: () => {};
+  openDetails: () => void;
 }
 
 export default function Card({ item, openDetails }: TCardProps) {

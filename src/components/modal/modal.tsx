@@ -5,13 +5,14 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface IModalProps {
-    onClose: () => {};
+    onClose: () => void;
     children: ReactNode;
 }
 
 export default function Modal({ children, onClose }: IModalProps) {
     const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
+    // NOT WORKING!
     useEffect(() => {
         const closeModal = (e: React.KeyboardEvent) => {
             if (e.key === 'Escape') { onClose() }
@@ -19,7 +20,7 @@ export default function Modal({ children, onClose }: IModalProps) {
         window.addEventListener('keydown', () => closeModal)
 
         return () => window.removeEventListener('keydown', () => closeModal)
-    }, [onClose])
+    }, [])
 
     return ReactDOM.createPortal(
         <>

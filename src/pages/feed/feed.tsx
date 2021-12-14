@@ -33,6 +33,7 @@ export default function Feed() {
         setTotal(parsedMessage.total);
         setTotalToday(parsedMessage.totalToday);
 
+        console.log(parsedMessage.orders);
     }, [messages]);
 
     const onClick = (order: TOrder) => {

@@ -13,7 +13,7 @@ import { TOrder, TIngredient } from '../../types/types';
 
 interface IOrderElementProps {
     order: TOrder;
-    onClick: () => void;
+    onClick?: () => void;
     from?: string;
 }
 
@@ -51,7 +51,7 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         const matchedIngs: Array<TIngredient> = [];
 
         order.ingredients.forEach(orderIng => {
-            const matched = ingredientsData.find((dataIng) => dataIng._id === orderIng._id);
+            const matched = ingredientsData.find((dataIng) => dataIng._id === orderIng);
             if (matched !== undefined) {
                 matchedIngs.push(matched);
             }

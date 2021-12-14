@@ -20,7 +20,7 @@ export type TOrder = {
     name: string;
     number: string;
     createdAt: Date;
-    ingredients: Array<TIngredient>;
+    ingredients: Array<string>;
 }
 
 export type TFormData = {

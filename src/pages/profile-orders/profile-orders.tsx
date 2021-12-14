@@ -15,7 +15,7 @@ export default function ProfileOrders() {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const messages = useSelector((store:RootState) => store.ws.messages);
+    const messages = useSelector((store: RootState) => store.ws.messages);
     const [orders, setOrders] = useState<Array<TOrder>>([]);
 
     useEffect(() => {
@@ -24,10 +24,12 @@ export default function ProfileOrders() {
 
     useEffect(() => {
         const lastMessage = messages[messages.length - 1];
-        if (!lastMessage) return; 
-        
+        if (!lastMessage) return;
+
         const parsedMessage = JSON.parse(String(lastMessage));
         setOrders(parsedMessage.orders);
+        
+        console.log(parsedMessage.orders);
     }, [messages]);
 
     const onClick = (order: TOrder) => {
@@ -71,9 +73,14 @@ export default function ProfileOrders() {
 
             <div className={styles.right}>
                 {orders ? (
-                    orders.slice(0).reverse().map((order, index) => { // for some reason server returns it reversed, weird
+                    orders.slice(0).reverse().map((order, index) => { // for some reason returned reversed
                         return (
-                            <OrderElement onClick={() => onClick(order)} key={index} order={order} from='profile' />
+                            <OrderElement
+                                key={index}
+                                onClick={() => onClick(order)}
+                                order={order}
+                                from='profile'
+                            />
                         )
                     })
                 )

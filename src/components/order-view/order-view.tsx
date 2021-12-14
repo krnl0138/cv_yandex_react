@@ -26,15 +26,17 @@ export default function OrderView({ order, modal }: IOrderViewProps) {
     const [doneWithIngredients, setDoneWithIngredients] = useState<boolean>(false);
     const [resultedOrder, setResultedOrder] = useState<TOrder>();
     
-    //  if there is NO 'order' in props stores the order from 'dispatch(getOrder(orderNumber))' call
+    //  if there is NO 'order' prop it stores a value from 'dispatch(getOrder(orderNumber))' call
     const orderNotFromProps = useSelector((store:RootState) => store.orderDetails.order) as TOrder;
     
     const matchIngredientsFromOrder = useCallback((order: TOrder) => {
         const matchedIngs: Array<TIngredient> = [];
         
         order.ingredients.forEach(orderIng => {
-            const matched = ingredientsData.find(dataIng => dataIng._id === orderIng._id) as TIngredient;
-            matchedIngs.push(matched);
+            const matched = ingredientsData.find(dataIng => dataIng._id === orderIng);
+            if (matched !== undefined) {
+                matchedIngs.push(matched);
+            }
         })
         
         if (ingredientsInOrder.length !== matchedIngs.length) {

@@ -56,8 +56,7 @@ export default function Routes() {
 
     return (
         <>
-            {/* <Switch location={background || location}> */}
-            <Switch >
+            <Switch location ={background as any || location}>
 
                 <Route path='/register'>
                     <Register />
@@ -108,7 +107,7 @@ export default function Routes() {
                     </main>
 
                     {visibleOrderDetails &&
-                        <Modal onClose={() => closeModal}>
+                        <Modal onClose={closeModal}>
                             <OrderDetails />
                         </Modal>
                     }
@@ -122,7 +121,7 @@ export default function Routes() {
             {
                 background && visibleIngredientDetails &&
                 <Route exact={true} path='/ingredients/:id'>
-                    <Modal onClose={() => closeModal}>
+                    <Modal onClose={closeModal}>
                         <IngredientDetails />
                     </Modal>
                 </Route>
@@ -131,7 +130,7 @@ export default function Routes() {
             {
                 background && visibleOrdersDetails &&
                 <Route exact={true} path={`${background.pathname}/:id`}>
-                    <Modal onClose={() => closeModal}>
+                    <Modal onClose={closeModal}>
                         <OrderView modal={true} order={location.state.order} />
                     </Modal>
                 </Route>

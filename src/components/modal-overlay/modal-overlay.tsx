@@ -1,7 +1,7 @@
 import styles from './modal-overlay.module.css'
 
 interface IModalOverlay {
-    onClose: () => {}
+    onClose: () => void
 }
 
 export default function ModalOverlay({ onClose }: IModalOverlay) {
