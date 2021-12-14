@@ -17,7 +17,9 @@ export default function Login() {
     });
 
     const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setForm(prev => ({ ...prev, [e.currentTarget.name]: e.currentTarget.value }))
+        setForm(prev => ({...prev, [e.currentTarget.name]: e.currentTarget.value }))
+        console.log(form);
+        // setForm({[e.currentTarget.name]: e.currentTarget.value})
     };
 
     const onFormSubmit = (e: React.SyntheticEvent) => {

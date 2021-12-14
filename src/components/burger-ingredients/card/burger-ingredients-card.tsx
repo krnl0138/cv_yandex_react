@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useDrag } from "react-dnd";
 import { RootState } from "../../../services/reducers";
 import { TIngredient } from '../../../types/types';
-import { useEffect} from 'react';
 
 type TCardProps = {
   item: TIngredient;
@@ -15,13 +14,7 @@ export default function Card({ item, openDetails }: TCardProps) {
 
   const cartIngredients = useSelector((store: RootState) => store.cart.сartIngredients);
   const buns = useSelector((store: RootState) => store.cart.bunIngredients);
-
-  let counter = 0;
-  useEffect(() => {
-    if (cartIngredients.length > 0 || buns.length > 0) {
-      counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;
-    }
-  }, [cartIngredients, buns])
+  const counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;
 
   const [{ opacity }, ref] = useDrag({
     type: 'ingredient',

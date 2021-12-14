@@ -84,7 +84,7 @@ export default function Profile() {
                     exact to={{ pathname: '/profile/orders' }}
                     activeClassName={styles.activeLink}
                     className={`text text_type_main-large text-color-inactive ${styles.navChild}`}>
-                    История любви
+                    История заказов
                 </NavLink>
 
                 <Link
@@ -139,14 +139,14 @@ export default function Profile() {
                             // type="secondary" size="medium" value="cancel" name="cancel"
                             type="secondary" size="medium"
                         >
-                            Отмена паники
+                            Отмена
                         </Button>
 
                         <Button
                             // type="primary" size="medium" value="update" name="update"
                             type="primary" size="medium"
                         >
-                            Сохранить честь 
+                            Сохранить
                         </Button>
                     </div>
                 )}

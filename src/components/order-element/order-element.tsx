@@ -51,8 +51,10 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         const matchedIngs: Array<TIngredient> = [];
 
         order.ingredients.forEach(orderIng => {
-            const matched = ingredientsData.find((dataIng) => dataIng._id === orderIng._id) as TIngredient;
-            matchedIngs.push(matched);
+            const matched = ingredientsData.find((dataIng) => dataIng._id === orderIng._id);
+            if (matched !== undefined) {
+                matchedIngs.push(matched);
+            }
         })
 
         if (ingredientsInOrder.length !== matchedIngs.length) {
@@ -80,7 +82,7 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
                 <span className={`${styles.row} mt-3 mb-5`}>
                     <span className={styles.icons}>
                         {doneIngredients
-                            ? ingredientsInOrder.slice(0, 6).map((ing: TIngredient, index: number) => {
+                            ? ingredientsInOrder.slice(0, 6).map((ing, index) => {
                                 return (
                                     <span className={styles.ing} key={index}>
                                         {ingredientsInOrder.length > 6 && (

@@ -5,7 +5,7 @@ import { useDrop, useDrag } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
 import { postOrder } from '../../services/actions/order-details';
 import { RootState } from '../../services/reducers/index';
-import { TIngredientsIDs } from '../../types/types';
+import { TIngredient, TIngredientsIDs } from '../../types/types';
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function BurgerConstructor() {
 
   const orderBurger = () => {
     if (!user.username) {
-      return history.push({ pathname: '/login', });
+      return history.push({ pathname: '/login' });
     }
 
     if (bun && cartIngredients.length !== 0) {
@@ -38,16 +38,7 @@ export default function BurgerConstructor() {
     dispatch({ type: 'DELETE_CART_INGREDIENT', ingredients: index })
   }
 
-  interface IConstructorElementMiddleProps {
-    item: {
-      name: string;
-      price: number;
-      image: string;
-    };
-    index: number;
-  }
-
-  const ConstructorElementMiddle = ({ item, index }: IConstructorElementMiddleProps) => {
+  const ConstructorElementMiddle = ({ item, index }: {item: TIngredient, index: number}) => {
     const [{ opacity }, dragRef] = useDrag({
       type: 'move',
       item: () => {
@@ -60,8 +51,8 @@ export default function BurgerConstructor() {
 
     const [{ paddingLeft }, dropRef] = useDrop({
       accept: 'move',
-      drop(ingredients) {
-        dispatch({ type: 'MOVE_CART_INGREDIENT', ingredients, dropIndex: index })
+      drop(ingredient) {
+        dispatch({ type: 'MOVE_CART_INGREDIENT', ingredient, dropIndex: index })
       },
       collect: monitor => ({
         paddingLeft: monitor.isOver() ? 30 : 0
@@ -101,8 +92,8 @@ export default function BurgerConstructor() {
 
   const [, bunDropBottom] = useDrop({
     accept: 'bun',
-    drop(ingredients) {
-      dispatch({ type: 'ADD_CART_INGREDIENT_BUN', ingredients })
+    drop(ingredient) {
+      dispatch({ type: 'ADD_CART_INGREDIENT_BUN', ingredient })
     }
   });
 

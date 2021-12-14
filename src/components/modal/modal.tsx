@@ -22,7 +22,7 @@ export default function Modal({ children, onClose }: IModalProps) {
     }, [onClose])
 
     return ReactDOM.createPortal(
-        <>ev
+        <>
             <ModalOverlay onClose={onClose} />
             <div className={styles.modal}>
                 <span onClick={onClose} className={styles.modalCloseIcon}>
