@@ -25,7 +25,7 @@ type TStatus = {
 export default function OrderElement({ onClick, order, from }: IOrderElementProps) {
     const { ingredientsData } = useSelector((store: RootState) => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
-    const [doneIngredients, setDoneIngredients] = useState<boolean>(false);
+    const [doneIngredients, setDoneIngredients] = useState(false);
 
 
     const status: TStatus = {
@@ -62,10 +62,10 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         }
 
         setDoneIngredients(true);
-    }, [ingredientsData]);
+    }, [ingredientsData, order.ingredients, ingredientsInOrder]);
 
     return (
-        <div className={styles.main} onClick={() => onClick}>
+        <div className={styles.main} onClick={onClick}>
             <span className={styles.content}>
 
                 <span className={`${styles.row} mt-3 mb-6`}>

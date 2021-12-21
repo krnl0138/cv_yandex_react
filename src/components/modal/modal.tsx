@@ -12,15 +12,14 @@ interface IModalProps {
 export default function Modal({ children, onClose }: IModalProps) {
     const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
-    // NOT WORKING!
     useEffect(() => {
-        const closeModal = (e: React.KeyboardEvent) => {
+        const closeModal = (e: KeyboardEvent) => {
             if (e.key === 'Escape') { onClose() }
         }
-        window.addEventListener('keydown', () => closeModal)
 
-        return () => window.removeEventListener('keydown', () => closeModal)
-    }, [])
+        window.addEventListener('keydown', closeModal)
+        return () => window.removeEventListener('keydown', closeModal)
+    }, [onClose])
 
     return ReactDOM.createPortal(
         <>

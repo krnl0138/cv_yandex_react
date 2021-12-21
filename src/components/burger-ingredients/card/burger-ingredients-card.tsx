@@ -11,7 +11,6 @@ type TCardProps = {
 }
 
 export default function Card({ item, openDetails }: TCardProps) {
-
   const cartIngredients = useSelector((store: RootState) => store.cart.сartIngredients);
   const buns = useSelector((store: RootState) => store.cart.bunIngredients);
   const counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;

@@ -7,6 +7,11 @@ import { postOrder } from '../../services/actions/order-details';
 import { RootState } from '../../services/reducers/index';
 import { TIngredient, TIngredientsIDs } from '../../types/types';
 
+interface IConstructorElementMiddleProps {
+  item: TIngredient; 
+  index: number;
+}
+
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,10 +40,10 @@ export default function BurgerConstructor() {
   }
 
   const deleteIngredient = (index: number) => {
-    dispatch({ type: 'DELETE_CART_INGREDIENT', ingredients: index })
+    dispatch({ type: 'DELETE_CART_INGREDIENT', ind: index })
   }
 
-  const ConstructorElementMiddle = ({ item, index }: {item: TIngredient, index: number}) => {
+  const ConstructorElementMiddle = ({ item, index }: IConstructorElementMiddleProps) => {
     const [{ opacity }, dragRef] = useDrag({
       type: 'move',
       item: () => {
@@ -76,7 +81,7 @@ export default function BurgerConstructor() {
     )
   }
 
-  const [_, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(ingredient) {
       dispatch({ type: 'ADD_CART_INGREDIENT', ingredient })

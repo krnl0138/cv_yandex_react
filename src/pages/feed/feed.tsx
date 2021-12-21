@@ -1,7 +1,7 @@
 import styles from './feed.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { WS_ALL_ORDERS_URL } from '../../utils/api-urls';
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
@@ -32,9 +32,7 @@ export default function Feed() {
         setOrders(parsedMessage.orders);
         setTotal(parsedMessage.total);
         setTotalToday(parsedMessage.totalToday);
-
-        console.log(parsedMessage.orders);
-    }, [messages]);
+    }, [messages, setOrders, setTotal, setTotalToday]);
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/feed/${order.number}`, state: { background: location, order: order } })
@@ -45,7 +43,7 @@ export default function Feed() {
     const [doneOrders, setDoneNumbers] = useState<Array<JSX.Element[]>>([]);
     const [processOrders, setProcessNumbers] = useState<Array<JSX.Element[]>>([]);
 
-    const getOrdersByOrderNumbers = (orderNumbers: Array<string>): JSX.Element[][] => {
+    const getOrdersByOrderNumbers = useCallback((orderNumbers: Array<string>): JSX.Element[][] => {
         let chunkNumbers: Array<string>;
         const content: JSX.Element[][] = []
         const chunk = 10;
@@ -64,7 +62,7 @@ export default function Feed() {
             content.push(chunkRender); // an array of jsx elements arrays 
         }
         return content
-    }
+    }, [])
 
     useEffect(() => {
         if (!orders) return;
@@ -78,7 +76,7 @@ export default function Feed() {
         const process = getOrdersByOrderNumbers(processNumbers);
         setProcessNumbers([...process]);
 
-    }, [orders]);
+    }, [orders, setDoneNumbers, setProcessNumbers, getOrdersByOrderNumbers]);
 
     return (
         orders ? (

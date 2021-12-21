@@ -10,10 +10,8 @@ export default function OrderDetails() {
     const { orderNumber } = useSelector((store: RootState) => store.orderDetails);
 
     useEffect(() => {
-        return () => {
-            dispatch({type: 'DELETE_ORDER_NUMBER'})
-        }
-    },[])
+        return () => { dispatch({ type: 'DELETE_ORDER_NUMBER' }) }
+    },[dispatch])
 
     return (
         orderNumber

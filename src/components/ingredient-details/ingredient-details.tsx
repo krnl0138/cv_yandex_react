@@ -9,18 +9,18 @@ import { TIngredient } from '../../types/types';
 export default function IngredientDetails() {
     const location = useLocation();
     const [ingredient, setIngredient] = useState<TIngredient>();
-    const ingredientID = location.pathname.split('/')[2];
-
     const { ingredientsData, isLoading } = useSelector((store: RootState) => store.ingredients);
     const activeIngredient = useSelector((store: RootState) => store.ingredientDetails.activeIngredient);
-
+    
     useEffect(() => {
+        const ingredientID = location.pathname.split('/')[2];
+
         if (Object.keys(activeIngredient).length === 0 && ingredientsData.length !== 0) {
-            const ing = ingredientsData.find(ing => ing._id === ingredientID);
-            return setIngredient(ing);
+            const ingFound = ingredientsData.find(ing => ing._id === ingredientID);
+            return setIngredient(ingFound);
         }
         setIngredient(activeIngredient);
-    }, [ingredientsData, activeIngredient, ingredientID]);
+    }, [ingredientsData, activeIngredient, location.pathname]);
 
     return (
         isLoading

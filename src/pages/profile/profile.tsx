@@ -8,15 +8,14 @@ import { RootState } from '../../services/reducers';
 
 export default function Profile() {
     const dispatch = useDispatch();
-    const user = useSelector((store:RootState) => store.user);
+    const user = useSelector((store: RootState) => store.user);
     const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
-    // const mainRef = useRef<HTMLDivElement>(null);
-    const mainRef = useRef<HTMLDivElement>() as any;
+    const mainRef = useRef<HTMLDivElement>(null);
+    // const mainRef = useRef<HTMLDivElement>() as any;
     const [isFormClicked, setFormClicked] = useState(false);
 
     const resetProfileFormValue = () => {
         setForm(prev => ({ ...prev, username: user.username, email: user.email, password: '' }));
-        // setForm({ username: user.username, email: user.email, password: '' });
     }
 
     const onClickLogout = useCallback(() => {
@@ -24,18 +23,17 @@ export default function Profile() {
     }, [dispatch]);
 
     // handle form clicks
-
     useEffect(() => {
-        document.addEventListener('mousedown', () => handleClick);
-        return () => { document.removeEventListener( 'mousedown', () => handleClick )}
-    }, []);
+        const handleClick = (e: MouseEvent) => {
+            if (e.currentTarget && mainRef.current?.contains(e.currentTarget as Node)) {
+                return;
+            }
+            setFormClicked(false);
+        };
 
-    const handleClick = (e: React.MouseEvent) => {
-        if (mainRef.current?.contains(e.currentTarget)) {
-            return;
-        }
-        setFormClicked(false);
-    };
+        document.addEventListener('mousedown', handleClick);
+        return () => { document.removeEventListener('mousedown', handleClick) }
+    }, []);
 
     const onClick = (e: React.MouseEvent) => {
         setFormClicked(true);
@@ -44,17 +42,17 @@ export default function Profile() {
     const onChange = (e: React.FormEvent<HTMLInputElement>) => {
         const formValue = e.currentTarget.value;
         const formName = e.currentTarget.name;
-        setForm(prev => ({...prev, [formName]: formValue }))
+        setForm(prev => ({ ...prev, [formName]: formValue }))
     }
 
-    const onCancelClick = (e: React.FormEvent) => {
+    const onSubmit = (e: React.SyntheticEvent & any) => { // ? how to add submitter field to the SyntheticEvent type 
         e.preventDefault();
-        resetProfileFormValue();
-    }
-
-    const onSaveClick = (e: React.FormEvent) => {
-        e.preventDefault();
-        dispatch(patchUserData(form));
+        if (e.nativeEvent.submitter.outerText === 'Отмена') {
+            resetProfileFormValue();
+        }
+        if (e.nativeEvent.submitter.outerText === 'Сохранить') {
+            dispatch(patchUserData(form));
+        }
     }
 
     return (
@@ -84,7 +82,7 @@ export default function Profile() {
                 <p className={`text text_type_main-small text_color_inactive ${styles.navParagraph}`}>В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
 
-            <form onClick={onClick} className={styles.form}>
+            <form onSubmit={onSubmit} onClick={onClick} className={styles.form}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
@@ -122,15 +120,11 @@ export default function Profile() {
 
                 {isFormClicked && (
                     <div className={styles.formChild}>
-                        <Button
-                            type="secondary" size="medium" onClick={onCancelClick}
-                        >
+                        <Button type="secondary" size="medium">
                             Отмена
                         </Button>
 
-                        <Button
-                            type="primary" size="medium" onClick={onSaveClick}
-                        >
+                        <Button type="primary" size="medium">
                             Сохранить
                         </Button>
                     </div>

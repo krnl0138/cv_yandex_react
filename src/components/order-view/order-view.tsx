@@ -23,11 +23,28 @@ export default function OrderView({ order, modal }: IOrderViewProps) {
     const dispatch = useDispatch();
     const { ingredientsData } = useSelector((store:RootState) => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
-    const [doneWithIngredients, setDoneWithIngredients] = useState<boolean>(false);
     const [resultedOrder, setResultedOrder] = useState<TOrder>();
+    const [doneWithIngredients, setDoneWithIngredients] = useState(false);
+    
+    // Handling order statuses
+    const [status, setStatus] = useState({
+        statusValue: '',
+        statusColor: ''
+    })
+    const setStatusVariables = useCallback((s: string) => {
+        if (s === 'done') {
+            setStatus({statusValue: 'Выполнен', statusColor: 'statusDone'})
+        }
+        if (s === 'created') {
+            setStatus({statusValue: 'Готовится', statusColor: 'statusInProgress'})
+        }
+        if (s === 'pending') {
+            setStatus({statusValue: 'Отменен', statusColor: 'statusCancelled'})
+        }
+    }, [setStatus])
     
     //  if there is NO 'order' prop it stores a value from 'dispatch(getOrder(orderNumber))' call
-    const orderNotFromProps = useSelector((store:RootState) => store.orderDetails.order) as TOrder;
+    const orderIfNoProps = useSelector((store:RootState) => store.orderDetails.order) as TOrder;
     
     const matchIngredientsFromOrder = useCallback((order: TOrder) => {
         const matchedIngs: Array<TIngredient> = [];
@@ -44,54 +61,41 @@ export default function OrderView({ order, modal }: IOrderViewProps) {
         }
         
         setDoneWithIngredients(true);
-    }, [ingredientsData])
-    
-    let orderNumber: string;
-    if (location.pathname.startsWith('/profile/orders/')) {
-        orderNumber = location.pathname.split('/')[3]; // e.g. '/profile/orders/3053'
-    }
-    if (location.pathname.startsWith('/feed/')) {
-        orderNumber = location.pathname.split('/')[2]; // e.g. '/feed/3053'
-    }
+    }, [ingredientsData, ingredientsInOrder, setIngredientsInOrder, setDoneWithIngredients]);
+
+    // let orderNumber = '';
+    const getOrderNumberFromLocation = useCallback(() => {
+        const l = location.pathname;
+        if ( l.startsWith('/profile/orders/') ) {
+            return l.split('/')[3]; // e.g. '/profile/orders/3053'
+        }
+        if ( l.startsWith('/feed/') ) {
+            return l.split('/')[2]; // e.g. '/feed/3053'
+        }
+        throw new Error('location.pathname is not in orders or feed')
+    }, [location.pathname]);
 
     useEffect(() => {
         if (!order) {
-            dispatch(getOrder(orderNumber)); // change 'orderNotFromProps' variable
+            const orderNumber = getOrderNumberFromLocation();
+            dispatch(getOrder(orderNumber)); // change 'orderIfNoProps' variable
             return;
         }
 
         setResultedOrder({ ...resultedOrder, ...order })
         matchIngredientsFromOrder(order);
         setStatusVariables(order.status)
-    }, [])
+    }, [order, resultedOrder, dispatch, setResultedOrder, matchIngredientsFromOrder, setStatusVariables, getOrderNumberFromLocation])
     
     useEffect(() => {
-        // Если не было order в пропсах: 'orderNotFromProps' получена от сервера и обновлена в сторе
-        if (order) return;
-        if (Object.keys(orderNotFromProps).length === 0) return;
+        if (order || Object.keys(orderIfNoProps).length === 0) return;
         
-        setResultedOrder({ ...resultedOrder, ...orderNotFromProps });
-        matchIngredientsFromOrder(orderNotFromProps)
-        setStatusVariables(orderNotFromProps.status)
-    }, [orderNotFromProps])
+        // Если не было order в пропсах: 'orderIfNoProps' получена от сервера и обновлена в сторе
+        setResultedOrder({ ...resultedOrder, ...orderIfNoProps });
+        matchIngredientsFromOrder(orderIfNoProps)
+        setStatusVariables(orderIfNoProps.status)
+    }, [order, resultedOrder, orderIfNoProps, setResultedOrder, matchIngredientsFromOrder, setStatusVariables])
     
-    // Handling order statuses
-    const [status, setStatus] = useState({
-        statusValue: '',
-        statusColor: ''
-    })
-
-    const setStatusVariables = (s: string) => {
-        if (s === 'done') {
-            setStatus({statusValue: 'Выполнен', statusColor: 'statusDone'})
-        }
-        if (s === 'created') {
-            setStatus({statusValue: 'Готовится', statusColor: 'statusInProgress'})
-        }
-        if (s === 'pending') {
-            setStatus({statusValue: 'Отменен', statusColor: 'statusCancelled'})
-        }
-    }
 
     return (
         resultedOrder ? (

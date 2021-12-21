@@ -18,7 +18,8 @@ interface IState {
 interface IAction {
   type: 'ADD_CART_INGREDIENT' | 'DELETE_CART_INGREDIENT' | 'ADD_CART_INGREDIENT_BUN' | 'MOVE_CART_INGREDIENT' | 'CLEAR_CART_INGREDIENT';
   ingredient: TIngredient & {item?: {}, index?: number };
-  dropIndex: number;
+  dropIndex?: number;
+  ind: number;
 }
 
 const initialState: IState = {
@@ -26,7 +27,7 @@ const initialState: IState = {
   bunIngredients: []
 }
 
-export const cartReducer = (state: IState = initialState, { type, ingredient, dropIndex }: IAction) => {
+export const cartReducer = (state: IState = initialState, { type, ingredient, dropIndex, ind }: IAction) => {
   switch (type) {
     case ADD_CART_INGREDIENT: {
       return {
@@ -51,10 +52,12 @@ export const cartReducer = (state: IState = initialState, { type, ingredient, dr
         })
       };
     }
-    case DELETE_CART_INGREDIENT: {
+    case DELETE_CART_INGREDIENT: { // ingredient: number (of el in a cart)
+      console.log(ingredient);
       return {
         ...state,
-        сartIngredients: state.сartIngredients.filter((_, index) => index !== ingredient.item)
+        // сartIngredients: state.сartIngredients.filter((_, index) => index !== ingredient as any) 
+        сartIngredients: state.сartIngredients.filter((_, index) => index !== ind) 
       };
     }
     case CLEAR_CART_INGREDIENT: {
