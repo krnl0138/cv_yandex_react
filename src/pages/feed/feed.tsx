@@ -12,13 +12,12 @@ export default function Feed() {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
-    const ordersToDisplay = 12;
+    const ORDERS_TO_DISPLAY = 12;
 
     const messages = useSelector((store: RootState) => store.ws.messages);
     const [orders, setOrders] = useState<Array<TOrder>>([]);
     const [total, setTotal] = useState(0);
     const [totalToday, setTotalToday] = useState(0);
-
 
     useEffect(() => {
         dispatch({ type: 'WS_CONNECTION_START', wsUrl: WS_ALL_ORDERS_URL });
@@ -44,14 +43,14 @@ export default function Feed() {
     const [processOrders, setProcessNumbers] = useState<Array<JSX.Element[]>>([]);
 
     const getOrdersByOrderNumbers = useCallback((orderNumbers: Array<string>): JSX.Element[][] => {
-        let chunkNumbers: Array<string>;
-        const content: JSX.Element[][] = []
-        const chunk = 10;
+        const CHUNK_SIZE = 10;
+        let orderNumbersChunk: Array<string>;
+        const jsxMarkup: JSX.Element[][] = []
 
-        for (let i = 0; i < orderNumbers.length; i += chunk) { // i: 0, 10, 20 ...
-            chunkNumbers = orderNumbers.slice(i, i + chunk) // holds every ten els of 'orderNumbers'
+        for (let i = 0; i < orderNumbers.length; i += CHUNK_SIZE) { // i: 0, 10, 20 ...
+            orderNumbersChunk = orderNumbers.slice(i, i + CHUNK_SIZE) // holds every ten els of 'orderNumbers'
 
-            let chunkRender = chunkNumbers.map((n, ind) => { // create an array of ten jsx elements
+            let jsxOrderNumbersChunk = orderNumbersChunk.map((n, ind) => { // create an array of ten jsx elements
                 return (
                     <p key={ind} className={`${styles.ordersDone} text text_type_digits-default`}>
                         {n}
@@ -59,32 +58,33 @@ export default function Feed() {
                 )
             })
 
-            content.push(chunkRender); // an array of jsx elements arrays 
+            jsxMarkup.push(jsxOrderNumbersChunk); // an array of jsx elements arrays 
         }
-        return content
+        return jsxMarkup;
     }, [])
 
     useEffect(() => {
         if (!orders) return;
 
-        const doneNumbers = orders.filter(o => o.status === 'done').map(o => o.number);
-        const done = getOrdersByOrderNumbers(doneNumbers);
-        setDoneNumbers([...done]);
-
-        // Assuming 'pending' status is eq. to 'В работе'
-        const processNumbers = orders.filter(o => o.status === 'pending').map(o => o.number);
-        const process = getOrdersByOrderNumbers(processNumbers);
-        setProcessNumbers([...process]);
-
-    }, [orders, setDoneNumbers, setProcessNumbers, getOrdersByOrderNumbers]);
-
+        const handleOrderNumbers = (s: string, fn: (content: JSX.Element[][]) => void) => {
+            const orderNumbersByStatus = orders.filter(o => o.status === s).map(o => o.number);
+            const jsxMarkup = getOrdersByOrderNumbers(orderNumbersByStatus);
+            fn([...jsxMarkup]);
+        }
+        
+        handleOrderNumbers('done', setDoneNumbers);
+        handleOrderNumbers('process', setProcessNumbers);
+    }, [orders, getOrdersByOrderNumbers]);
+    
     return (
-        orders ? (
+        !orders 
+        ? (<Loader />)
+        : (
             <div className={styles.main}>
                 <div className={styles.left}>
                     <div className={styles.orders}>
                         <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
-                        {orders.slice(0, ordersToDisplay).map((order, index) => {
+                        {orders.slice(0, ORDERS_TO_DISPLAY).map((order, index) => {
                             return (
                                 <OrderElement
                                     key={index}
@@ -161,8 +161,6 @@ export default function Feed() {
 
                 </div>
             </div>
-        ) : (
-            <Loader />
-        )
+        ) 
     )
 }

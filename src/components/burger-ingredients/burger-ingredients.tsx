@@ -45,8 +45,8 @@ export default function BurgerIngredients() {
             .map((ingredient, index) => {
                 const openDetails = () => {
                     dispatch({ type: 'SET_ACTIVE_INGREDIENT', activeIngredient: ingredient })
-                    history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                     dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: true })
+                    history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                 }
 
                 return (<Card item={ingredient} openDetails={openDetails} key={index} />)

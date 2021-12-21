@@ -15,7 +15,7 @@ export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 
-export const DELETE_ORDER_NUMBER = 'DELETE_ORDER_NUMBER';
+export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER';
 
 export const postOrder = (ingredientsIDs: TIngredientsIDs) => {
   return function (dispatch: Dispatch) {

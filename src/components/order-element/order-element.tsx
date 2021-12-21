@@ -1,6 +1,6 @@
 import styles from './order-element.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import moment from 'moment';
@@ -17,36 +17,39 @@ interface IOrderElementProps {
     from?: string;
 }
 
-type TStatus = {
-    message: string;
-    statusColor: string;
-}
-
 export default function OrderElement({ onClick, order, from }: IOrderElementProps) {
     const { ingredientsData } = useSelector((store: RootState) => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
     const [doneIngredients, setDoneIngredients] = useState(false);
-
-
-    const status: TStatus = {
-        message: '',
-        statusColor: ''
-    }
-    if (order.status === 'done') {
-        status.message = 'Выполнен'
-        status.statusColor = 'statusDone';
-    }
-    if (order.status === 'created') {
-        status.message = 'Готовится'
-        status.statusColor = 'statusInProgress';
-    }
-    if (order.status === 'pending') {
-        status.message = 'Отменен'
-        status.statusColor = 'statusCancelled';
-    }
+    const [status, setStatus] = useState({
+        value: '',
+        color: ''
+    })
+    // Handling order statuses
+    const matchOrderStatus = useCallback((s: string) => {
+        if (s === 'done') {
+            setStatus({value: 'Выполнен', color: 'statusDone'})
+            return;
+        }
+        if (s === 'created') {
+            setStatus({value: 'Готовится', color: 'statusInProgress'})
+            return;
+        }
+        if (s === 'pending') {
+            setStatus({value: 'Отменен', color: 'statusCancelled'})
+            return;
+        }
+        throw new Error('status value is not valid')
+    }, [])
 
     useEffect(() => {
         if (!order?.ingredients || !ingredientsData) return;
+
+        if (order.status) {
+            matchOrderStatus(order.status);
+        } else {
+            throw new Error('something is wrong with order.status value')
+        }
 
         const matchedIngs: Array<TIngredient> = [];
 
@@ -58,11 +61,10 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         })
 
         if (ingredientsInOrder.length !== matchedIngs.length) {
-            setIngredientsInOrder([...ingredientsInOrder, ...matchedIngs]);
+            setIngredientsInOrder(ingredientsInOrder => [...ingredientsInOrder, ...matchedIngs]);
+            setDoneIngredients(true);
         }
-
-        setDoneIngredients(true);
-    }, [ingredientsData, order.ingredients, ingredientsInOrder]);
+    }, [ingredientsData, order.ingredients, order.status, matchOrderStatus]);
 
     return (
         <div className={styles.main} onClick={onClick}>
@@ -76,13 +78,14 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
                 <p className="text text_type_main-medium mb-4">{order.name}</p>
 
                 {from === 'profile' &&
-                    <p className={`${styles[status.statusColor]} text text_type_main-default mb-4`}>{status.message}</p>
+                    <p className={`${styles[status.color]} text text_type_main-default mb-4`}>{status.value}</p>
                 }
 
                 <span className={`${styles.row} mt-3 mb-5`}>
                     <span className={styles.icons}>
-                        {doneIngredients
-                            ? ingredientsInOrder.slice(0, 6).map((ing, index) => {
+                        {!doneIngredients
+                            ? (<Loader />)
+                            : ingredientsInOrder.slice(0, 6).map((ing, index) => {
                                 return (
                                     <span className={styles.ing} key={index}>
                                         {ingredientsInOrder.length > 6 && (
@@ -92,7 +95,7 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
                                         <img src={ing.image_mobile} alt="" className={`${styles.ingIcons}`} />
                                     </span>
                                 )})
-                            : (<Loader />)}
+                            }
                     </span>
 
                     <span className={styles.value}>

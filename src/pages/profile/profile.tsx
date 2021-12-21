@@ -11,7 +11,6 @@ export default function Profile() {
     const user = useSelector((store: RootState) => store.user);
     const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
     const mainRef = useRef<HTMLDivElement>(null);
-    // const mainRef = useRef<HTMLDivElement>() as any;
     const [isFormClicked, setFormClicked] = useState(false);
 
     const resetProfileFormValue = () => {
@@ -45,9 +44,11 @@ export default function Profile() {
         setForm(prev => ({ ...prev, [formName]: formValue }))
     }
 
-    const onSubmit = (e: React.SyntheticEvent & any) => { // ? how to add submitter field to the SyntheticEvent type 
+    const onFormSubmit = (e: React.SyntheticEvent & any) => { // ? how to add submitter field to the SyntheticEvent type
+        console.log(e); 
         e.preventDefault();
         if (e.nativeEvent.submitter.outerText === 'Отмена') {
+            console.log('!!!!!!!!!!!!!!!!!!!!!!!!')
             resetProfileFormValue();
         }
         if (e.nativeEvent.submitter.outerText === 'Сохранить') {
@@ -82,7 +83,7 @@ export default function Profile() {
                 <p className={`text text_type_main-small text_color_inactive ${styles.navParagraph}`}>В этом разделе вы можете изменить свои персональные данные</p>
             </nav>
 
-            <form onSubmit={onSubmit} onClick={onClick} className={styles.form}>
+            <form onSubmit={onFormSubmit} onClick={onClick} className={styles.form}>
                 <Input
                     type={'text'}
                     placeholder={'Имя'}

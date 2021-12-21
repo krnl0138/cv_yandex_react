@@ -17,15 +17,14 @@ export default function BurgerConstructor() {
   const history = useHistory();
   const location = useLocation();
   const user = useSelector((store: RootState) => store.user);
-
   const cartIngredients = useSelector((store: RootState) => store.cart.сartIngredients);
+  const ingredientsIDs: TIngredientsIDs = cartIngredients.map(item => item._id);
   const bun = useSelector((store: RootState) => store.cart.bunIngredients[0]);
 
   const orderCost = bun
     ? [bun, bun, ...cartIngredients].reduce((acc, ing) => acc += ing.price, 0)
     : cartIngredients.reduce((acc, ing) => acc += ing.price, 0);
 
-  const ingredientsIDs: TIngredientsIDs = cartIngredients.map(item => item._id);
 
   const orderBurger = () => {
     if (!user.username) {

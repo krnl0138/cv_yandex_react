@@ -27,8 +27,8 @@ export default function ProfileOrders() {
         if (!lastMessage) return;
 
         const parsedMessage = JSON.parse(String(lastMessage));
-        setOrders(parsedMessage.orders);
-        
+        setOrders(() => parsedMessage.orders);
+
         console.log(parsedMessage.orders);
     }, [messages]);
 
@@ -72,19 +72,20 @@ export default function ProfileOrders() {
             </div>
 
             <div className={styles.right}>
-                {orders ? (
-                    orders.slice(0).reverse().map((order, index) => { // for some reason returned reversed
-                        return (
-                            <OrderElement
-                                key={index}
-                                onClick={() => onClick(order)}
-                                order={order}
-                                from='profile'
-                            />
-                        )
-                    })
-                )
-                    : (<Loader />)
+                {!orders
+                    ? (<Loader />)
+                    : (
+                        orders.slice(0).reverse().map((order, index) => { // for some reason returned reversed
+                            return (
+                                <OrderElement
+                                    key={index}
+                                    onClick={() => onClick(order)}
+                                    order={order}
+                                    from='profile'
+                                />
+                            )
+                        })
+                    )
                 }
             </div>
 

@@ -10,12 +10,13 @@ export default function OrderDetails() {
     const { orderNumber } = useSelector((store: RootState) => store.orderDetails);
 
     useEffect(() => {
-        return () => { dispatch({ type: 'DELETE_ORDER_NUMBER' }) }
+        return () => { dispatch({ type: 'RESET_ORDER_NUMBER' }) }
     },[dispatch])
 
     return (
-        orderNumber
-            ? (
+        !orderNumber
+            ? (<Loader />)
+            : (
                 <div className={`${styles.card}`}>
                     <h3 className={`${styles.order} pt-3 text text_type_digits-large`}>{orderNumber}</h3>
                     <p className='text text_type_main-medium pt-1'>Идентификатор заказа</p>
@@ -24,6 +25,5 @@ export default function OrderDetails() {
                     <p className='text text_type_main-default text_color_inactive pb-10 pt-2'>Дождитесь готовности на орбитальной станции</p>
                 </div>
             )
-            : (<Loader />)
     )
 };

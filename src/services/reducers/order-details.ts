@@ -5,7 +5,7 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
-  DELETE_ORDER_NUMBER
+  RESET_ORDER_NUMBER
 } from '../actions/order-details';
 
 import { TOrder } from '../../types/types';
@@ -26,7 +26,7 @@ interface IAction {
     'GET_ORDER_REQUEST' |
     'GET_ORDER_SUCCESS' |
     'GET_ORDER_FAILED' |
-    'DELETE_ORDER_NUMBER';
+    'RESET_ORDER_NUMBER';
   ingredientsIDs: Array<string>;
   orderNumber: number;
   order: TOrder;
@@ -83,7 +83,7 @@ export const orderDetailsReducer = (state: IState = initialState, { type, ingred
         hasError: true,
       }
     }
-    case DELETE_ORDER_NUMBER: {
+    case RESET_ORDER_NUMBER: {
       return {
         ...state,
         orderNumber: -1

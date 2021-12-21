@@ -8,7 +8,8 @@ import Modal from '../modal/modal';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Location } from "history";
+import { Route, useLocation, Switch, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useEffect } from 'react';
@@ -33,13 +34,13 @@ import { TOrder } from '../../types/types';
 
 interface ILocationState {
     background: Location;
-    order?: TOrder;
+    order: TOrder;
 }
 
 export default function Routes() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const {location} = useHistory<ILocationState>();
+    const location = useLocation<ILocationState>();
     const background = location.state?.background;
 
     const { visibleOrderDetails, visibleIngredientDetails, visibleOrdersDetails } = useSelector((store:RootState) => store.modals);
@@ -53,13 +54,13 @@ export default function Routes() {
         dispatch({ type: 'VISIBLE_ORDER_DETAILS', value: false })
         dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: false })
         if (background) {
-            history.replace({ pathname: background.pathname, state: null });
+            history.replace({ pathname: background.pathname });
         }
     }
 
     return (
         <>
-            <Switch location = {background as unknown as typeof location || location}>
+            <Switch location = {background || location}>
 
                 <Route path='/register'>
                     <Register />
