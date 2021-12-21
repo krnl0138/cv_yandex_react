@@ -31,7 +31,7 @@ export default function Feed() {
         setOrders(parsedMessage.orders);
         setTotal(parsedMessage.total);
         setTotalToday(parsedMessage.totalToday);
-    }, [messages, setOrders, setTotal, setTotalToday]);
+    }, [messages]);
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/feed/${order.number}`, state: { background: location, order: order } })

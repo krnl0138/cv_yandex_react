@@ -61,10 +61,10 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         })
 
         if (ingredientsInOrder.length !== matchedIngs.length) {
-            setIngredientsInOrder(ingredientsInOrder => [...ingredientsInOrder, ...matchedIngs]);
+            setIngredientsInOrder([...matchedIngs]);
             setDoneIngredients(true);
         }
-    }, [ingredientsData, order.ingredients, order.status, matchOrderStatus]);
+    }, [ingredientsData, order.ingredients, ingredientsInOrder.length, order.status, matchOrderStatus]);
 
     return (
         <div className={styles.main} onClick={onClick}>
