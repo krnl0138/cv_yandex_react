@@ -27,7 +27,7 @@ import { TAuthActions } from '../actions/auth/index';
 
 import logger from 'redux-logger';
 
-const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware));
+const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware()));
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,

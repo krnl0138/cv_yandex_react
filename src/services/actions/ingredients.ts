@@ -13,8 +13,7 @@ export interface IGetIngredientsRequest {
 
 export interface IGetIngredientsRequestSuccess {
   readonly type: typeof GET_INGREDIENTS_REQUEST_SUCCESS;
-  // readonly payload: ReadonlyArray<TIngredient>;
-  readonly payload: any;
+  readonly payload: ReadonlyArray<TIngredient>;
 }
 
 export interface IGetIngredientsRequestError {
