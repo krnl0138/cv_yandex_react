@@ -1,6 +1,6 @@
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { useDrop, useDrag } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
 import { postOrder } from '../../services/actions/order-details';

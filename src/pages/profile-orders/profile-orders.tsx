@@ -1,14 +1,16 @@
 import styles from './profile-orders.module.css';
 import { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation, Link, NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../services/actions/auth';
+import { useSelector, useDispatch } from '../../types/hooks';
+import { logout } from '../../services/actions/auth/logout';
 import { WS_USER_ORDERS_URL } from '../../utils/api-urls';
 
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
 import { RootState } from '../../services/reducers';
 import { TOrder } from '../../types/types';
+import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
 export default function ProfileOrders() {
     const history = useHistory();
@@ -19,7 +21,8 @@ export default function ProfileOrders() {
     const [orders, setOrders] = useState<Array<TOrder>>([]);
 
     useEffect(() => {
-        dispatch({ type: 'WS_CONNECTION_START', wsUrl: WS_USER_ORDERS_URL })
+        dispatch({ type: WS_CONNECTION_START, wsUrl: WS_USER_ORDERS_URL })
+        return () => {dispatch({ type: WS_CONNECTION_CLOSED })}
     }, [dispatch])
 
     useEffect(() => {
@@ -34,7 +37,7 @@ export default function ProfileOrders() {
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/profile/orders/${order.number}`, state: { background: location, order: order } })
-        dispatch({ type: 'VISIBLE_ORDERS_DETAILS', value: true })
+        dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
     }
 
     const onClickLogout = useCallback((e) => {

@@ -1,16 +1,8 @@
-import { USER_SET_CREDENTIALS, USER_LOGOUT } from '../actions/user';
+import { USER_SET_CREDENTIALS, USER_LOGOUT, TUserActions } from '../actions/user';
 
 interface IState {
-    username: string;
-    email: string;
-}
-
-interface IAction {
-    type: 'USER_SET_CREDENTIALS' | 'USER_LOGOUT';
-    user: {
-        email: string;
-        name: string;
-    }
+    readonly username: string;
+    readonly email: string;
 }
 
 const initialState: IState = {
@@ -18,7 +10,7 @@ const initialState: IState = {
     email: ''
 }
 
-export const userReducer = (state:IState = initialState, action: IAction) => {
+export const userReducer = (state = initialState, action: TUserActions): IState => {
     switch (action.type) {
         case USER_SET_CREDENTIALS: {
             return {
@@ -28,11 +20,7 @@ export const userReducer = (state:IState = initialState, action: IAction) => {
             }
         }
         case USER_LOGOUT: {
-            return {
-                ...state,
-                username: '',
-                email: ''
-            }
+            return initialState;
         }
         default: {
             return state;

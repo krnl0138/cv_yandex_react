@@ -2,8 +2,8 @@ import styles from './login.module.css';
 import { Button, Input, PasswordInput, } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../services/actions/auth';
+import { useSelector, useDispatch } from '../../types/hooks';
+import { login } from '../../services/actions/auth/login';
 import { RootState } from '../../services/reducers';
 
 export default function Login() {

@@ -1,6 +1,6 @@
 import styles from './order-details.module.css';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Loader from '../loader/loader';
 import { RootState } from '../../services/reducers';

@@ -1,9 +1,10 @@
 import styles from './profile.module.css';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { patchUserData, logout } from '../../services/actions/auth';
+import { patchUserData } from '../../services/actions/auth/user-data';
+import { logout } from '../../services/actions/auth/logout';
 import { RootState } from '../../services/reducers';
 
 export default function Profile() {

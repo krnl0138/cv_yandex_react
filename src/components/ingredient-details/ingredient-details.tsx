@@ -1,5 +1,5 @@
 import styles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../types/hooks';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Loader from '../loader/loader';
@@ -15,11 +15,15 @@ export default function IngredientDetails() {
     useEffect(() => {
         const ingredientID = location.pathname.split('/')[2];
 
-        if (Object.keys(activeIngredient).length === 0 && ingredientsData.length !== 0) {
+        if (activeIngredient === null) {
             const ingFound = ingredientsData.find(ing => ing._id === ingredientID);
-            return setIngredient(ingFound);
+            if (ingFound) {
+                return setIngredient(ingFound);
+            }
         }
-        setIngredient(activeIngredient);
+        if (activeIngredient !== null) {
+            setIngredient(activeIngredient);
+        }
     }, [ingredientsData, activeIngredient, location.pathname]);
 
     return (

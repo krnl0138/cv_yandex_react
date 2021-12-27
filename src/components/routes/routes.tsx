@@ -10,7 +10,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { Location } from "history";
 import { Route, useLocation, Switch, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/actions/ingredients';
@@ -27,7 +27,7 @@ import OrderView from '../order-view/order-view';
 
 import { ProtectedRoute } from '../protected-route';
 
-import { getUserData } from '../../services/actions/auth';
+import { getUserData } from '../../services/actions/auth/user-data';
 
 import { RootState } from '../../services/reducers/index';
 import { TOrder } from '../../types/types';

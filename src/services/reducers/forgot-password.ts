@@ -1,30 +1,28 @@
-import { PASSWORD_FORGOT, PASSWORD_FORGOT_RESTORE } from '../actions/forgot-password';
+import { 
+    PASSWORD_FORGOT, 
+    PASSWORD_FORGOT_RESTORE, 
+    TForgotPasswordActions
+} from '../actions/forgot-password';
 
 interface IState {
-    test: string;
-    isPasswordForgotten: boolean;
-}
-
-interface IAction {
-    type: 'PASSWORD_FORGOT' | 'PASSWORD_FORGOT_RESTORE';
+    readonly isPasswordForgotten: boolean;
 }
 
 const initialState: IState = {
-    test: 'test',
     isPasswordForgotten: false,
 }
 
-export const forgotPasswordReducer = (state: IState = initialState, action: IAction) => {
+export const forgotPasswordReducer = (state = initialState, action: TForgotPasswordActions): IState => {
     switch (action.type) {
         case PASSWORD_FORGOT: {
             return {
-                ...state, 
+                ...state,
                 isPasswordForgotten: true
             }
         }
         case PASSWORD_FORGOT_RESTORE: {
             return {
-                ...state, 
+                ...state,
                 isPasswordForgotten: false
             }
         }

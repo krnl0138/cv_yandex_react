@@ -2,17 +2,14 @@ import {
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
-    WS_GET_MESSAGE
+    WS_GET_MESSAGE,
+    TSocketActions
 } from '../actions/socket';
 
 interface IState {
-    wsConnected: boolean;
-    messages: Array<{}>;
-}
-
-interface IAction {
-    type: 'WS_CONNECTION_SUCCESS' | 'WS_CONNECTION_ERROR' | 'WS_CONNECTION_CLOSED' | 'WS_GET_MESSAGE';
-    payload: {}
+    readonly wsConnected: boolean;
+    readonly messages: ReadonlyArray<{}>;
+    readonly error?: {};
 }
 
 const initialState: IState = {
@@ -20,7 +17,7 @@ const initialState: IState = {
     messages: []
 };
 
-export const wsReducer = (state: IState = initialState, action: IAction ) => {
+export const wsReducer = (state = initialState, action: TSocketActions ): IState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {

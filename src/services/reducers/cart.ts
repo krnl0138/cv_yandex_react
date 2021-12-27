@@ -3,23 +3,15 @@ import {
   DELETE_CART_INGREDIENT,
   ADD_CART_INGREDIENT_BUN,
   MOVE_CART_INGREDIENT,
-  CLEAR_CART_INGREDIENT
+  CLEAR_CART_INGREDIENT,
+  TCartActions
 } from '../actions/cart';
-
-import { TIngredient } from '../../types/types';
-
 import update from 'immutability-helper';
+import type { TIngredient } from '../../types/types';
 
 interface IState {
-  сartIngredients: Array<TIngredient>;
-  bunIngredients: Array<TIngredient>;
-}
-
-interface IAction {
-  type: 'ADD_CART_INGREDIENT' | 'DELETE_CART_INGREDIENT' | 'ADD_CART_INGREDIENT_BUN' | 'MOVE_CART_INGREDIENT' | 'CLEAR_CART_INGREDIENT';
-  ingredient: TIngredient & {item?: {}, index?: number };
-  dropIndex?: number;
-  ind: number;
+  readonly сartIngredients: ReadonlyArray<TIngredient>;
+  readonly bunIngredients: ReadonlyArray<TIngredient>;
 }
 
 const initialState: IState = {
@@ -27,18 +19,18 @@ const initialState: IState = {
   bunIngredients: []
 }
 
-export const cartReducer = (state: IState = initialState, { type, ingredient, dropIndex, ind }: IAction) => {
-  switch (type) {
+export const cartReducer = (state = initialState, action: TCartActions): IState => {
+  switch (action.type) {
     case ADD_CART_INGREDIENT: {
       return {
         ...state,
-        сartIngredients: [...state.сartIngredients, ingredient]
+        сartIngredients: [...state.сartIngredients, action.ingredient]
       };
     }
     case ADD_CART_INGREDIENT_BUN: {
       return {
         ...state,
-        bunIngredients: [ingredient]
+        bunIngredients: [action.ingredient]
       };
     }
     case MOVE_CART_INGREDIENT: { // ingredient: {item: TIngredient, index: number}
@@ -46,18 +38,16 @@ export const cartReducer = (state: IState = initialState, { type, ingredient, dr
         ...state,
         сartIngredients: update(state.сartIngredients, {
           $splice: [
-            [ingredient.index, 1],
-            [dropIndex, 0, ingredient.item],
+            [action.ingredient.index, 1],
+            [action.dropIndex, 0, action.ingredient.item],
           ] as any,
         })
       };
     }
     case DELETE_CART_INGREDIENT: { // ingredient: number (of el in a cart)
-      console.log(ingredient);
       return {
         ...state,
-        // сartIngredients: state.сartIngredients.filter((_, index) => index !== ingredient as any) 
-        сartIngredients: state.сartIngredients.filter((_, index) => index !== ind) 
+        сartIngredients: state.сartIngredients.filter((_, index) => index !== action.ingredientIndex)
       };
     }
     case CLEAR_CART_INGREDIENT: {

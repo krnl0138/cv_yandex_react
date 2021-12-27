@@ -1,6 +1,6 @@
 import styles from './burger-ingredients.module.css';
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from './card/burger-ingredients-card';

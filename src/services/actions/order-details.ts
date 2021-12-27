@@ -4,21 +4,53 @@ import { CLEAR_CART_INGREDIENT } from './cart';
 import { getCookie } from '../../utils/cookies';
 import { checkResponse } from '../../utils/helpers';
 
-import { TIngredientsIDs } from '../../types/types';
-import { Dispatch } from 'redux';
+import { TIngredientsIDs, TOrder } from '../../types/types';
+import { AppDispatch, AppThunk } from '../reducers';
 
-export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
-export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
-export const POST_ORDER_FAILED = "POST_ORDER_FAILED";
+export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = "POST_ORDER_REQUEST";
+export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = "POST_ORDER_SUCCESS";
+export const POST_ORDER_FAILED: 'POST_ORDER_FAILED' = "POST_ORDER_FAILED";
+export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = "GET_ORDER_REQUEST";
+export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS";
+export const GET_ORDER_FAILED: 'GET_ORDER_FAILED' = "GET_ORDER_FAILED";
+export const RESET_ORDER_NUMBER: 'RESET_ORDER_NUMBER' = 'RESET_ORDER_NUMBER';
 
-export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
-export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
-export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
+export interface IPostOrderRequest {
+  readonly type: typeof POST_ORDER_REQUEST;
+}
+export interface IPostOrderRequestSuccess {
+  readonly type: typeof POST_ORDER_SUCCESS;
+  ingredientsIDs: Array<string>;
+  orderNumber: number;
+}
+export interface IPostOrderRequestFailed {
+  readonly type: typeof POST_ORDER_FAILED;
+}
+export interface IGetOrderRequest {
+  readonly type: typeof GET_ORDER_REQUEST;
+}
+export interface IGetOrderRequestSuccess {
+  readonly type: typeof GET_ORDER_SUCCESS;
+  order: TOrder;
+}
+export interface IGetOrderRequestFailed {
+  readonly type: typeof GET_ORDER_FAILED;
+}
+export interface IResetOrderNumber {
+  readonly type: typeof RESET_ORDER_NUMBER;
+}
 
-export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER';
+export type TOrderDetailsActions = 
+  IPostOrderRequest |
+  IPostOrderRequestSuccess |
+  IPostOrderRequestFailed |
+  IGetOrderRequest |
+  IGetOrderRequestSuccess |
+  IGetOrderRequestFailed |
+  IResetOrderNumber;
 
-export const postOrder = (ingredientsIDs: TIngredientsIDs) => {
-  return function (dispatch: Dispatch) {
+export const postOrder: AppThunk = (ingredientsIDs: TIngredientsIDs) => {
+  return function (dispatch: AppDispatch) {
     dispatch({ type: POST_ORDER_REQUEST });
 
     fetch(POST_ORDER_URL, {
@@ -41,10 +73,9 @@ export const postOrder = (ingredientsIDs: TIngredientsIDs) => {
   }
 };
 
-// Should be Pick<TOrder, 'orderNumber'> or string ????
-export const getOrder = (orderNumber: string) => {
-  return async function (dispatch: Dispatch) {
-    dispatch({ type: 'GET_ORDER_REQUEST' });
+export const getOrder: AppThunk = (orderNumber: string) => {
+  return async function (dispatch: AppDispatch) {
+    dispatch({ type: GET_ORDER_REQUEST });
 
     const opts = {
       method: 'GET',
