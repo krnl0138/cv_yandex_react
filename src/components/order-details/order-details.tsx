@@ -4,8 +4,9 @@ import { useSelector, useDispatch } from '../../types/hooks';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Loader from '../loader/loader';
 import { RootState } from '../../services/reducers';
+import React from 'react';
 
-export default function OrderDetails() {
+export default function OrderDetails(): JSX.Element {
     const dispatch = useDispatch();
     const { orderNumber } = useSelector((store: RootState) => store.orderDetails);
 
@@ -26,4 +27,4 @@ export default function OrderDetails() {
                 </div>
             )
     )
-};
+}

@@ -8,7 +8,7 @@ import Loader from '../loader/loader';
 import { RootState } from '../../services/reducers';
 
 
-export default function BurgerIngredients() {
+export default function BurgerIngredients(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();

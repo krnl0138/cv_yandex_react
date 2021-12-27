@@ -1,4 +1,5 @@
 import styles from './burger-ingredients-card.module.css';
+import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../../types/hooks';
 import { useDrag } from "react-dnd";
@@ -10,7 +11,7 @@ type TCardProps = {
   openDetails: () => void;
 }
 
-export default function Card({ item, openDetails }: TCardProps) {
+export default function Card({ item, openDetails }: TCardProps): JSX.Element {
   const cartIngredients = useSelector((store: RootState) => store.cart.сartIngredients);
   const buns = useSelector((store: RootState) => store.cart.bunIngredients);
   const counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;

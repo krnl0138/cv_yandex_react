@@ -4,12 +4,13 @@ import { useSelector, useDispatch } from '../types/hooks';
 import { getUserData } from '../services/actions/auth/user-data';
 import Loader from './loader/loader';
 import { RootState } from '../services/reducers';
+import React from 'react';
 
 interface IProtectedRoute extends RouteProps {
   children?: React.ReactNode;
 }
 
-export function ProtectedRoute({ children, ...rest }: IProtectedRoute) {
+export function ProtectedRoute({ children, ...rest }: IProtectedRoute): JSX.Element | null {
   const dispatch = useDispatch();
   const [isUserLoaded, setUserLoaded] = useState(false);
   const user = useSelector((store:RootState) => store.user);

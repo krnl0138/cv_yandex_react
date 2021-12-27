@@ -1,5 +1,5 @@
 import styles from './profile-orders.module.css';
-import { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation, Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { logout } from '../../services/actions/auth/logout';
@@ -12,7 +12,7 @@ import { TOrder } from '../../types/types';
 import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
-export default function ProfileOrders() {
+export default function ProfileOrders(): JSX.Element {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export default function ProfileOrders() {
         dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
     }
 
-    const onClickLogout = useCallback((e) => {
+    const onClickLogout = useCallback(() => {
         dispatch(logout());
     }, [dispatch]);
 

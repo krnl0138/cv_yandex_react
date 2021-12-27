@@ -10,4 +10,4 @@ import { AppDispatch, AppThunk, RootState } from '../services/reducers/index';
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 // Хук не даст отправить экшен, который ему не знаком
-export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>(); 
+export const useDispatch: () => AppThunk<void> = () => dispatchHook<AppDispatch | AppThunk>(); 

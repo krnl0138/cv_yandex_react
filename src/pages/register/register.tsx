@@ -7,7 +7,7 @@ import { register } from '../../services/actions/auth/register';
 import { RootState } from '../../services/reducers';
 import React from 'react';
 
-export default function Register() {
+export default function Register(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
 

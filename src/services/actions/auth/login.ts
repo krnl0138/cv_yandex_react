@@ -5,9 +5,9 @@ import { checkResponse } from "../../../utils/helpers";
 import { AppThunk, AppDispatch } from "../../reducers";
 import { USER_SET_CREDENTIALS } from "../user";
 
-export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
-export const LOGIN_REQUEST_SUCCESS: 'LOGIN_REQUEST_SUCCESS' = 'LOGIN_REQUEST_SUCCESS';
-export const LOGIN_REQUEST_FAILED: 'LOGIN_REQUEST_FAILED' = 'LOGIN_REQUEST_FAILED';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST' as const;
+export const LOGIN_REQUEST_SUCCESS = 'LOGIN_REQUEST_SUCCESS' as const;
+export const LOGIN_REQUEST_FAILED = 'LOGIN_REQUEST_FAILED' as const;
 
 interface ILoginRequest {
     readonly type: typeof LOGIN_REQUEST;
@@ -21,8 +21,8 @@ interface ILoginRequestFailed {
 
 export type TLoginActions = ILoginRequest | ILoginRequestSuccess | ILoginRequestFailed;
 
-export const login: AppThunk = ({ email, password }: TFormData) =>
-    async (dispatch: AppDispatch) => {
+export const login: AppThunk = ({ email, password }: TFormData) => {
+    return async (dispatch: AppDispatch) => {
         dispatch({ type: LOGIN_REQUEST })
 
         const requestOptions = {
@@ -44,5 +44,5 @@ export const login: AppThunk = ({ email, password }: TFormData) =>
                 console.error(e);
                 dispatch({ type: LOGIN_REQUEST_FAILED })
             });
-
+        }
     }

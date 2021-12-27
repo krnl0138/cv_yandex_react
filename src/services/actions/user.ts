@@ -1,5 +1,5 @@
-export const USER_SET_CREDENTIALS: 'USER_SET_CREDENTIALS' = 'USER_SET_CREDENTIALS';
-export const USER_LOGOUT: 'USER_LOGOUT' = 'USER_LOGOUT';
+export const USER_SET_CREDENTIALS = 'USER_SET_CREDENTIALS' as const;
+export const USER_LOGOUT = 'USER_LOGOUT' as const;
 
 export interface IUserSetCredentials {
     readonly type: typeof USER_SET_CREDENTIALS;

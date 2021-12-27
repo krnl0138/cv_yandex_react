@@ -2,13 +2,13 @@ import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burg
 import styles from './reset-password.module.css';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PASSWORD_FORGOT_RESTORE } from '../../services/actions/forgot-password';
 import { resetPassword } from '../../services/actions/auth/password';
 import { RootState } from '../../services/reducers';
 
-export default function ResetPassword() {
+export default function ResetPassword(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
     const isPasswordForgotten = useSelector((store: RootState) => store.forgotPassword.isPasswordForgotten);

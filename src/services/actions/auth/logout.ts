@@ -4,9 +4,9 @@ import { deleteCookie } from "../../../utils/cookies";
 import { checkResponse } from "../../../utils/helpers";
 import { USER_LOGOUT } from "../user";
 
-export const LOGOUT_REQUEST: 'LOGOUT_REQUEST' = 'LOGOUT_REQUEST';
-export const LOGOUT_REQUEST_SUCCESS: 'LOGOUT_REQUEST_SUCCESS' = 'LOGOUT_REQUEST_SUCCESS';
-export const LOGOUT_REQUEST_FAILED: 'LOGOUT_REQUEST_FAILED' = 'LOGOUT_REQUEST_FAILED';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST' as const;
+export const LOGOUT_REQUEST_SUCCESS = 'LOGOUT_REQUEST_SUCCESS' as const;
+export const LOGOUT_REQUEST_FAILED = 'LOGOUT_REQUEST_FAILED' as const;
 
 interface ILogoutRequest {
     readonly type: typeof LOGOUT_REQUEST;

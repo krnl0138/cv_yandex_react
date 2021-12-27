@@ -1,12 +1,12 @@
 import styles from './ingredient-details.module.css';
 import { useSelector } from '../../types/hooks';
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loader from '../loader/loader';
 import { RootState } from '../../services/reducers';
 import { TIngredient } from '../../types/types';
 
-export default function IngredientDetails() {
+export default function IngredientDetails(): JSX.Element {
     const location = useLocation();
     const [ingredient, setIngredient] = useState<TIngredient>();
     const { ingredientsData, isLoading } = useSelector((store: RootState) => store.ingredients);
@@ -57,4 +57,4 @@ export default function IngredientDetails() {
                 </div>
             )
     )
-};
+}

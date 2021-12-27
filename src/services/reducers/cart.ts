@@ -40,7 +40,7 @@ export const cartReducer = (state = initialState, action: TCartActions): IState 
           $splice: [
             [action.ingredient.index, 1],
             [action.dropIndex, 0, action.ingredient.item],
-          ] as any,
+          ] as never,
         })
       };
     }

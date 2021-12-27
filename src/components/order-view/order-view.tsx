@@ -1,6 +1,6 @@
 import styles from './order-view.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 
 import { useLocation } from 'react-router-dom';
@@ -19,7 +19,7 @@ interface IOrderViewProps {
     modal?: boolean;
 }
 
-export default function OrderView({ order, modal }: IOrderViewProps) {
+export default function OrderView({ order, modal }: IOrderViewProps): JSX.Element {
     const location = useLocation();
     const dispatch = useDispatch();
     const { ingredientsData } = useSelector((store: RootState) => store.ingredients);

@@ -1,8 +1,9 @@
 import styles from './app-header.module.css';
+import React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink } from 'react-router-dom';
 
-export default function AppHeader() {
+export default function AppHeader(): JSX.Element {
 
     return (
         <header className={`${styles.header}

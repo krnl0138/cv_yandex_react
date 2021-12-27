@@ -1,12 +1,12 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './forgot-password.module.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { forgotPassword } from '../../services/actions/auth/password';
 import { RootState } from '../../services/reducers';
 
-export default function ForgotPassword() {
+export default function ForgotPassword(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((store: RootState) => store.user);

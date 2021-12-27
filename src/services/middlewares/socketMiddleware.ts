@@ -2,15 +2,15 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONN
 
 interface IAction {
     type: string; // ?
-    payload: {};
+    payload: Record<string, never>;
     wsUrl?: string;
 }
 
-export const socketMiddleware = () => {
-    return ((store: any) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const socketMiddleware = () => (store: any) => {
         let socket: WebSocket | null = null;
 
-        return (next: (action: IAction) => {}) => (action: IAction) => {
+        return (next: (action: IAction) => Record<string, never>) => (action: IAction) => {
             const { dispatch } = store;
             const { type, payload } = action;
 
@@ -44,5 +44,4 @@ export const socketMiddleware = () => {
 
             next(action);
         };
-    })
-};
+    }

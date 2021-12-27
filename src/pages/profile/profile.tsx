@@ -7,7 +7,7 @@ import { patchUserData } from '../../services/actions/auth/user-data';
 import { logout } from '../../services/actions/auth/logout';
 import { RootState } from '../../services/reducers';
 
-export default function Profile() {
+export default function Profile(): JSX.Element {
     const dispatch = useDispatch();
     const user = useSelector((store: RootState) => store.user);
     const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
@@ -35,7 +35,7 @@ export default function Profile() {
         return () => { document.removeEventListener('mousedown', handleClick) }
     }, []);
 
-    const onClick = (e: React.MouseEvent) => {
+    const onClick = () => {
         setFormClicked(true);
     };
 
@@ -45,11 +45,11 @@ export default function Profile() {
         setForm(prev => ({ ...prev, [formName]: formValue }))
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFormSubmit = (e: React.SyntheticEvent & any) => { // ? how to add submitter field to the SyntheticEvent type
         console.log(e); 
         e.preventDefault();
         if (e.nativeEvent.submitter.outerText === 'Отмена') {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!')
             resetProfileFormValue();
         }
         if (e.nativeEvent.submitter.outerText === 'Сохранить') {

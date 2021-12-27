@@ -27,6 +27,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
       }
     }
     case GET_INGREDIENTS_REQUEST_SUCCESS: {
+      console.log(action.payload)
       return {
         ...state,
         ingredientsData: action.payload,

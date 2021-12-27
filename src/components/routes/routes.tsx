@@ -1,20 +1,22 @@
+import type { TOrder } from '../../types/types';
+
 import styles from './routes.module.css';
+
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { Location } from "history";
+import { Route, useLocation, Switch, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from '../../types/hooks';
+import React, { useEffect } from 'react';
+
+import { getIngredients } from '../../services/actions/ingredients';
+import { getUserData } from '../../services/actions/auth/user-data';
 
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-
-import { Location } from "history";
-import { Route, useLocation, Switch, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from '../../types/hooks';
-
-import { useEffect } from 'react';
-import { getIngredients } from '../../services/actions/ingredients';
-
 import PageNotFound from '../../pages/page-not-found/page-not-found';
 import Login from '../../pages/login/login';
 import ForgotPassword from '../../pages/forgot-password/forgot-password';
@@ -27,17 +29,14 @@ import OrderView from '../order-view/order-view';
 
 import { ProtectedRoute } from '../protected-route';
 
-import { getUserData } from '../../services/actions/auth/user-data';
-
 import { RootState } from '../../services/reducers/index';
-import { TOrder } from '../../types/types';
 
 interface ILocationState {
     background: Location;
     order: TOrder;
 }
 
-export default function Routes() {
+export default function Routes(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation<ILocationState>();

@@ -8,8 +8,8 @@ import {
 
 interface IState {
     readonly wsConnected: boolean;
-    readonly messages: ReadonlyArray<{}>;
-    readonly error?: {};
+    readonly messages: ReadonlyArray<Record<string, never>>;
+    readonly error?: Record<string, never>;
 }
 
 const initialState: IState = {

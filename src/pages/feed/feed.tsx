@@ -1,7 +1,7 @@
 import styles from './feed.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { WS_ALL_ORDERS_URL } from '../../utils/api-urls';
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
@@ -10,7 +10,7 @@ import { TOrder } from '../../types/types';
 import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
-export default function Feed() {
+export default function Feed(): JSX.Element {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function Feed() {
         for (let i = 0; i < orderNumbers.length; i += CHUNK_SIZE) { // i: 0, 10, 20 ...
             orderNumbersChunk = orderNumbers.slice(i, i + CHUNK_SIZE) // holds every ten els of 'orderNumbers'
 
-            let jsxOrderNumbersChunk = orderNumbersChunk.map((n, ind) => { // create an array of ten jsx elements
+            const jsxOrderNumbersChunk = orderNumbersChunk.map((n, ind) => { // create an array of ten jsx elements
                 return (
                     <p key={ind} className={`${styles.ordersDone} text text_type_digits-default`}>
                         {n}

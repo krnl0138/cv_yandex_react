@@ -1,8 +1,11 @@
 export function setCookie(
   name: string,
   value: string | number | boolean,
-  props?: { expires?: string | number | Date; [propName: string]: any }
-) {
+  props?: { 
+    expires?: string | number | Date; 
+    [propName: string]: unknown; 
+  }
+): void {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -25,7 +28,7 @@ export function setCookie(
   document.cookie = updatedCookie;
 }
 
-export function getCookie(name: string) {
+export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
@@ -34,10 +37,9 @@ export function getCookie(name: string) {
       '=([^;]*)'
     )
   )
-  return matches ? decodeURIComponent(matches[1]) : undefined
+  return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-// Check if this '0' is a working solution
-export function deleteCookie(name: string) {
+export function deleteCookie(name: string): void {
   setCookie(name, 0, { expires: -1 });
 }

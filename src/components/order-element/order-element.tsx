@@ -1,6 +1,6 @@
 import styles from './order-element.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useSelector } from '../../types/hooks';
 
 
@@ -18,7 +18,7 @@ interface IOrderElementProps {
     from?: string;
 }
 
-export default function OrderElement({ onClick, order, from }: IOrderElementProps) {
+export default function OrderElement({ onClick, order, from }: IOrderElementProps): JSX.Element {
     const { ingredientsData } = useSelector((store: RootState) => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
     const [doneIngredients, setDoneIngredients] = useState(false);

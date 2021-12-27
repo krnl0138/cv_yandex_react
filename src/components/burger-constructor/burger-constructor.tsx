@@ -2,6 +2,7 @@ import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { useDrop, useDrag } from 'react-dnd';
+import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { postOrder } from '../../services/actions/order-details';
 import { RootState } from '../../services/reducers/index';
@@ -12,7 +13,7 @@ interface IConstructorElementMiddleProps {
   index: number;
 }
 
-export default function BurgerConstructor() {
+export default function BurgerConstructor(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
