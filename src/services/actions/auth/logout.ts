@@ -42,6 +42,5 @@ export const logout: AppThunk = () =>
             .catch(e => {
                 console.error(e);
                 dispatch({ type: LOGOUT_REQUEST_FAILED })
-            }
-            );
+            });
     }

@@ -43,7 +43,7 @@ export default function Routes(): JSX.Element {
     const location = useLocation<ILocationState>();
     const background = location.state?.background;
 
-    const { visibleOrderDetails, visibleIngredientDetails, visibleOrdersDetails } = useSelector((store:RootState) => store.modals);
+    const { visibleOrderDetails } = useSelector((store:RootState) => store.modals);
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -57,6 +57,8 @@ export default function Routes(): JSX.Element {
             history.replace({ pathname: background.pathname });
         }
     }
+
+    console.log(location);
 
     return (
         <>
@@ -123,7 +125,7 @@ export default function Routes(): JSX.Element {
             </Switch>
 
             {
-                background && visibleIngredientDetails &&
+                background &&
                 <Route exact={true} path='/ingredients/:id'>
                     <Modal onClose={closeModal}>
                         <IngredientDetails />
@@ -132,7 +134,7 @@ export default function Routes(): JSX.Element {
             }
 
             {
-                background && visibleOrdersDetails &&
+                background &&
                 <Route exact={true} path={`${background.pathname}/:id`}>
                     <Modal onClose={closeModal}>
                         <OrderView modal={true} order={location.state.order} />

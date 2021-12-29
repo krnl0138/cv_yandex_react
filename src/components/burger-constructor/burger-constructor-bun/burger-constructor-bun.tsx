@@ -11,8 +11,6 @@ interface IBurgerConstructorBunProps {
 
 export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstructorBunProps): JSX.Element {
 
-    const plug: any = () => {return};
-
     if (!bun) {
         return (
             <div ref={bunDropRef} className='ml-8 mr-8'>
@@ -20,7 +18,9 @@ export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstruct
                     type={type}
                     isLocked={true}
                     text=''
-                    thumbnail={plug} // cannot be removed due to library TS type
+                    // thumbnail='https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png' // cannot be removed due to TS type
+                    thumbnail='https://cdn-icons-png.flaticon.com/128/1/1601.png' // cannot be removed due to TS type
+                    // thumbnail='https://www.fredsmithxmastrees.com/wp-content/uploads/2017/04/Square-500x500-dark-grey.png' // cannot be removed due to TS type
                     price={0}
                 />
             </div>
