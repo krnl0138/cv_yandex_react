@@ -5,7 +5,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from './card/burger-ingredients-card';
 import Loader from '../loader/loader';
-import { RootState } from '../../services/reducers';
+import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
+import { VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 
 export default function BurgerIngredients(): JSX.Element {
@@ -13,7 +14,7 @@ export default function BurgerIngredients(): JSX.Element {
     const history = useHistory();
     const location = useLocation();
 
-    const { ingredientsData, isLoading } = useSelector((store: RootState)=> store.ingredients);
+    const { ingredientsData, isLoading } = useSelector(store=> store.ingredients);
 
     const refBun = useRef<HTMLParagraphElement>(null);
     const refSauce = useRef<HTMLParagraphElement>(null);
@@ -44,8 +45,8 @@ export default function BurgerIngredients(): JSX.Element {
             .filter(ingredient => ingredient.type === type)
             .map((ingredient, index) => {
                 const openDetails = () => {
-                    dispatch({ type: 'SET_ACTIVE_INGREDIENT', activeIngredient: ingredient })
-                    dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: true })
+                    dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
+                    dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: true })
                     history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                 }
 

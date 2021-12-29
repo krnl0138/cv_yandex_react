@@ -4,14 +4,13 @@ import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { register } from '../../services/actions/auth/register';
-import { RootState } from '../../services/reducers';
 import React from 'react';
 
 export default function Register(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({
         username: '',

@@ -6,14 +6,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PASSWORD_FORGOT_RESTORE } from '../../services/actions/forgot-password';
 import { resetPassword } from '../../services/actions/auth/password';
-import { RootState } from '../../services/reducers';
 
 export default function ResetPassword(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
-    const isPasswordForgotten = useSelector((store: RootState) => store.forgotPassword.isPasswordForgotten);
+    const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
 
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({ password: '', token: '' });
 

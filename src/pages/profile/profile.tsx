@@ -5,11 +5,10 @@ import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { patchUserData } from '../../services/actions/auth/user-data';
 import { logout } from '../../services/actions/auth/logout';
-import { RootState } from '../../services/reducers';
 
 export default function Profile(): JSX.Element {
     const dispatch = useDispatch();
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
     const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
     const mainRef = useRef<HTMLDivElement>(null);
     const [isFormClicked, setFormClicked] = useState(false);

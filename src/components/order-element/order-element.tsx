@@ -8,7 +8,6 @@ import moment from 'moment';
 import 'moment/locale/ru';
 
 import Loader from '../loader/loader';
-import { RootState } from '../../services/reducers';
 
 import { TOrder, TIngredient } from '../../types/types';
 
@@ -19,7 +18,7 @@ interface IOrderElementProps {
 }
 
 export default function OrderElement({ onClick, order, from }: IOrderElementProps): JSX.Element {
-    const { ingredientsData } = useSelector((store: RootState) => store.ingredients);
+    const { ingredientsData } = useSelector(store => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
     const [doneIngredients, setDoneIngredients] = useState(false);
     const [status, setStatus] = useState({

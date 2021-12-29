@@ -28,11 +28,6 @@
     align-items: center;
 }
 
-.item {
-    display: flex;
-    align-items: center;
-}
-
 .dragIcon {
     height: 24px;
     width: 24px;

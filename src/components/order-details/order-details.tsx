@@ -3,15 +3,15 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import Loader from '../loader/loader';
-import { RootState } from '../../services/reducers';
 import React from 'react';
+import { RESET_ORDER_NUMBER } from '../../services/actions/order-details';
 
 export default function OrderDetails(): JSX.Element {
     const dispatch = useDispatch();
-    const { orderNumber } = useSelector((store: RootState) => store.orderDetails);
+    const { orderNumber } = useSelector(store => store.orderDetails);
 
     useEffect(() => {
-        return () => { dispatch({ type: 'RESET_ORDER_NUMBER' }) }
+        return () => { dispatch({ type: RESET_ORDER_NUMBER }) }
     },[dispatch])
 
     return (

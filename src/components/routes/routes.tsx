@@ -1,13 +1,12 @@
-import type { TOrder } from '../../types/types';
 
 import styles from './routes.module.css';
 
+import React, { useEffect } from 'react';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Location } from "history";
 import { Route, useLocation, Switch, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
-import React, { useEffect } from 'react';
 
 import { getIngredients } from '../../services/actions/ingredients';
 import { getUserData } from '../../services/actions/auth/user-data';
@@ -26,10 +25,12 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import ProfileOrders from '../../pages/profile-orders/profile-orders';
 import Feed from '../../pages/feed/feed';
 import OrderView from '../order-view/order-view';
-
-import { ProtectedRoute } from '../protected-route';
+import ProtectedRoute from '../protected-route';
 
 import { RootState } from '../../services/reducers/index';
+import { VISIBLE_ORDER_DETAILS, VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+
+import type { TOrder } from '../../types/types';
 
 interface ILocationState {
     background: Location;
@@ -50,8 +51,8 @@ export default function Routes(): JSX.Element {
     }, [dispatch])
 
     const closeModal = () => {
-        dispatch({ type: 'VISIBLE_ORDER_DETAILS', value: false })
-        dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: false })
+        dispatch({ type: VISIBLE_ORDER_DETAILS, value: false })
+        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: false })
         if (background) {
             history.replace({ pathname: background.pathname });
         }

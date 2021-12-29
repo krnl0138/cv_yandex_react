@@ -7,7 +7,6 @@ import { WS_USER_ORDERS_URL } from '../../utils/api-urls';
 
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
-import { RootState } from '../../services/reducers';
 import { TOrder } from '../../types/types';
 import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
@@ -17,7 +16,7 @@ export default function ProfileOrders(): JSX.Element {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const messages = useSelector((store: RootState) => store.ws.messages);
+    const messages = useSelector(store => store.ws.messages);
     const [orders, setOrders] = useState<Array<TOrder>>([]);
 
     useEffect(() => {

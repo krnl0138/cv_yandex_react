@@ -3,14 +3,13 @@ import { useSelector } from '../../types/hooks';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import Loader from '../loader/loader';
-import { RootState } from '../../services/reducers';
 import { TIngredient } from '../../types/types';
 
 export default function IngredientDetails(): JSX.Element {
     const location = useLocation();
     const [ingredient, setIngredient] = useState<TIngredient>();
-    const { ingredientsData, isLoading } = useSelector((store: RootState) => store.ingredients);
-    const activeIngredient = useSelector((store: RootState) => store.ingredientDetails.activeIngredient);
+    const { ingredientsData, isLoading } = useSelector(store => store.ingredients);
+    const activeIngredient = useSelector(store => store.ingredientDetails.activeIngredient);
     
     useEffect(() => {
         const ingredientID = location.pathname.split('/')[2];

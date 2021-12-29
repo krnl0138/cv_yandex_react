@@ -23,10 +23,8 @@ export const refreshToken = async (): Promise<void> => {
     try {
         const res = await fetch(TOKEN_REFRESH_POST_URL, options);
         const data = await checkResponse(res);
-        if (data.accessToken === 'string' && data.refreshToken === 'string') {
-            setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
-            localStorage.setItem('refreshToken', data.refreshToken);
-        }
+        setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
+        localStorage.setItem('refreshToken', data.refreshToken);
     } catch (e) {
         console.log(e);
     }

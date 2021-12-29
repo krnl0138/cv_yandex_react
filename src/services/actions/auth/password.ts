@@ -59,7 +59,7 @@ export const forgotPassword: AppThunk = ({ email }: TFormData) =>
 
 export const resetPassword: AppThunk = ({ password, token }: TFormData) =>
     async (dispatch: AppDispatch) => {
-        dispatch({ type: 'RESET_PASSWORD_REQUEST' });
+        dispatch({ type: RESET_PASSWORD_REQUEST });
 
         const requestOptions = {
             method: 'POST',

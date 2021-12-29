@@ -4,12 +4,11 @@ import { Link, Redirect, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { login } from '../../services/actions/auth/login';
-import { RootState } from '../../services/reducers';
 
 export default function Login(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({
         email: '',
