@@ -1,6 +1,6 @@
 import styles from './burger-constructor.module.css';
 import React from 'react';
-import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { useDrop } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -59,7 +59,7 @@ export default function BurgerConstructor(): JSX.Element {
 
   return (
     <section className={`${styles.main} mt-25 mr-10`}>
-      
+
       <div className={`${styles.constructor} mb-4`} >
         <BurgerConstructorBun bun={bun} type='top' bunDropRef={bunDropTop}/>
 

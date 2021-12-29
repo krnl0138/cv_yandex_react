@@ -1,4 +1,4 @@
-import { BurgerIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { ConnectDropTarget } from 'react-dnd';
 import { TIngredient } from '../../../types/types';
@@ -20,7 +20,7 @@ export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstruct
                     type={type}
                     isLocked={true}
                     text=''
-                    thumbnail={plug}
+                    thumbnail={plug} // cannot be removed due to library TS type
                     price={0}
                 />
             </div>

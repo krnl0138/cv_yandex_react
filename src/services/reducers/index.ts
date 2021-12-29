@@ -21,13 +21,13 @@ import { TIngredientsActions } from '../actions/ingredients';
 import { TIngredientDetailsActions } from '../actions/ingredient-details';
 import { TModalsActions } from '../actions/modals';
 import { TOrderDetailsActions } from '../actions/order-details';
-import { TSocketActions } from '../actions/socket';
+import { TWsActions, wsActions } from '../actions/socket';
 import { TUserActions } from '../actions/user';
 import { TAuthActions } from '../actions/auth/index';
 
 import logger from 'redux-logger';
 
-const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware()));
+const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware(wsActions)));
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -43,14 +43,14 @@ const rootReducer = combineReducers({
 export const store = createStore(rootReducer, enhancer);
 export type RootState = ReturnType<typeof rootReducer>
 
-type TApplicationActions = 
+export type TApplicationActions = 
   TCartActions | 
   TForgotPasswordActions | 
   TIngredientsActions |
   TIngredientDetailsActions |
   TModalsActions |
   TOrderDetailsActions |
-  TSocketActions |
+  TWsActions |
   TUserActions |
   TAuthActions;
 
