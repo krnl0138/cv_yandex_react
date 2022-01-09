@@ -1,11 +1,10 @@
+@import '../../styles/mixins.scss';
+
 .modal {
     min-height: 300px;
     width: 720px;
     max-width: 100%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include centerItem;
 
     padding: 50px 0;
 
