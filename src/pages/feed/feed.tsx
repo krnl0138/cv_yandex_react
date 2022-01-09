@@ -21,7 +21,9 @@ export default function Feed(): JSX.Element {
     const [orders, setOrders] = useState<Array<TOrder>>([]);
     const [total, setTotal] = useState(0);
     const [totalToday, setTotalToday] = useState(0);
-
+    const [doneOrders, setDoneNumbers] = useState<Array<JSX.Element[]>>([]);
+    const [processOrders, setProcessNumbers] = useState<Array<JSX.Element[]>>([]);
+    
     useEffect(() => {
         dispatch({ type: WS_CONNECTION_START, wsUrl: WS_ALL_ORDERS_URL });
         return () => { dispatch({ type: WS_CONNECTION_CLOSED }) }
@@ -43,10 +45,8 @@ export default function Feed(): JSX.Element {
     }
 
     // Handling order numbers
-    const [doneOrders, setDoneNumbers] = useState<Array<JSX.Element[]>>([]);
-    const [processOrders, setProcessNumbers] = useState<Array<JSX.Element[]>>([]);
 
-    const getOrdersByOrderNumbers = useCallback((orderNumbers: Array<string>): JSX.Element[][] => {
+    const getJSXMarkup = useCallback((orderNumbers: Array<string>): JSX.Element[][] => {
         const CHUNK_SIZE = 10;
         let orderNumbersChunk: Array<string>;
         const jsxMarkup: JSX.Element[][] = []
@@ -72,19 +72,20 @@ export default function Feed(): JSX.Element {
 
         const handleOrderNumbers = (s: string, fn: (content: JSX.Element[][]) => void) => {
             const orderNumbersByStatus = orders.filter(o => o.status === s).map(o => o.number);
-            const jsxMarkup = getOrdersByOrderNumbers(orderNumbersByStatus);
+            const jsxMarkup = getJSXMarkup(orderNumbersByStatus);
             fn([...jsxMarkup]);
         }
 
         handleOrderNumbers('done', setDoneNumbers);
         handleOrderNumbers('process', setProcessNumbers);
-    }, [orders, getOrdersByOrderNumbers]);
+    }, [orders, getJSXMarkup]);
 
     return (
         !orders
             ? (<Loader />)
             : (
                 <div className={styles.main}>
+
                     <div className={styles.left}>
                         <div className={styles.orders}>
                             <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
@@ -108,8 +109,8 @@ export default function Feed(): JSX.Element {
                                 <FeedOrderNumbers status="pending" ordersMarkup={processOrders} />
                             </div>
 
-                            <FeedDoneNumbers period={"allTime"} quantity={total} />
-                            <FeedDoneNumbers period={"today"} quantity={totalToday} />
+                            <FeedOrderNumbersOverall period={"allTime"} quantity={total} />
+                            <FeedOrderNumbersOverall period={"today"} quantity={totalToday} />
                         </div>
 
                     </div>
