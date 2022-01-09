@@ -1,3 +1,4 @@
+import styles from './burger-constructor-bun.module.css';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { ConnectDropTarget } from 'react-dnd';
@@ -18,9 +19,7 @@ export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstruct
                     type={type}
                     isLocked={true}
                     text=''
-                    // thumbnail='https://horizondatasys.com/wp-content/uploads/2018/01/Dark-Gray-Square.png' // cannot be removed due to TS type
-                    thumbnail='https://cdn-icons-png.flaticon.com/128/1/1601.png' // cannot be removed due to TS type
-                    // thumbnail='https://www.fredsmithxmastrees.com/wp-content/uploads/2017/04/Square-500x500-dark-grey.png' // cannot be removed due to TS type
+                    thumbnail='https://cdn-icons-png.flaticon.com/128/1/1601.png' // ? cannot be removed due to TS type
                     price={0}
                 />
             </div>
@@ -28,7 +27,7 @@ export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstruct
     }
 
     return (
-        <div ref={bunDropRef} className='ml-8 mr-8' >
+        <div ref={bunDropRef} className={styles.bun} >
             <ConstructorElement
                 type={type}
                 isLocked={true}
