@@ -1,5 +1,5 @@
 import Loader from '../../../components/loader/loader';
-import styles from './feed-order-numbers.module.css';
+import styles from './feed-order-numbers.module.scss';
 import React from 'react';
 
 

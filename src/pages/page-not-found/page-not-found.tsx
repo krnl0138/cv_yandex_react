@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './page-not-found.module.css';
+import styles from './page-not-found.module.scss';
 
 export default function PageNotFound(): JSX.Element {
 

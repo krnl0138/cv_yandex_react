@@ -1,4 +1,4 @@
-import styles from './register.module.css';
+import styles from './register.module.scss';
 import { useState } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';

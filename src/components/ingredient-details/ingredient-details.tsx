@@ -1,4 +1,4 @@
-import styles from './ingredient-details.module.css';
+import styles from './ingredient-details.module.scss';
 import { useSelector } from '../../types/hooks';
 import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';

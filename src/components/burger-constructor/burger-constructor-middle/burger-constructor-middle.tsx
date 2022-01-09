@@ -1,4 +1,4 @@
-import styles from './burger-constructor-middle.module.css'
+import styles from './burger-constructor-middle.module.scss'
 import React from 'react';
 import { TIngredient } from '../../../types/types';
 import { useDrag, useDrop } from 'react-dnd';

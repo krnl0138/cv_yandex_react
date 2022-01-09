@@ -1,4 +1,4 @@
-import styles from './profile.module.css';
+import styles from './profile.module.scss';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';

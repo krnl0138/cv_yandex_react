@@ -6,18 +6,20 @@
     display: flex;
     justify-content: space-evenly; 
 }
+
 .ingredients {
     overflow-y: scroll;
     height: 60vh;
     text-align: center;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        background-color: #2f2f37;
+      }
+    &::-webkit-scrollbar-thumb {
+        background-color: #545AA7;
+      }
 }
-.ingredients::-webkit-scrollbar {
-    width: 8px;
-    background-color: #2f2f37;
-  }
-.ingredients::-webkit-scrollbar-thumb {
-    background-color: #545AA7;
-  }
 
 .ingredientsTab {
   display: flex;

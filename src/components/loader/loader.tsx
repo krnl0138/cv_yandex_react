@@ -1,4 +1,4 @@
-import styles from './loader.module.css'
+import styles from './loader.module.scss'
 import React from 'react';
 
 export default function Loader(): JSX.Element {

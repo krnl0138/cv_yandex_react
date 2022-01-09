@@ -1,4 +1,4 @@
-import styles from './order-details.module.css';
+import styles from './order-details.module.scss';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components'

@@ -1,4 +1,4 @@
-import styles from './burger-ingredients.module.css';
+import styles from './burger-ingredients.module.scss';
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { useHistory, useLocation } from 'react-router-dom';

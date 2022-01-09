@@ -1,4 +1,4 @@
-import styles from './profile-orders.module.css';
+import styles from './profile-orders.module.scss';
 import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation, Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';

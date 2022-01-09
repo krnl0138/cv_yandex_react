@@ -1,4 +1,4 @@
-import styles from './feed.module.css';
+import styles from './feed.module.scss';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import React, { useCallback, useEffect, useState } from 'react';

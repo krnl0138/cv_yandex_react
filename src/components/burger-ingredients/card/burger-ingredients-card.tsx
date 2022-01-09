@@ -1,4 +1,4 @@
-import styles from './burger-ingredients-card.module.css';
+import styles from './burger-ingredients-card.module.scss';
 import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../../types/hooks';

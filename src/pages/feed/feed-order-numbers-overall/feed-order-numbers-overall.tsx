@@ -1,4 +1,4 @@
-import styles from './feed-order-numbers-overall.module.css'
+import styles from './feed-order-numbers-overall.module.scss'
 import React from 'react';
 
 interface IFeedOrderNumbersOverall {

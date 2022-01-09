@@ -1,4 +1,4 @@
-import styles from './burger-constructor-bun.module.css';
+import styles from './burger-constructor-bun.module.scss';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import { ConnectDropTarget } from 'react-dnd';

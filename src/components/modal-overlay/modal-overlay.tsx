@@ -1,4 +1,4 @@
-import styles from './modal-overlay.module.css'
+import styles from './modal-overlay.module.scss'
 import React from 'react';
 
 interface IModalOverlay {

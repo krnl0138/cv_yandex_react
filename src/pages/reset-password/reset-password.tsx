@@ -1,5 +1,5 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './reset-password.module.css';
+import styles from './reset-password.module.scss';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import React, { useState } from 'react';

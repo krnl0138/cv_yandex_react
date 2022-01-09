@@ -1,5 +1,5 @@
 
-import styles from './routes.module.css';
+import styles from './routes.module.scss';
 
 import React, { useEffect } from 'react';
 import { DndProvider } from "react-dnd";

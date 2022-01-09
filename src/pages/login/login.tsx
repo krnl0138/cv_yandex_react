@@ -1,4 +1,4 @@
-import styles from './login.module.css';
+import styles from './login.module.scss';
 import { Button, Input, PasswordInput, } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';

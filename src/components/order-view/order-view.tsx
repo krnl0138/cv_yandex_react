@@ -1,4 +1,4 @@
-import styles from './order-view.module.css';
+import styles from './order-view.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';

@@ -1,4 +1,4 @@
-import styles from './burger-constructor.module.css';
+import styles from './burger-constructor.module.scss';
 import React from 'react';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from '../../types/hooks';
