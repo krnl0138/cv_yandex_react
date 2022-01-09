@@ -8,6 +8,8 @@ import OrderElement from '../../components/order-element/order-element';
 import { TOrder } from '../../types/types';
 import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
+import { FeedOrderNumbersOverall } from './feed-order-numbers-overall/feed-order-numbers-overall';
+import { FeedOrderNumbers } from './feed-order-numbers/feed-order-numbers';
 
 export default function Feed(): JSX.Element {
     const history = useHistory();
@@ -22,7 +24,7 @@ export default function Feed(): JSX.Element {
 
     useEffect(() => {
         dispatch({ type: WS_CONNECTION_START, wsUrl: WS_ALL_ORDERS_URL });
-        return () => {dispatch({ type: WS_CONNECTION_CLOSED })}
+        return () => { dispatch({ type: WS_CONNECTION_CLOSED }) }
     }, [dispatch]);
 
     useEffect(() => {
@@ -73,96 +75,45 @@ export default function Feed(): JSX.Element {
             const jsxMarkup = getOrdersByOrderNumbers(orderNumbersByStatus);
             fn([...jsxMarkup]);
         }
-        
+
         handleOrderNumbers('done', setDoneNumbers);
         handleOrderNumbers('process', setProcessNumbers);
     }, [orders, getOrdersByOrderNumbers]);
-    
+
     return (
-        !orders 
-        ? (<Loader />)
-        : (
-            <div className={styles.main}>
-                <div className={styles.left}>
-                    <div className={styles.orders}>
-                        <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
-                        {orders.slice(0, ORDERS_TO_DISPLAY).map((order, index) => {
-                            return (
-                                <OrderElement
-                                    key={index}
-                                    onClick={() => onClick(order)}
-                                    order={order}
-                                    from='feed' 
-                                />
-                            )
-                        })}
-                    </div>
-                </div>
-
-                <div className={styles.right}>
-                    <div className={styles.stats}>
-                        <div className={styles.ordersStats}>
-
-                            <div className={styles.ordersReady}>
-                                <p className="text text_type_main-medium mb-5">Готовы:</p>
-
-                                <div className={styles.wrapper}>
-                                    {(doneOrders.length > 0)
-                                        ? (
-                                            doneOrders.map((column, ind) => {
-                                                return (
-                                                    <div key={ind} className='mr-3'>
-                                                        {column}
-                                                    </div>
-                                                )
-                                            })
-                                        )
-                                        : (<Loader />)
-                                    }
-                                </div>
-                            </div>
-
-                            <div className={styles.ordersPrep}>
-                                <p className="text text_type_main-medium mb-5">В работе:</p>
-
-                                <div className={styles.wrapper}>
-
-                                    {(processOrders.length > 0)
-                                        ? (
-                                            processOrders.map((column, ind) => {
-                                                return (
-                                                    <div key={ind} className='mr-3'>
-                                                        {column}
-                                                    </div>
-                                                )
-                                            })
-                                        )
-                                        : (
-                                            // Populate fake data if no orders with status 'pending'
-                                            <div>
-                                                <p key='1' className='text text_type_digits-default'>034523</p>
-                                                <p key='2' className='text text_type_digits-default'>034524</p>
-                                                <p key='3' className='text text_type_digits-default'>034525</p>
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={styles.ordersAllTime}>
-                            <p className="text text_type_main-medium mb-3">Выполнено за все время:</p>
-                            <p className={`${styles.ordersAllTimeNumber} text text_type_digits-large`}>{total}</p>
-                        </div>
-
-                        <div className={styles.ordersToday}>
-                            <p className="text text_type_main-medium mb-3">Выполнено за сегодня:</p>
-                            <p className={`${styles.ordersTodayNumber} text text_type_digits-large`}>{totalToday}</p>
+        !orders
+            ? (<Loader />)
+            : (
+                <div className={styles.main}>
+                    <div className={styles.left}>
+                        <div className={styles.orders}>
+                            <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
+                            {orders.slice(0, ORDERS_TO_DISPLAY).map((order, index) => {
+                                return (
+                                    <OrderElement
+                                        key={index}
+                                        onClick={() => onClick(order)}
+                                        order={order}
+                                        from='feed'
+                                    />
+                                )
+                            })}
                         </div>
                     </div>
 
+                    <div className={styles.right}>
+                        <div className={styles.stats}>
+                            <div className={styles.ordersStats}>
+                                <FeedOrderNumbers status="done" ordersMarkup={doneOrders} />
+                                <FeedOrderNumbers status="pending" ordersMarkup={processOrders} />
+                            </div>
+
+                            <FeedDoneNumbers period={"allTime"} quantity={total} />
+                            <FeedDoneNumbers period={"today"} quantity={totalToday} />
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        ) 
+            )
     )
 }

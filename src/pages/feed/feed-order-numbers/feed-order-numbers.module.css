@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    /* columns: 2 auto; */
+}
+
+.ordersReady {
+    padding: 50px;
+    margin-right: 100px;
+}
+
+.ordersPrep {
+    padding: 50px;
+}
