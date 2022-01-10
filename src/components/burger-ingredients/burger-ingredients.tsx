@@ -68,15 +68,15 @@ export default function BurgerIngredients(): JSX.Element {
                     <Tab value="main" active={current === 'main'} onClick={handleScroll}>Начинки</Tab>
                 </div>
 
-                <div className={styles.ingredients} onScroll={handleActiveTab} >
+                <div className={styles.ingredientsTabs} onScroll={handleActiveTab} >
                     <p className='text text_type_main-medium mb-5' ref={refBun} >Булки</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('bun')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('bun')} </div>
 
                     <p className='text text_type_main-medium mb-5 mt-10' ref={refSauce} >Соусы</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('sauce')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('sauce')} </div>
 
                     <p className='text text_type_main-medium mb-5 mt-10' ref={refMain} >Начинка</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('main')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('main')} </div>
                 </div>
 
             </section>

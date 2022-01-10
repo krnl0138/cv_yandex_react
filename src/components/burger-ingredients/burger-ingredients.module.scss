@@ -9,18 +9,19 @@
     justify-content: space-evenly; 
 }
 
-.ingredients {
+.ingredientsTabs {
     overflow-y: scroll;
     height: 60vh;
     text-align: center;
 
     @include sidebar;
+    
+    &Element {
+      display: flex;
+      flex-wrap: wrap;
+    }
 }
 
-.ingredientsTab {
-  display: flex;
-  flex-wrap: wrap;
-}
 
 @media (max-width: 1400px) { 
   .ingredientsTypeBar {
