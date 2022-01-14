@@ -1,11 +1,10 @@
 export function setCookie(
   name: string,
   value: string | number | boolean,
-  props?: { 
-    expires?: string | number | Date; 
-    [propName: string]: unknown; 
-  }
-): void {
+  props?: {
+    expires?: string | number | Date;
+    [propName: string]: any;
+  }): void {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {

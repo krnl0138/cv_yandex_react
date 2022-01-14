@@ -23,5 +23,5 @@
   "include": [
     "src",
     "declarations"
-  ]
+, "setupTests.ts"  ]
 }
