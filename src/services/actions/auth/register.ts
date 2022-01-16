@@ -5,9 +5,9 @@ import { TFormData } from "../../../types/types";
 import { REGISTER_POST_URL } from "../../../utils/api-urls";
 import { USER_SET_CREDENTIALS } from "../user";
 
-export const REGISTER_REQUEST: 'REGISTER_REQUEST' = 'REGISTER_REQUEST';
-export const REGISTER_REQUEST_SUCCESS: 'REGISTER_REQUEST_SUCCESS' = 'REGISTER_REQUEST_SUCCESS';
-export const REGISTER_REQUEST_FAILED: 'REGISTER_REQUEST_FAILED' = 'REGISTER_REQUEST_FAILED';
+export const REGISTER_REQUEST = 'REGISTER_REQUEST' as const;
+export const REGISTER_REQUEST_SUCCESS = 'REGISTER_REQUEST_SUCCESS' as const;
+export const REGISTER_REQUEST_FAILED = 'REGISTER_REQUEST_FAILED' as const;
 
 interface IRegisterRequest {
     readonly type: typeof REGISTER_REQUEST;

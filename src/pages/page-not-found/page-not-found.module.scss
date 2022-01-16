@@ -1,0 +1,7 @@
+@import "../../styles/mixins.scss";
+
+.main {
+    @include centerItem;
+
+    text-align: center;
+}

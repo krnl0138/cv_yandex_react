@@ -1,6 +1,6 @@
-import styles from './order-view.module.css';
+import styles from './order-view.module.scss';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 
 import { useLocation } from 'react-router-dom';
@@ -12,17 +12,16 @@ import 'moment/locale/ru';
 import { getOrder } from '../../services/actions/order-details';
 
 import { TIngredient, TOrder } from '../../types/types';
-import { RootState } from '../../services/reducers';
 
 interface IOrderViewProps {
     order?: TOrder;
     modal?: boolean;
 }
 
-export default function OrderView({ order, modal }: IOrderViewProps) {
+export default function OrderView({ order, modal }: IOrderViewProps): JSX.Element {
     const location = useLocation();
     const dispatch = useDispatch();
-    const { ingredientsData } = useSelector((store: RootState) => store.ingredients);
+    const { ingredientsData } = useSelector(store => store.ingredients);
     const [ingredientsInOrder, setIngredientsInOrder] = useState<Array<TIngredient>>([]);
     const [resultedOrder, setResultedOrder] = useState<TOrder>();
     const [doneWithIngredients, setDoneWithIngredients] = useState(false);
@@ -49,7 +48,7 @@ export default function OrderView({ order, modal }: IOrderViewProps) {
     }, [])
 
     //  if there is NO 'order' prop it stores a value from 'dispatch(getOrder(orderNumber))' call
-    const orderIfNoProps = useSelector((store: RootState) => store.orderDetails.order) as TOrder;
+    const orderIfNoProps = useSelector(store => store.orderDetails.order) as TOrder;
 
     const matchIngredientsFromOrder = useCallback((order: TOrder) => {
         const matchedIngs: Array<TIngredient> = [];

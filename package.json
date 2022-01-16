@@ -2,16 +2,17 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.20.17",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
     "@types/redux-logger": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
     "immutability-helper": "^3.1.1",
     "moment": "^2.29.1",
@@ -25,14 +26,20 @@
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.47.0",
     "typescript": "^4.3.5",
+    "typescript-eslint": "^0.0.1-alpha.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress open",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "deploy-script": "npm run build && scp -r ./build/* krnl0138@51.250.6.141:/home/krnl0138/stellar-frontend" 
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +60,22 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.2",
     "@types/react-router-dom": "^5.3.2",
-    "redux-devtools-extension": "^2.13.9"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "css-modules": "^0.3.0",
+    "cypress": "^9.2.1",
+    "enzyme": "^3.11.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "fetch-mock": "^9.11.0",
+    "gh-pages": "^3.2.3",
+    "react-test-renderer": "^17.0.2",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-mock-store": "^1.5.4"
   }
 }

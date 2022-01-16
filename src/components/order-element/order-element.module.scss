@@ -29,22 +29,24 @@
     margin-left: -40px;
 }
 
-.ing:not(:last-child) {
-    margin-right: -100px;
-
-}
-
-.ing::before {
-    content: "";
-    position: absolute;
-    height:60px;
-    width:60px;
-    border-radius: 50%;
-    background-color: #000;
-    margin-left: 40px;
-    margin-top: 3px;
-
-    border: 2px solid rgb(163, 40, 219);
+.ing {
+    &:not(:last-child) {
+        margin-right: -100px;
+    
+    }
+    
+    &::before {
+        content: "";
+        position: absolute;
+        height:60px;
+        width:60px;
+        border-radius: 50%;
+        background-color: #000;
+        margin-left: 40px;
+        margin-top: 3px;
+    
+        border: 2px solid rgb(163, 40, 219);
+    }
 }
 
 .iconNumber {

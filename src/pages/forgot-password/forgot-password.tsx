@@ -1,15 +1,15 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './forgot-password.module.css';
-import { useState } from 'react';
+import styles from './forgot-password.module.scss';
+import React, { useState } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { forgotPassword } from '../../services/actions/auth/password';
-import { RootState } from '../../services/reducers';
+import { PASSWORD_FORGOT } from '../../services/actions/forgot-password';
 
-export default function ForgotPassword() {
+export default function ForgotPassword(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({ email: '' });
 
@@ -21,7 +21,7 @@ export default function ForgotPassword() {
 
     const onFormSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        dispatch({ type: 'PASSWORD_FORGOT' });
+        dispatch({ type: PASSWORD_FORGOT });
         dispatch(forgotPassword(form));
         history.replace({ pathname: '/reset-password' });
     }

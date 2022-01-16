@@ -1,8 +1,9 @@
-import styles from './app-header.module.css';
+import styles from './app-header.module.scss';
+import React from 'react';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, NavLink } from 'react-router-dom';
 
-export default function AppHeader() {
+export default function AppHeader(): JSX.Element {
 
     return (
         <header className={`${styles.header}
@@ -14,7 +15,7 @@ export default function AppHeader() {
                 <NavLink
                     exact to={{pathname: '/',}}
                     activeClassName={styles.activeLink}
-                    className={`${styles.nav_element} ${styles.push_left} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
+                    className={`${styles.nav_element} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
                 >
                     <BurgerIcon type="secondary" />
                     <p className={`${styles.app_header_button} ml-2`}>Конструктор</p>
@@ -23,7 +24,7 @@ export default function AppHeader() {
                 <NavLink
                     exact to={{pathname: '/feed',}}
                     activeClassName={styles.activeLink}
-                    className={`${styles.nav_element} ${styles.push_left} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
+                    className={`${styles.nav_element} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
                 >
                     <ListIcon type="secondary" />
                     <p className={`${styles.app_header_button} ml-2`}>Лента заказов</p>

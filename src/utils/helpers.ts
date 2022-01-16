@@ -2,14 +2,14 @@ import { TOKEN_REFRESH_POST_URL } from './api-urls';
 import { setCookie, getCookie } from './cookies';
 import { TRequestOptions } from '../types/types';
 
-export const checkResponse = (res: Response) => {
+export const checkResponse = (res: Response): Promise<any> => {
     if (res.ok) {
         return res.json();
     }
     return Promise.reject(`Error ${res.status}`);
 }
 
-export const refreshToken = async () => {
+export const refreshToken = async (): Promise<void> => {
     const token = localStorage.getItem('refreshToken');
 
     const options = {
@@ -23,7 +23,6 @@ export const refreshToken = async () => {
     try {
         const res = await fetch(TOKEN_REFRESH_POST_URL, options);
         const data = await checkResponse(res);
-        console.log(data);
         setCookie('accessToken', data.accessToken.split('Bearer ')[1]);
         localStorage.setItem('refreshToken', data.refreshToken);
     } catch (e) {
@@ -31,7 +30,7 @@ export const refreshToken = async () => {
     }
 }
 
-export const fetchWithRefresh = async (url: string, options: TRequestOptions) => {
+export const fetchWithRefresh = async (url: string, options: TRequestOptions): Promise<any> => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);

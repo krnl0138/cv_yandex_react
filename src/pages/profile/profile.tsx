@@ -1,15 +1,14 @@
-import styles from './profile.module.css';
+import styles from './profile.module.scss';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { patchUserData } from '../../services/actions/auth/user-data';
 import { logout } from '../../services/actions/auth/logout';
-import { RootState } from '../../services/reducers';
 
-export default function Profile() {
+export default function Profile(): JSX.Element {
     const dispatch = useDispatch();
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
     const [form, setForm] = useState({ username: user.username, email: user.email, password: '' });
     const mainRef = useRef<HTMLDivElement>(null);
     const [isFormClicked, setFormClicked] = useState(false);
@@ -35,7 +34,7 @@ export default function Profile() {
         return () => { document.removeEventListener('mousedown', handleClick) }
     }, []);
 
-    const onClick = (e: React.MouseEvent) => {
+    const onClick = () => {
         setFormClicked(true);
     };
 
@@ -45,11 +44,11 @@ export default function Profile() {
         setForm(prev => ({ ...prev, [formName]: formValue }))
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onFormSubmit = (e: React.SyntheticEvent & any) => { // ? how to add submitter field to the SyntheticEvent type
         console.log(e); 
         e.preventDefault();
         if (e.nativeEvent.submitter.outerText === 'Отмена') {
-            console.log('!!!!!!!!!!!!!!!!!!!!!!!!')
             resetProfileFormValue();
         }
         if (e.nativeEvent.submitter.outerText === 'Сохранить') {

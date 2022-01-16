@@ -1,0 +1,17 @@
+@import '../../../styles/mixins.scss';
+
+.ordersAllTime {
+    padding: 20px 50px 20px;
+}
+
+.ordersAllTimeNumber {
+    @include textShadow;
+}
+
+.ordersToday {
+    padding: 50px;
+}
+
+.ordersTodayNumber {
+    @include textShadow;
+}

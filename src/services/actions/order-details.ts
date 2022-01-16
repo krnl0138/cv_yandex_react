@@ -7,13 +7,13 @@ import { checkResponse } from '../../utils/helpers';
 import { TIngredientsIDs, TOrder } from '../../types/types';
 import { AppDispatch, AppThunk } from '../reducers';
 
-export const POST_ORDER_REQUEST: 'POST_ORDER_REQUEST' = "POST_ORDER_REQUEST";
-export const POST_ORDER_SUCCESS: 'POST_ORDER_SUCCESS' = "POST_ORDER_SUCCESS";
-export const POST_ORDER_FAILED: 'POST_ORDER_FAILED' = "POST_ORDER_FAILED";
-export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = "GET_ORDER_REQUEST";
-export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = "GET_ORDER_SUCCESS";
-export const GET_ORDER_FAILED: 'GET_ORDER_FAILED' = "GET_ORDER_FAILED";
-export const RESET_ORDER_NUMBER: 'RESET_ORDER_NUMBER' = 'RESET_ORDER_NUMBER';
+export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST' as const;
+export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS' as const;
+export const POST_ORDER_FAILED = 'POST_ORDER_FAILED' as const;
+export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST' as const;
+export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS' as const;
+export const GET_ORDER_FAILED = 'GET_ORDER_FAILED' as const ;
+export const RESET_ORDER_NUMBER = 'RESET_ORDER_NUMBER' as const;
 
 export interface IPostOrderRequest {
   readonly type: typeof POST_ORDER_REQUEST;

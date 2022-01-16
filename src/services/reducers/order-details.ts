@@ -16,7 +16,7 @@ interface IState {
   orderNumber: null | number;
   isLoading: boolean;
   hasError: boolean;
-  order: TOrder | {};
+  order: TOrder | Record<string, never>;
 }
 
 const initialState: IState = {

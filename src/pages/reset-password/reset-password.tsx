@@ -1,19 +1,18 @@
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './reset-password.module.css';
+import styles from './reset-password.module.scss';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PASSWORD_FORGOT_RESTORE } from '../../services/actions/forgot-password';
 import { resetPassword } from '../../services/actions/auth/password';
-import { RootState } from '../../services/reducers';
 
-export default function ResetPassword() {
+export default function ResetPassword(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
-    const isPasswordForgotten = useSelector((store: RootState) => store.forgotPassword.isPasswordForgotten);
+    const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
 
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({ password: '', token: '' });
 

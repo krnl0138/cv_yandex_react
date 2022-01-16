@@ -17,9 +17,10 @@
     text-decoration: none;
     margin: 16px 0;
     color: #F2F2F3;
-}
-.navChild:visited {
-    color: #8585AD;
+
+    &:visited {
+        color: #8585AD;
+    }
 }
 
 .navParagraph {
@@ -29,9 +30,10 @@
 
 .activeLink {
     color: #F2F2F3;
-}
-.activeLink:visited {
-    color: #F2F2F3;
+    
+    &:visited {
+        color: #F2F2F3;
+    }
 }
 
 .form {

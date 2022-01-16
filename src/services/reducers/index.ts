@@ -21,13 +21,13 @@ import { TIngredientsActions } from '../actions/ingredients';
 import { TIngredientDetailsActions } from '../actions/ingredient-details';
 import { TModalsActions } from '../actions/modals';
 import { TOrderDetailsActions } from '../actions/order-details';
-import { TSocketActions } from '../actions/socket';
+import { TWsActions, wsActions } from '../actions/socket';
 import { TUserActions } from '../actions/user';
 import { TAuthActions } from '../actions/auth/index';
 
 import logger from 'redux-logger';
 
-const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware()));
+const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware(wsActions)));
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -43,22 +43,21 @@ const rootReducer = combineReducers({
 export const store = createStore(rootReducer, enhancer);
 export type RootState = ReturnType<typeof rootReducer>
 
-// Типизация всех экшенов приложения
-type TApplicationActions = 
+export type TApplicationActions = 
   TCartActions | 
   TForgotPasswordActions | 
   TIngredientsActions |
   TIngredientDetailsActions |
   TModalsActions |
   TOrderDetailsActions |
-  TSocketActions |
+  TWsActions |
   TUserActions |
   TAuthActions;
 
-// Типизация thunk'ов в нашем приложении
+// Typed thunks
 export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >;
 
-// Типизация метода dispatch для проверки на валидность отправляемого экшена
+// Typed dispatch
 export type AppDispatch = Dispatch<TApplicationActions>

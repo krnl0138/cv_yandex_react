@@ -26,16 +26,17 @@
 
     margin-top: 5vh;
     margin-left: auto;
+    
+    &::-webkit-scrollbar {
+        width: 10px;
+        background-color: #2f2f37;
+        margin-left: 20px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #6b70aa;
+    }
 }
 
-.right::-webkit-scrollbar {
-    width: 10px;
-    background-color: #2f2f37;
-    margin-left: 20px;
-  }
-.right::-webkit-scrollbar-thumb {
-    background-color: #6b70aa;
-  }
 
 .nav {
     display: flex;
@@ -48,9 +49,10 @@
     text-decoration: none;
     margin: 16px 0;
     color: #F2F2F3;
-}
-.navChild:visited {
-    color: #8585AD;
+
+    &:visited {
+        color: #8585AD;
+    }
 }
 
 .navParagraph {
@@ -62,7 +64,8 @@
 
 .activeLink {
     color: #F2F2F3;
-}
-.activeLink:visited {
-    color: #F2F2F3;
+    
+    &:visited {
+        color: #F2F2F3;
+    }
 }

@@ -1,15 +1,14 @@
-import styles from './login.module.css';
+import styles from './login.module.scss';
 import { Button, Input, PasswordInput, } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { login } from '../../services/actions/auth/login';
-import { RootState } from '../../services/reducers';
 
-export default function Login() {
+export default function Login(): JSX.Element {
     const history = useHistory();
     const dispatch = useDispatch();
-    const user = useSelector((store: RootState) => store.user);
+    const user = useSelector(store => store.user);
 
     const [form, setForm] = useState({
         email: '',
@@ -75,7 +74,7 @@ export default function Login() {
             </form>
 
             <p className="text text_type_main-default text_color_inactive">
-                Вы — новый пользователь? <Link to={{ pathname: '/register' }}>Зарегистрироваться</Link>
+                Вы — новый пользователь? <Link to={{ pathname: '/register' }}>Зарегистрироваться</Link>
             </p>
 
             <p className="text text_type_main-default text_color_inactive">

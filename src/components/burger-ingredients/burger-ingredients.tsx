@@ -1,19 +1,20 @@
-import styles from './burger-ingredients.module.css';
+import styles from './burger-ingredients.module.scss';
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from './card/burger-ingredients-card';
 import Loader from '../loader/loader';
-import { RootState } from '../../services/reducers';
+import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
+import { VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 
-export default function BurgerIngredients() {
+export default function BurgerIngredients(): JSX.Element {
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation();
 
-    const { ingredientsData, isLoading } = useSelector((store: RootState)=> store.ingredients);
+    const { ingredientsData, isLoading } = useSelector(store=> store.ingredients);
 
     const refBun = useRef<HTMLParagraphElement>(null);
     const refSauce = useRef<HTMLParagraphElement>(null);
@@ -44,8 +45,8 @@ export default function BurgerIngredients() {
             .filter(ingredient => ingredient.type === type)
             .map((ingredient, index) => {
                 const openDetails = () => {
-                    dispatch({ type: 'SET_ACTIVE_INGREDIENT', activeIngredient: ingredient })
-                    dispatch({ type: 'VISIBLE_INGREDIENT_DETAILS', value: true })
+                    dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
+                    dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: true })
                     history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                 }
 
@@ -67,15 +68,15 @@ export default function BurgerIngredients() {
                     <Tab value="main" active={current === 'main'} onClick={handleScroll}>Начинки</Tab>
                 </div>
 
-                <div className={styles.ingredients} onScroll={handleActiveTab} >
+                <div className={styles.ingredientsTabs} onScroll={handleActiveTab} >
                     <p className='text text_type_main-medium mb-5' ref={refBun} >Булки</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('bun')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('bun')} </div>
 
                     <p className='text text_type_main-medium mb-5 mt-10' ref={refSauce} >Соусы</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('sauce')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('sauce')} </div>
 
                     <p className='text text_type_main-medium mb-5 mt-10' ref={refMain} >Начинка</p>
-                    <div className={styles.ingredientsTab} > {ingredientsList('main')} </div>
+                    <div className={styles.ingredientsTabsElement} > {ingredientsList('main')} </div>
                 </div>
 
             </section>

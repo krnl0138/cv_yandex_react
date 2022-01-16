@@ -1,5 +1,5 @@
-import styles from './profile-orders.module.css';
-import { useState, useCallback, useEffect } from 'react';
+import styles from './profile-orders.module.scss';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useHistory, useLocation, Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
 import { logout } from '../../services/actions/auth/logout';
@@ -7,17 +7,16 @@ import { WS_USER_ORDERS_URL } from '../../utils/api-urls';
 
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
-import { RootState } from '../../services/reducers';
 import { TOrder } from '../../types/types';
 import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
-export default function ProfileOrders() {
+export default function ProfileOrders(): JSX.Element {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const messages = useSelector((store: RootState) => store.ws.messages);
+    const messages = useSelector(store => store.ws.messages);
     const [orders, setOrders] = useState<Array<TOrder>>([]);
 
     useEffect(() => {
@@ -40,7 +39,7 @@ export default function ProfileOrders() {
         dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
     }
 
-    const onClickLogout = useCallback((e) => {
+    const onClickLogout = useCallback(() => {
         dispatch(logout());
     }, [dispatch]);
 
