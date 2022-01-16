@@ -1,0 +1,84 @@
+.main {
+    margin: 10vh 35vw 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.mainModal {
+    margin: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.orderNumber {
+    text-align: center;
+}
+
+.orderIngredients {
+    overflow-y: overlay;
+    overflow-x: hidden;
+    margin-left: -30px;
+}
+
+.orderIngredients::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2f2f37;
+  }
+.orderIngredients::-webkit-scrollbar-thumb {
+    background-color: #545AA7;
+  }
+
+.orderIngredientRow {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.ingIcon {
+    transform: scale(0.8);
+}
+
+.ingIconSpan::before {
+    content: "";
+    position: absolute;
+    height:60px;
+    width:60px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin-left: 39px;
+    margin-top: 5px;
+
+    background-color: transparent;
+
+    border: 2px solid rgb(163, 40, 219);
+}
+
+.ingValue {
+    display: flex;
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+.orderValue {
+    display: flex;
+}
+
+.statusDone {
+    color: rgb(78, 180, 149);
+}
+
+.statusCancelled {
+    color: rgb(202, 47, 47);
+}
+
+.statusInProcess {
+    color: #fff;
+}
