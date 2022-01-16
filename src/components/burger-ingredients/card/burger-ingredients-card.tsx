@@ -1,6 +1,6 @@
 import styles from './burger-ingredients-card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../types/hooks';
 import { useDrag } from "react-dnd";
 import { RootState } from "../../../services/reducers";
 import { TIngredient } from '../../../types/types';

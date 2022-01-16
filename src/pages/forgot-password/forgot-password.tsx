@@ -2,8 +2,8 @@ import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-component
 import styles from './forgot-password.module.css';
 import { useState } from 'react';
 import { useHistory, Link, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword } from '../../services/actions/auth';
+import { useSelector, useDispatch } from '../../types/hooks';
+import { forgotPassword } from '../../services/actions/auth/password';
 import { RootState } from '../../services/reducers';
 
 export default function ForgotPassword() {

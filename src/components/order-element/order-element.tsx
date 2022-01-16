@@ -1,7 +1,8 @@
 import styles from './order-element.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useCallback, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../types/hooks';
+
 
 import moment from 'moment';
 import 'moment/locale/ru';

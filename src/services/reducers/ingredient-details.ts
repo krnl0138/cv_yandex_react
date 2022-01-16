@@ -1,30 +1,24 @@
-import { SET_ACTIVE_INGREDIENT } from '../actions/ingredient-details';
-
-import { TIngredient } from '../../types/types';
+import { SET_ACTIVE_INGREDIENT, TIngredientDetailsActions } from '../actions/ingredient-details';
+import type { TIngredient } from '../../types/types';
 
 interface IState {
-  activeIngredient: TIngredient;
+  readonly activeIngredient: TIngredient | null;
 }
 
-interface IAction {
-  type: 'SET_ACTIVE_INGREDIENT';
-  activeIngredient: TIngredient;
+const initialState: IState = {
+  activeIngredient: null,
 }
 
-const initialState = {
-    activeIngredient: {},
-} as IState
-
-export const ingredientDetailsReducer = (state: IState = initialState, { type, activeIngredient }: IAction) => {
-    switch (type) {
-      case SET_ACTIVE_INGREDIENT: {
-        return {
-          ...state,
-          activeIngredient: activeIngredient
-        }
-      }
-      default: {
-        return state;
+export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions): IState => {
+  switch (action.type) {
+    case SET_ACTIVE_INGREDIENT: {
+      return {
+        ...state,
+        activeIngredient: action.activeIngredient
       }
     }
+    default: {
+      return state;
+    }
   }
+}

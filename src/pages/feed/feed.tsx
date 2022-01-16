@@ -1,12 +1,14 @@
 import styles from './feed.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { useCallback, useEffect, useState } from 'react';
 import { WS_ALL_ORDERS_URL } from '../../utils/api-urls';
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
 import { RootState } from '../../services/reducers';
 import { TOrder } from '../../types/types';
+import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
 export default function Feed() {
     const history = useHistory();
@@ -20,7 +22,8 @@ export default function Feed() {
     const [totalToday, setTotalToday] = useState(0);
 
     useEffect(() => {
-        dispatch({ type: 'WS_CONNECTION_START', wsUrl: WS_ALL_ORDERS_URL });
+        dispatch({ type: WS_CONNECTION_START, wsUrl: WS_ALL_ORDERS_URL });
+        return () => {dispatch({ type: WS_CONNECTION_CLOSED })}
     }, [dispatch]);
 
     useEffect(() => {
@@ -35,7 +38,7 @@ export default function Feed() {
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/feed/${order.number}`, state: { background: location, order: order } })
-        dispatch({ type: 'VISIBLE_ORDERS_DETAILS', value: true })
+        dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
     }
 
     // Handling order numbers

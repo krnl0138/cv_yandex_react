@@ -1,8 +1,7 @@
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useEffect, useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
-import { getUserData } from '../services/actions/auth';
+import { useSelector, useDispatch } from '../types/hooks';
+import { getUserData } from '../services/actions/auth/user-data';
 import Loader from './loader/loader';
 import { RootState } from '../services/reducers';
 

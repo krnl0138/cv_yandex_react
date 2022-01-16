@@ -1,18 +1,14 @@
 import {
   VISIBLE_ORDER_DETAILS,
   VISIBLE_INGREDIENT_DETAILS,
-  VISIBLE_ORDERS_DETAILS
+  VISIBLE_ORDERS_DETAILS,
+  TModalsActions
 } from '../actions/modals';
 
 interface IState {
-  visibleOrderDetails: boolean;
-  visibleIngredientDetails: boolean;
-  visibleOrdersDetails: boolean;
-}
-
-interface IAction {
-  type: 'VISIBLE_ORDER_DETAILS' | 'VISIBLE_INGREDIENT_DETAILS' | 'VISIBLE_ORDERS_DETAILS';
-  value: boolean;
+  readonly visibleOrderDetails: boolean;
+  readonly visibleIngredientDetails: boolean;
+  readonly visibleOrdersDetails: boolean;
 }
 
 const initialState: IState = {
@@ -21,24 +17,24 @@ const initialState: IState = {
   visibleOrdersDetails: false
 }
 
-export const modalsReducer = (state: IState = initialState, { type, value }: IAction) => {
-  switch (type) {
+export const modalsReducer = (state = initialState, action: TModalsActions): IState => {
+  switch (action.type) {
     case VISIBLE_ORDER_DETAILS: {
       return {
         ...state,
-        visibleOrderDetails: value
+        visibleOrderDetails: action.value
       }
     }
     case VISIBLE_INGREDIENT_DETAILS: {
       return {
         ...state,
-        visibleIngredientDetails: value
+        visibleIngredientDetails: action.value
       }
     }
     case VISIBLE_ORDERS_DETAILS: {
       return {
         ...state,
-        visibleOrdersDetails: value
+        visibleOrdersDetails: action.value
       }
     }
     default: {

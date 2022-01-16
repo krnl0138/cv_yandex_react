@@ -1,20 +1,15 @@
 import {
   GET_INGREDIENTS_REQUEST,
-  GET_INGREDIENTS_SUCCESS,
-  GET_INGREDIENTS_ERROR
+  GET_INGREDIENTS_REQUEST_SUCCESS,
+  GET_INGREDIENTS_REQUEST_ERROR,
+  TIngredientsActions
 } from '../actions/ingredients';
-
-import { TIngredient } from '../../types/types';
+import type { TIngredient } from '../../types/types';
 
 interface IState {
-  ingredientsData: Array<TIngredient>;
-  isLoading: boolean;
-  hasError: boolean;
-}
-
-interface IAction {
-  type: 'GET_INGREDIENTS_REQUEST' | 'GET_INGREDIENTS_SUCCESS' | 'GET_INGREDIENTS_ERROR';
-  payload: Array<TIngredient>;
+  readonly ingredientsData: ReadonlyArray<TIngredient>;
+  readonly isLoading: boolean;
+  readonly hasError: boolean;
 }
 
 const initialState: IState = {
@@ -23,22 +18,22 @@ const initialState: IState = {
   hasError: false
 }
 
-export const ingredientsReducer = (state:IState = initialState, { type, payload }: IAction) => {
-  switch (type) {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): IState => {
+  switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
         isLoading: true
       }
     }
-    case GET_INGREDIENTS_SUCCESS: {
+    case GET_INGREDIENTS_REQUEST_SUCCESS: {
       return {
         ...state,
-        ingredientsData: payload,
+        ingredientsData: action.payload,
         isLoading: false
       }
     }
-    case GET_INGREDIENTS_ERROR: {
+    case GET_INGREDIENTS_REQUEST_ERROR: {
       return {
         ...state,
         isLoading: false,

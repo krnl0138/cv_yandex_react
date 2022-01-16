@@ -1,9 +1,9 @@
 import styles from './register.module.css';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { register } from '../../services/actions/auth';
+import { register } from '../../services/actions/auth/register';
 import { RootState } from '../../services/reducers';
 import React from 'react';
 

@@ -1,7 +1,8 @@
 import styles from './order-view.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useEffect, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../types/hooks';
+
 import { useLocation } from 'react-router-dom';
 import Loader from '../loader/loader';
 
