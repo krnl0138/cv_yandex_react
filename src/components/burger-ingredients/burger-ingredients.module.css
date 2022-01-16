@@ -2,15 +2,19 @@
     display: flex;
     justify-content: center; 
 }
-.galleries {
+.ingredients {
     overflow-y: scroll;
-    overflow-x: hidden;
     height: 60vh;
 }
-.galleries::-webkit-scrollbar {
+.ingredients::-webkit-scrollbar {
     width: 8px;
     background-color: #2f2f37;
   }
-.galleries::-webkit-scrollbar-thumb {
+.ingredients::-webkit-scrollbar-thumb {
     background-color: #545AA7;
   }
+
+.ingredientsTab {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -9,9 +9,9 @@
 }
 
 .left {
-    width: 50vw;
+    min-width: 50%;
 }
 
 .right {
-    width: 50vw;
+    min-width: 50%;
 }

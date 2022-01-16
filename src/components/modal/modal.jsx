@@ -5,8 +5,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export default function Modal(props) {
-    const { children, onClose } = props;
+export default function Modal({ children, onClose}) {
     const modalRoot = document.getElementById("react-modals");
 
      useEffect(() => {
@@ -18,19 +17,17 @@ export default function Modal(props) {
       return () => window.removeEventListener('keydown', closeModal)
     },[])
 
-    return (
-        ReactDOM.createPortal(
+    return ReactDOM.createPortal(
             <>
+                <ModalOverlay onClose={onClose}/>
                 <div className={styles.modal}>
                     <span onClick={onClose} className={styles.modalCloseIcon}>
                         <CloseIcon type="primary" />
                     </span>
                     {children}
                 </div>
-                <ModalOverlay onClose={onClose}/>
             </>, modalRoot
-        )
-    );
+        );
 }
 
 Modal.propTypes = {
