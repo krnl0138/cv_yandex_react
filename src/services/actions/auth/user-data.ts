@@ -47,7 +47,7 @@ export const getUserData: AppThunk = () =>
             },
         };
 
-        console.log('proceed to GET user info');
+        // console.log('proceed to GET user info');
         try {
             const data = await fetchWithRefresh(GET_USER_DATA_URL, requestOptions);
             if (data) {
@@ -74,7 +74,7 @@ export const patchUserData: AppThunk = ({ email, username, password }: TFormData
             body: JSON.stringify({ name: username, email: email, password: password })
         }
 
-        console.log('proceed to PATCH user info');
+        // console.log('proceed to PATCH user info');
         try {
             const data = await fetchWithRefresh(PATCH_USER_DATA_URL, requestOptions);
             if (data) {

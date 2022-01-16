@@ -30,7 +30,7 @@ export const logout: AppThunk = () =>
             headers: { 'Content-Type': 'application/json' }
         };
 
-        console.log('proceed to LOGOUT');
+        ('proceed to LOGOUT');
         try {
             const res = await fetch(LOGOUT_POST_URL, requestOptions);
             await checkResponse(res);

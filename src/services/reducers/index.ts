@@ -25,9 +25,10 @@ import { TWsActions, wsActions } from '../actions/socket';
 import { TUserActions } from '../actions/user';
 import { TAuthActions } from '../actions/auth/index';
 
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
-const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware(wsActions)));
+// const enhancer = composeWithDevTools(applyMiddleware(logger, thunk, socketMiddleware(wsActions)));
+const enhancer = composeWithDevTools(applyMiddleware(thunk, socketMiddleware(wsActions)));
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,

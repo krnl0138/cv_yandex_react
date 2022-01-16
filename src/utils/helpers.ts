@@ -18,7 +18,7 @@ export const refreshToken = async (): Promise<void> => {
         body: JSON.stringify({ token: token }),
     }
 
-    console.log('PROCEED TO REFRESH_TOKEN');
+    // console.log('PROCEED TO REFRESH_TOKEN');
 
     try {
         const res = await fetch(TOKEN_REFRESH_POST_URL, options);
@@ -46,7 +46,7 @@ export const fetchWithRefresh = async (url: string, options: TRequestOptions): P
     catch (err) {
         try {
             await refreshToken();
-            console.log('token has been refreshed');
+            // console.log('token has been refreshed');
             const res = await fetch(url, opts);
             return await checkResponse(res);
         }

@@ -31,7 +31,7 @@ export default function ProfileOrders(): JSX.Element {
         const parsedMessage = JSON.parse(String(lastMessage));
         setOrders(() => parsedMessage.orders);
 
-        console.log(parsedMessage.orders);
+        // console.log(parsedMessage.orders);
     }, [messages]);
 
     const onClick = (order: TOrder) => {

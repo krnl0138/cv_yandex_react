@@ -58,8 +58,6 @@ export default function Routes(): JSX.Element {
         }
     }
 
-    console.log(location);
-
     return (
         <>
             <Switch location = {background || location}>

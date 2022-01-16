@@ -43,11 +43,11 @@ export const forgotPassword: AppThunk = ({ email }: TFormData) =>
             body: JSON.stringify({ email: email })
         };
 
-        console.log('proceed to password forgot request');
+        // console.log('proceed to password forgot request');
         try {
             const res = await fetch(PASSWORD_FORGET_POST_URL, requestOptions)
             const data = await checkResponse(res)
-            console.log(data);
+            // console.log(data);
             dispatch({ type: FORGOT_PASSWORD_REQUEST_SUCCESS })
         }
         catch (e) {
@@ -70,7 +70,7 @@ export const resetPassword: AppThunk = ({ password, token }: TFormData) =>
         try {
             const res = await fetch(PASSWORD_RESET_POST_URL, requestOptions);
             const data = await checkResponse(res);
-            console.log(data);
+            // console.log(data);
             dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
         }
         catch (e) {

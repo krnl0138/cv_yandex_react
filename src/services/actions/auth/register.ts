@@ -31,7 +31,7 @@ export const register: AppThunk = ({ username, email, password }: TFormData) =>
             headers: { 'Content-Type': 'application/json' }
         }
 
-        console.log('proceed to REGISTRATION');
+        // console.log('proceed to REGISTRATION');
         try {
             const res = await fetch(REGISTER_POST_URL, requestOptions);
             const data = await checkResponse(res);

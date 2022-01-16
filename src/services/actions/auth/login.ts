@@ -31,7 +31,7 @@ export const login: AppThunk = ({ email, password }: TFormData) => {
             headers: { 'Content-Type': 'application/json' }
         }
 
-        console.log('proceed to LOGIN');
+        // console.log('proceed to LOGIN');
         try {
             const res = await fetch(LOGIN_POST_URL, requestOptions)
             const data = await checkResponse(res)
