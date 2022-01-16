@@ -1,0 +1,17 @@
+.main {
+    display: flex;
+    justify-content: center;
+
+    max-width: 75vw;
+    margin: 0 auto;
+
+    background-color: #131316;
+}
+
+.left {
+    width: 50vw;
+}
+
+.right {
+    width: 50vw;
+}

@@ -1,0 +1,26 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+  }
+.order {
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+.header {
+    align-self: flex-start;
+}
+
+.info {
+    display: flex;
+    margin: auto;
+
+    text-align: center;
+    list-style: none;
+    padding: 0;
+}
+
+.info > li {
+    margin: 10px;
+}
