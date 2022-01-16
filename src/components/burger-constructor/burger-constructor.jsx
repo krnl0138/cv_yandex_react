@@ -5,12 +5,16 @@ import { GET_ORDER_INGREDIENTS_ID } from '../../services/actions/order-details';
 import { ADD_CART_INGREDIENT, ADD_CART_INGREDIENT_BUN, DELETE_CART_INGREDIENT, MOVE_CART_INGREDIENT } from '../../services/actions/cart';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop, useDrag } from 'react-dnd';
+import { useHistory, useLocation } from 'react-router-dom';
 
 export default function BurgerConstructor({ openOrderDetails }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const user = useSelector(store => store.user);
 
-  const data = useSelector(state => state.cart.сartIngredients);
-  const bun = useSelector(state => state.cart.bunIngredients[0]);
+  const data = useSelector(store => store.cart.сartIngredients);
+  const bun = useSelector(store => store.cart.bunIngredients[0]);
 
   const orderCost = bun ? [bun, bun, ...data].reduce((acc, ing) => acc += ing.price, 0)
     : data.reduce((acc, ing) => acc += ing.price, 0);
@@ -18,9 +22,14 @@ export default function BurgerConstructor({ openOrderDetails }) {
   const ingredientsIDs = data.map(item => item._id);
 
   const orderBurger = () => {
+    if (!user.username) {
+      return history.push({ pathname: '/login',  });
+    }
+
     if (bun && data.length !== 0) {
       openOrderDetails();
       dispatch({ type: GET_ORDER_INGREDIENTS_ID, ingredientsIDs: ingredientsIDs })
+      history.replace({ pathname: '/', state: { from: location.pathname } });
     }
   }
 
@@ -39,19 +48,19 @@ export default function BurgerConstructor({ openOrderDetails }) {
       })
     })
 
-    const [{ padding }, dropRef] = useDrop({
+    const [{ paddingLeft }, dropRef] = useDrop({
       accept: 'move',
       drop(ingredients) {
         dispatch({ type: MOVE_CART_INGREDIENT, ingredients, dropIndex: index })
       },
       collect: monitor => ({
-        padding: monitor.isOver()
+        paddingLeft: monitor.isOver() ? 30 : 0
       })
     });
 
     return (
       <div ref={dragRef} style={{ opacity }}>
-        <div ref={dropRef} style={{ padding }}>
+        <div ref={dropRef} style={{ paddingLeft }}>
           <span className={`${styles.item} ml-2 mr-6 mt-2 mb-2`}>
             <DragIcon type='primary' />
             <ConstructorElement
@@ -104,6 +113,7 @@ export default function BurgerConstructor({ openOrderDetails }) {
             <div ref={bunDropTop} className='ml-8 mr-8'>
               <ConstructorElement type='top'
                 isLocked={true}
+                thumbnail={null}
               />
             </div>
           )

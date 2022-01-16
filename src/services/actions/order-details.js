@@ -1,4 +1,4 @@
-import { API_ORDER_URL } from '../../utils/constants';
+import { POST_ORDER_URL } from '../../utils/api-urls';
 import { CLEAR_CART_INGREDIENT } from './cart';
 
 export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
@@ -10,7 +10,7 @@ export const getOrderNumber = (ingredientsIDs) => {
   return function(dispatch) {
     dispatch({ type: GET_ORDER_NUMBER_REQUEST });
 
-    fetch(API_ORDER_URL, {
+    fetch(POST_ORDER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({"ingredients": ingredientsIDs})

@@ -1,27 +1,43 @@
 import styles from './app-header.module.css';
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function AppHeader() {
 
     return (
         <header className={`${styles.header}
-                      text text_type_main-small text_color_inactive 
-                        pt-2 pb-2 pl-8 pr-8`}>
+                    text text_type_main-small text_color_inactive 
+                    pt-2 pb-2 pl-8 pr-8`}>
+
             <nav className={styles.nav}>
-                <div className={`${styles.nav_element} ${styles.push_left} pt-2 pb-2 pl-5 pr-5`}>
+                <NavLink
+                    exact to={{
+                        pathname: '/',
+                        state: { type: 'secondary' }
+                    }}
+                    activeClassName={styles.activeLink}
+                    className={`${styles.nav_element} ${styles.push_left} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
+                >
                     <BurgerIcon type="secondary" />
                     <p className={`${styles.app_header_button} ml-2`}>Конструктор</p>
-                </div>
+                </NavLink>
+
+
                 <div className={`${styles.nav_element} ${styles.push_left} pt-2 pb-2 pl-5`}>
                     <ListIcon type="secondary" />
                     <p className={`${styles.app_header_button} ml-2`}>Лента заказов</p>
                 </div>
-                <span className={styles.center}>
+                <Link to={{ pathname: "/" }} className={styles.center}>
                     <Logo />
-                </span>
-                <div className={`${styles.nav_element} ${styles.push_right} pt-2 pb-2 pl-5 pr-5`}>
+                </Link>
+                <div className={`${styles.nav_element} pt-2 pb-2 pl-5 pr-5`}>
                     <ProfileIcon type="secondary" />
-                    <p className={`${styles.app_header_button} ml-2`}>Личный кабинет</p>
+                    <NavLink
+                        to={{ pathname: '/profile' }}
+                        activeClassName={styles.activeLink}
+                        className={`text text_type_main-small text-color-inactive ml-2 ${styles.link}`}>
+                        Личный кабинет
+                    </NavLink>
                 </div>
             </nav>
         </header>
