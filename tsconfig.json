@@ -19,10 +19,19 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress", "@testing-library/cypress"]
+    "types": [
+      "cypress",
+      "@testing-library/cypress"
+    ]
   },
   "include": [
-    "src",
-    "declarations"
-, "setupTests.ts"  ]
+    // "src",
+    "src/*.ts",
+    "declarations",
+    "setupTests.ts"
+  ],
+  "exclude": ["src/*.test.ts"]
+  // "exclude": [
+  //   "**/*.spec.ts"
+  // ]
 }
