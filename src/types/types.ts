@@ -1,7 +1,7 @@
 export type TIngredient = {
     _id: string,
     name: string,
-    type: string,
+    type: "bun" | "sauce" | "main",
     proteins: number,
     fat: number,
     carbohydrates: number,
@@ -13,13 +13,19 @@ export type TIngredient = {
     __v: number,
 }
 
+export type TBun = TIngredient & { 
+    type: 'bun'
+}
+
 export type TIngredientsIDs = Array<string>;
 
 export type TOrder = {
+    _id: string;
     status: string;
     name: string;
-    number: string;
-    createdAt: Date;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
     ingredients: Array<string>;
 }
 

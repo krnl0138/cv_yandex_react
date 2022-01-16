@@ -8,7 +8,7 @@ import { WS_USER_ORDERS_URL } from '../../utils/api-urls';
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
 import { TOrder } from '../../types/types';
-import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
+import { SET_VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 
 export default function ProfileOrders(): JSX.Element {
@@ -36,7 +36,7 @@ export default function ProfileOrders(): JSX.Element {
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/profile/orders/${order.number}`, state: { background: location, order: order } })
-        dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
+        dispatch({ type: SET_VISIBLE_ORDERS_DETAILS, value: true })
     }
 
     const onClickLogout = useCallback(() => {

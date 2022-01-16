@@ -31,20 +31,27 @@ export const refreshToken = async (): Promise<void> => {
 }
 
 export const fetchWithRefresh = async (url: string, options: TRequestOptions): Promise<any> => {
+    const opts = {
+        method: options.method,
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + getCookie('accessToken')
+        }
+    }
+    
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
     }
     catch (err) {
-        await refreshToken();
-        console.log('after refresh token')
-        const res = await fetch(url, {
-            method: options.method,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + getCookie('accessToken')
-            }
-        });
-        return await checkResponse(res);
+        try {
+            await refreshToken();
+            console.log('token has been refreshed');
+            const res = await fetch(url, opts);
+            return await checkResponse(res);
+        }
+        catch(e) {
+            console.log(e);
+        }
     }
 }

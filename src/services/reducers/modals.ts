@@ -1,7 +1,7 @@
 import {
-  VISIBLE_ORDER_DETAILS,
-  VISIBLE_INGREDIENT_DETAILS,
-  VISIBLE_ORDERS_DETAILS,
+  SET_VISIBLE_ORDER_DETAILS,
+  SET_VISIBLE_INGREDIENT_DETAILS,
+  SET_VISIBLE_ORDERS_DETAILS,
   TModalsActions
 } from '../actions/modals';
 
@@ -19,19 +19,19 @@ const initialState: IState = {
 
 export const modalsReducer = (state = initialState, action: TModalsActions): IState => {
   switch (action.type) {
-    case VISIBLE_ORDER_DETAILS: {
+    case SET_VISIBLE_ORDER_DETAILS: {
       return {
         ...state,
         visibleOrderDetails: action.value
       }
     }
-    case VISIBLE_INGREDIENT_DETAILS: {
+    case SET_VISIBLE_INGREDIENT_DETAILS: {
       return {
         ...state,
         visibleIngredientDetails: action.value
       }
     }
-    case VISIBLE_ORDERS_DETAILS: {
+    case SET_VISIBLE_ORDERS_DETAILS: {
       return {
         ...state,
         visibleOrdersDetails: action.value

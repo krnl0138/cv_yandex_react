@@ -31,16 +31,16 @@ export const logout: AppThunk = () =>
         };
 
         console.log('proceed to LOGOUT');
-        await fetch(LOGOUT_POST_URL, requestOptions)
-            .then(res => checkResponse(res))
-            .then(() => {
-                dispatch({ type: USER_LOGOUT });
-                deleteCookie('accessToken');
-                localStorage.removeItem('refreshToken');
-                dispatch({ type: LOGOUT_REQUEST_SUCCESS })
-            })
-            .catch(e => {
-                console.error(e);
-                dispatch({ type: LOGOUT_REQUEST_FAILED })
-            });
+        try {
+            const res = await fetch(LOGOUT_POST_URL, requestOptions);
+            await checkResponse(res);
+            dispatch({ type: USER_LOGOUT });
+            deleteCookie('accessToken');
+            localStorage.removeItem('refreshToken');
+            dispatch({ type: LOGOUT_REQUEST_SUCCESS })
+        }
+        catch (e) {
+            console.error(e);
+            dispatch({ type: LOGOUT_REQUEST_FAILED })
+        }
     }

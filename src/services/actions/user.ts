@@ -13,3 +13,8 @@ export interface IUserLogout {
 }
 
 export type TUserActions = IUserSetCredentials | IUserLogout;
+
+export const setUserCredentials = (user: IUserSetCredentials["user"]): IUserSetCredentials => ({
+    type: USER_SET_CREDENTIALS,
+    user,
+})

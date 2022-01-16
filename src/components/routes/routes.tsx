@@ -28,7 +28,7 @@ import OrderView from '../order-view/order-view';
 import ProtectedRoute from '../protected-route';
 
 import { RootState } from '../../services/reducers/index';
-import { VISIBLE_ORDER_DETAILS, VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+import { SET_VISIBLE_ORDER_DETAILS, SET_VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 import type { TOrder } from '../../types/types';
 
@@ -51,8 +51,8 @@ export default function Routes(): JSX.Element {
     }, [dispatch])
 
     const closeModal = () => {
-        dispatch({ type: VISIBLE_ORDER_DETAILS, value: false })
-        dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: false })
+        dispatch({ type: SET_VISIBLE_ORDER_DETAILS, value: false })
+        dispatch({ type: SET_VISIBLE_INGREDIENT_DETAILS, value: false })
         if (background) {
             history.replace({ pathname: background.pathname });
         }

@@ -5,17 +5,18 @@ import { useSelector, useDispatch } from '../../types/hooks';
 import { useDrop } from 'react-dnd';
 import { useHistory, useLocation } from 'react-router-dom';
 import { postOrder } from '../../services/actions/order-details';
-import { VISIBLE_ORDER_DETAILS } from '../../services/actions/modals';
-import { ADD_CART_INGREDIENT, ADD_CART_INGREDIENT_BUN } from '../../services/actions/cart';
+import { SET_VISIBLE_ORDER_DETAILS } from '../../services/actions/modals';
+import { addCartIngredientBun, ADD_CART_INGREDIENT } from '../../services/actions/cart';
 import { BurgerConstructorMiddle } from './burger-constructor-middle/burger-constructor-middle';
 import { BurgerConstructorBun } from './burger-constructor-bun/burger-constructor-bun';
+import { TBun } from '../../types/types';
 
 export default function BurgerConstructor(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const user = useSelector(store => store.user);
-  const cartIngredients = useSelector(store => store.cart.сartIngredients);
+  const cartIngredients = useSelector(store => store.cart.cartIngredients);
   const ingredientsIDs = cartIngredients.map(item => item._id);
   const bun = useSelector(store => store.cart.bunIngredients[0]);
 
@@ -30,7 +31,7 @@ export default function BurgerConstructor(): JSX.Element {
     }
 
     if (bun && cartIngredients.length !== 0) {
-      dispatch({ type: VISIBLE_ORDER_DETAILS, value: true })
+      dispatch({ type: SET_VISIBLE_ORDER_DETAILS, value: true })
       dispatch(postOrder(ingredientsIDs));
       history.replace({ pathname: '/', state: { from: location.pathname } });
     }
@@ -45,15 +46,15 @@ export default function BurgerConstructor(): JSX.Element {
 
   const [, bunDropTop] = useDrop({
     accept: 'bun',
-    drop(ingredient) {
-      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredient })
+    drop(ingredient: TBun) {
+      dispatch(addCartIngredientBun(ingredient))
     }
   });
 
   const [, bunDropBottom] = useDrop({
     accept: 'bun',
-    drop(ingredient) {
-      dispatch({ type: ADD_CART_INGREDIENT_BUN, ingredient })
+    drop(ingredient: TBun) {
+      dispatch(addCartIngredientBun(ingredient))
     }
   });
 
@@ -61,9 +62,10 @@ export default function BurgerConstructor(): JSX.Element {
     <section className={`${styles.main} mt-25 mr-10`}>
 
       <div className={`${styles.constructor} mb-4`} >
-        <BurgerConstructorBun bun={bun} type='top' bunDropRef={bunDropTop}/>
 
-        <div className={styles.middle} ref={dropTarget} >
+        <BurgerConstructorBun bun={bun} type='top' bunDropRef={bunDropTop} />
+
+        <div className={styles.middle} ref={dropTarget} data-cy="burger-constructor-middle">
           {cartIngredients.map((ingredient, index) => {
             return (
               <div className={styles.middleIngredients} key={`${ingredient._id}${index}`} >
@@ -74,7 +76,7 @@ export default function BurgerConstructor(): JSX.Element {
           }
         </div>
 
-        <BurgerConstructorBun bun={bun} type='bottom' bunDropRef={bunDropBottom}/>
+        <BurgerConstructorBun bun={bun} type='bottom' bunDropRef={bunDropBottom} />
       </div>
 
       <div className={styles.orderSection}>
@@ -82,9 +84,11 @@ export default function BurgerConstructor(): JSX.Element {
           <p className='text text_type_digits-medium mr-2'>{orderCost}</p>
           <CurrencyIcon type='primary' />
         </span>
-        <Button type='primary'
+        <Button
+          type='primary'
           size='medium'
-          onClick={orderBurger}>
+          onClick={orderBurger}
+        >
           Оформить заказ
         </Button>
       </div>

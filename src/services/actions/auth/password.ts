@@ -44,17 +44,16 @@ export const forgotPassword: AppThunk = ({ email }: TFormData) =>
         };
 
         console.log('proceed to password forgot request');
-        await fetch(PASSWORD_FORGET_POST_URL, requestOptions)
-            .then(res => checkResponse(res))
-            .then(data => {
-                console.log(data);
-                dispatch({ type: FORGOT_PASSWORD_REQUEST_SUCCESS })
-
-            })
-            .catch(e => {
-                console.log(e);
-                dispatch({ type: FORGOT_PASSWORD_REQUEST_FAILED })
-            })
+        try {
+            const res = await fetch(PASSWORD_FORGET_POST_URL, requestOptions)
+            const data = await checkResponse(res)
+            console.log(data);
+            dispatch({ type: FORGOT_PASSWORD_REQUEST_SUCCESS })
+        }
+        catch (e) {
+            console.log(e);
+            dispatch({ type: FORGOT_PASSWORD_REQUEST_FAILED })
+        }
     }
 
 export const resetPassword: AppThunk = ({ password, token }: TFormData) =>
@@ -68,15 +67,14 @@ export const resetPassword: AppThunk = ({ password, token }: TFormData) =>
         }
 
         console.log('proceed to password reset request');
-        await fetch(PASSWORD_RESET_POST_URL, requestOptions)
-            .then(res => checkResponse(res))
-            .then(data => {
-                console.log(data);
-                dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
-
-            })
-            .catch(e => {
-                console.error(e);
-                dispatch({ type: RESET_PASSWORD_REQUEST_FAILED });
-            })
+        try {
+            const res = await fetch(PASSWORD_RESET_POST_URL, requestOptions);
+            const data = await checkResponse(res);
+            console.log(data);
+            dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
+        }
+        catch (e) {
+            console.error(e);
+            dispatch({ type: RESET_PASSWORD_REQUEST_FAILED });
+        }
     }

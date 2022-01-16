@@ -6,7 +6,7 @@ import { WS_ALL_ORDERS_URL } from '../../utils/api-urls';
 import Loader from '../../components/loader/loader';
 import OrderElement from '../../components/order-element/order-element';
 import { TOrder } from '../../types/types';
-import { VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
+import { SET_VISIBLE_ORDERS_DETAILS } from '../../services/actions/modals';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket';
 import { FeedOrderNumbersOverall } from './feed-order-numbers-overall/feed-order-numbers-overall';
 import { FeedOrderNumbers } from './feed-order-numbers/feed-order-numbers';
@@ -41,7 +41,7 @@ export default function Feed(): JSX.Element {
 
     const onClick = (order: TOrder) => {
         history.replace({ pathname: `/feed/${order.number}`, state: { background: location, order: order } })
-        dispatch({ type: VISIBLE_ORDERS_DETAILS, value: true })
+        dispatch({ type: SET_VISIBLE_ORDERS_DETAILS, value: true })
     }
 
     // Handling order numbers
@@ -71,7 +71,7 @@ export default function Feed(): JSX.Element {
         if (!orders) return;
 
         const handleOrderNumbers = (s: string, fn: (content: JSX.Element[][]) => void) => {
-            const orderNumbersByStatus = orders.filter(o => o.status === s).map(o => o.number);
+            const orderNumbersByStatus = orders.filter(o => o.status === s).map(o => o.number.toString());
             const jsxMarkup = getJSXMarkup(orderNumbersByStatus);
             fn([...jsxMarkup]);
         }

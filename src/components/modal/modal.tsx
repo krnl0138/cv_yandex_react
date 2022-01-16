@@ -25,7 +25,7 @@ export default function Modal({ children, onClose }: IModalProps): JSX.Element {
         <>
             <ModalOverlay onClose={onClose} />
             <div className={styles.modal}>
-                <span onClick={onClose} className={styles.modalCloseIcon}>
+                <span onClick={onClose} className={styles.modalCloseIcon} data-cy="modal-close">
                     <CloseIcon type="primary" />
                 </span>
                 {children}
