@@ -18,9 +18,11 @@ export default function Register(): JSX.Element {
         password: '',
     });
 
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setForm(prev => ({ ...prev, [e.currentTarget.name]: e.currentTarget.value }))
-    }
+    const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const formValue = e.currentTarget.value;
+        const formName = e.currentTarget.name;
+        setForm(prev => ({...prev, [formName]: formValue }))
+    };
 
     const onFormSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -38,30 +40,27 @@ export default function Register(): JSX.Element {
         <>
             <div className={styles.main}>
 
-                <form onSubmit={onFormSubmit} className={styles.form}>
                     <p className="text text_type_main-large">
                         Регистрация
                     </p>
 
-                    <div className={styles.formChild}>
-
+                    <form onSubmit={onFormSubmit} className={styles.form}>
                         <Input
                             type={'text'}
                             placeholder={'Имя'}
-                            onChange={onChange}
+                            onChange={onFormChange}
                             value={form.username}
                             name={'username'}
                             error={false}
                             errorText={'Ошибка'}
                             size={'default'}
                         />
-                    </div>
 
                     <div className={styles.formChild}>
                         <Input
                             type={'text'}
                             placeholder={'E-mail'}
-                            onChange={onChange}
+                            onChange={onFormChange}
                             value={form.email}
                             name={'email'}
                             error={false}
@@ -72,7 +71,7 @@ export default function Register(): JSX.Element {
 
                     <div className={styles.formChild}>
                         <PasswordInput
-                            onChange={onChange}
+                            onChange={onFormChange}
                             value={form.password}
                             name={'password'}
                         />

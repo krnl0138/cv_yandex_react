@@ -14,7 +14,7 @@ export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstruct
 
     if (!bun) {
         return (
-            <div ref={bunDropRef} className='ml-8 mr-8'>
+            <div ref={bunDropRef} className='ml-8 mr-8' data-cy={type === 'top' ? "burger-constructor-bun-top" : ''}>
                 <ConstructorElement
                     type={type}
                     isLocked={true}

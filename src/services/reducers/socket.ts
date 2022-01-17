@@ -14,7 +14,7 @@ interface IState {
 
 const initialState: IState = {
     wsConnected: false,
-    messages: []
+    messages: [],
 };
 
 export const wsReducer = (state = initialState, action: TWsActions ): IState => {

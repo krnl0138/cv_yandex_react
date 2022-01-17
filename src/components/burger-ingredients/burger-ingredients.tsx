@@ -6,7 +6,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Card from './card/burger-ingredients-card';
 import Loader from '../loader/loader';
 import { SET_ACTIVE_INGREDIENT } from '../../services/actions/ingredient-details';
-import { VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+import { SET_VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
 
 
 export default function BurgerIngredients(): JSX.Element {
@@ -46,11 +46,10 @@ export default function BurgerIngredients(): JSX.Element {
             .map((ingredient, index) => {
                 const openDetails = () => {
                     dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient })
-                    dispatch({ type: VISIBLE_INGREDIENT_DETAILS, value: true })
+                    dispatch({ type: SET_VISIBLE_INGREDIENT_DETAILS, value: true })
                     history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                 }
-
-                return (<Card item={ingredient} openDetails={openDetails} key={index} />)
+                return (<Card item={ingredient} openDetails={openDetails} key={index} keyData={index}/>)
             });
     };
 

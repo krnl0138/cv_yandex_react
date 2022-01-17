@@ -36,6 +36,7 @@ export interface IWSConnectionError {
 }
 export interface IWSConnectionClosed {
     readonly type: typeof WS_CONNECTION_CLOSED;
+    // readonly error?: undefined | Record<string, any>;
 }
 export interface IWSGetMessage {
     readonly type: typeof WS_GET_MESSAGE;

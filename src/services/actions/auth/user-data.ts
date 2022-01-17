@@ -3,7 +3,7 @@ import { TFormData } from "../../../types/types";
 import { GET_USER_DATA_URL, PATCH_USER_DATA_URL } from "../../../utils/api-urls";
 import { getCookie } from "../../../utils/cookies";
 import { fetchWithRefresh } from "../../../utils/helpers";
-import { USER_SET_CREDENTIALS } from "../user";
+import { setUserCredentials } from "../user";
 
 export const GET_USER_DATA_REQUEST = 'GET_USER_DATA_REQUEST' as const;
 export const GET_USER_DATA_REQUEST_SUCCESS = 'GET_USER_DATA_REQUEST_SUCCESS' as const;
@@ -47,16 +47,18 @@ export const getUserData: AppThunk = () =>
             },
         };
 
-        console.log('proceed to GET user info');
-        await fetchWithRefresh(GET_USER_DATA_URL, requestOptions)
-            .then(data => {
-                dispatch({ type: USER_SET_CREDENTIALS, user: data.user });
+        // console.log('proceed to GET user info');
+        try {
+            const data = await fetchWithRefresh(GET_USER_DATA_URL, requestOptions);
+            if (data) {
+                dispatch(setUserCredentials(data.user));
                 dispatch({ type: GET_USER_DATA_REQUEST_SUCCESS });
-            })
-            .catch(e => {
-                dispatch({ type: GET_USER_DATA_REQUEST_FAILED });
-                console.error(e);
-            })
+            }
+        }
+        catch (e) {
+            dispatch({ type: GET_USER_DATA_REQUEST_FAILED });
+            console.error(e);
+        }
     }
 
 export const patchUserData: AppThunk = ({ email, username, password }: TFormData) =>
@@ -72,14 +74,15 @@ export const patchUserData: AppThunk = ({ email, username, password }: TFormData
             body: JSON.stringify({ name: username, email: email, password: password })
         }
 
-        console.log('proceed to PATCH user info');
-        await fetchWithRefresh(PATCH_USER_DATA_URL, requestOptions)
-            .then(data => {
+        // console.log('proceed to PATCH user info');
+        try {
+            const data = await fetchWithRefresh(PATCH_USER_DATA_URL, requestOptions);
+            if (data) {
                 dispatch({ type: PATCH_USER_DATA_REQUEST_SUCCESS, user: data.user });
-            })
-            .catch(e => {
-                console.error(e);
-                dispatch({ type: PATCH_USER_DATA_REQUEST_FAILED });
             }
-            );
+        }
+        catch (e) {
+            console.error(e);
+            dispatch({ type: PATCH_USER_DATA_REQUEST_FAILED });
+        }
     }

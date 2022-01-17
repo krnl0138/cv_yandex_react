@@ -5,15 +5,14 @@
   "homepage": "./",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
-    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
     "@types/node": "^12.20.17",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
     "@types/redux-logger": "^3.0.9",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
+    "core-js": "^3.20.3",
     "immutability-helper": "^3.1.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
@@ -27,7 +26,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sass": "^1.47.0",
-    "typescript": "^4.3.5",
     "typescript-eslint": "^0.0.1-alpha.0",
     "web-vitals": "^1.1.2"
   },
@@ -39,7 +37,7 @@
     "cypress:open": "./node_modules/.bin/cypress open",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-script": "npm run build && scp -r ./build/* krnl0138@51.250.6.141:/home/krnl0138/stellar-frontend" 
+    "deploy-script": "npm run build && scp -r ./build/* krnl0138@51.250.6.141:/home/krnl0138/stellar-frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -60,7 +58,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.2",
     "@testing-library/react": "^12.1.2",
+    "@types/enzyme": "^3.10.11",
+    "@types/jest": "^27.4.0",
     "@types/react-router-dom": "^5.3.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "css-modules": "^0.3.0",
@@ -74,8 +75,11 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "fetch-mock": "^9.11.0",
     "gh-pages": "^3.2.3",
+    "jest": "^27.4.7",
     "react-test-renderer": "^17.0.2",
     "redux-devtools-extension": "^2.13.9",
-    "redux-mock-store": "^1.5.4"
+    "redux-mock-store": "^1.5.4",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.5.4"
   }
 }

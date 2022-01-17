@@ -1,10 +1,10 @@
 import {
   POST_ORDER_REQUEST,
-  POST_ORDER_SUCCESS,
-  POST_ORDER_FAILED,
+  POST_ORDER_REQUEST_SUCCESS,
+  POST_ORDER_REQUEST_FAILED,
   GET_ORDER_REQUEST,
-  GET_ORDER_SUCCESS,
-  GET_ORDER_FAILED,
+  GET_ORDER_REQUEST_SUCCESS,
+  GET_ORDER_REQUEST_FAILED,
   RESET_ORDER_NUMBER,
   TOrderDetailsActions
 } from '../actions/order-details';
@@ -35,7 +35,7 @@ export const orderDetailsReducer = (state = initialState, action: TOrderDetailsA
         isLoading: true
       }
     }
-    case POST_ORDER_SUCCESS: {
+    case POST_ORDER_REQUEST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -43,7 +43,7 @@ export const orderDetailsReducer = (state = initialState, action: TOrderDetailsA
         ingredientsIDs: action.ingredientsIDs
       }
     }
-    case POST_ORDER_FAILED: {
+    case POST_ORDER_REQUEST_FAILED: {
       return {
         ...state,
         isLoading: false,
@@ -56,14 +56,14 @@ export const orderDetailsReducer = (state = initialState, action: TOrderDetailsA
         isLoading: true
       }
     }
-    case GET_ORDER_SUCCESS: {
+    case GET_ORDER_REQUEST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         order: action.order,
       }
     }
-    case GET_ORDER_FAILED: {
+    case GET_ORDER_REQUEST_FAILED: {
       return {
         ...state,
         isLoading: false,

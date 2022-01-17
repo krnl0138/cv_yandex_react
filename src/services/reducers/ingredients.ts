@@ -29,7 +29,7 @@ export const ingredientsReducer = (state = initialState, action: TIngredientsAct
     case GET_INGREDIENTS_REQUEST_SUCCESS: {
       return {
         ...state,
-        ingredientsData: action.payload,
+        ingredientsData: action.ingredientsData,
         isLoading: false
       }
     }

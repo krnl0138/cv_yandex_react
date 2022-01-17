@@ -13,7 +13,7 @@ export default function AppHeader(): JSX.Element {
             <nav className={styles.nav}>
 
                 <NavLink
-                    exact to={{pathname: '/',}}
+                    exact to={{ pathname: '/', }}
                     activeClassName={styles.activeLink}
                     className={`${styles.nav_element} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
                 >
@@ -22,9 +22,9 @@ export default function AppHeader(): JSX.Element {
                 </NavLink>
 
                 <NavLink
-                    exact to={{pathname: '/feed',}}
+                    to={{ pathname: '/feed', }}
                     activeClassName={styles.activeLink}
-                    className={`${styles.nav_element} pt-2 pb-2 pl-5 pr-5 ${styles.link}`}
+                    className={` pt-2 pb-2 pl-5 pr-5 ${styles.nav_element} ${styles.link}`}
                 >
                     <ListIcon type="secondary" />
                     <p className={`${styles.app_header_button} ml-2`}>Лента заказов</p>
@@ -36,15 +36,14 @@ export default function AppHeader(): JSX.Element {
                     </Link>
                 </span>
 
-                <div className={`${styles.nav_element} ${styles.nav_element_right} pt-2 pb-2 pl-5 pr-5`}>
+                <NavLink
+                    to={{ pathname: '/profile' }}
+                    activeClassName={styles.activeLink}
+                    className={` pt-2 pb-2 pl-5 pr-5 ${styles.nav_element} ${styles.nav_element_right} ${styles.link}`}
+                >
                     <ProfileIcon type="secondary" />
-                    <NavLink
-                        to={{ pathname: '/profile' }}
-                        activeClassName={styles.activeLink}
-                        className={`text text_type_main-small text-color-inactive ml-2 ${styles.link}`}>
-                        Личный кабинет
-                    </NavLink>
-                </div>
+                    <p className={`${styles.app_header_button} ml-2`}>Профиль</p>
+                </NavLink>
 
             </nav>
         </header>
