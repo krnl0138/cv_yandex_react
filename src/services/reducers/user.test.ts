@@ -1,6 +1,4 @@
 import {userReducer as reducer} from './user'
-// import { expect } from '@jest/globals';
-// import * as types from '../../constants/ActionTypes'
 import { USER_SET_CREDENTIALS, USER_LOGOUT } from '../actions/user'
 
 describe('user reducer', () => {
