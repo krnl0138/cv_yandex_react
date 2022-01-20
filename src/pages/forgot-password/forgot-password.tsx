@@ -61,7 +61,7 @@ export default function ForgotPassword(): JSX.Element {
 
             </form>
 
-            <p className="text text_type_main-default text_color_inactive">
+            <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
                 Вспомнили пароль? <Link to={{ pathname: '/login' }}>Войти</Link>
             </p>
         </div>
