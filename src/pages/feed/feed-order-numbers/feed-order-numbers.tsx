@@ -10,6 +10,16 @@ interface IFeedOrderNumbers {
 
 export const FeedOrderNumbers = ({ ordersMarkup, status }: IFeedOrderNumbers): JSX.Element => {
 
+    const renderOrderMarkup = (): JSX.Element[] => {
+        return ordersMarkup.map((column, ind) => {
+            return (
+                <div key={ind} className='mr-3'>
+                    {column}
+                </div>
+            )
+        })
+    };
+
     if (status === 'done') {
         return (
             <div className={styles.ordersReady}>
@@ -17,15 +27,7 @@ export const FeedOrderNumbers = ({ ordersMarkup, status }: IFeedOrderNumbers): J
 
                 <div className={styles.wrapper}>
                     {(ordersMarkup.length > 0)
-                        ? (
-                            ordersMarkup.map((column, ind) => {
-                                return (
-                                    <div key={ind} className='mr-3'>
-                                        {column}
-                                    </div>
-                                )
-                            })
-                        )
+                        ? (renderOrderMarkup())
                         : (<Loader />)
                     }
                 </div>
@@ -38,15 +40,7 @@ export const FeedOrderNumbers = ({ ordersMarkup, status }: IFeedOrderNumbers): J
 
                 <div className={styles.wrapper}>
                     {(ordersMarkup.length > 0)
-                        ? (
-                            ordersMarkup.map((column, ind) => {
-                                return (
-                                    <div key={ind} className='mr-3'>
-                                        {column}
-                                    </div>
-                                )
-                            })
-                        )
+                        ? (renderOrderMarkup())
                         : (
                             // Populate fake data if no orders with status 'pending'
                             <div>
