@@ -73,11 +73,11 @@ export default function Login(): JSX.Element {
 
             </form>
 
-            <p className="text text_type_main-default text_color_inactive">
+            <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
                 Вы — новый пользователь? <Link to={{ pathname: '/register' }}>Зарегистрироваться</Link>
             </p>
 
-            <p className="text text_type_main-default text_color_inactive">
+            <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
                 Забыли пароль? <Link to={{ pathname: '/forgot-password' }}>Восстановить пароль</Link>
             </p>
         </div>

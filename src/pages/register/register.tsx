@@ -87,7 +87,7 @@ export default function Register(): JSX.Element {
                     </div>
                 </form>
 
-                <p className="text text_type_main-default text_color_inactive">
+                <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
                     Уже зарегистрированы? <Link to={{ pathname: '/login' }}>Войти</Link>
                 </p>
             </div>

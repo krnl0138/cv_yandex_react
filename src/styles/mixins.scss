@@ -42,3 +42,13 @@
         margin-top: 24px;
     }
 }
+
+@mixin linkDefault {
+    .link {
+        text-decoration: none;
+        color: #8585AD;
+        &:visited {
+            color: #8585AD;
+        }
+    }
+}
