@@ -47,11 +47,14 @@ export default function Feed(): JSX.Element {
     // Handling order numbers
 
     const getJSXMarkup = useCallback((orderNumbers: Array<string>): JSX.Element[][] => {
-        const CHUNK_SIZE = 10;
+        const CHUNK_SIZE = 5;
+        const COLUMNS = 3;
         let orderNumbersChunk: Array<string>;
         const jsxMarkup: JSX.Element[][] = []
 
-        for (let i = 0; i < orderNumbers.length; i += CHUNK_SIZE) { // i: 0, 10, 20 ...
+        if (orderNumbers.length === 0) return jsxMarkup;
+
+        for (let i = 0; i < COLUMNS*CHUNK_SIZE; i += CHUNK_SIZE) { // i: 0, 10, 20 ...
             orderNumbersChunk = orderNumbers.slice(i, i + CHUNK_SIZE) // holds every ten els of 'orderNumbers'
 
             const jsxOrderNumbersChunk = orderNumbersChunk.map((n, ind) => { // create an array of ten jsx elements
