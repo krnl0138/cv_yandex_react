@@ -49,7 +49,7 @@ export default function BurgerIngredients(): JSX.Element {
                     dispatch({ type: SET_VISIBLE_INGREDIENT_DETAILS, value: true })
                     history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } })
                 }
-                return (<Card item={ingredient} openDetails={openDetails} key={index} keyData={index}/>)
+                return (<Card item={ingredient} openDetails={openDetails} key={index} cyData={index}/>)
             });
     };
 

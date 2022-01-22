@@ -8,10 +8,10 @@ import { TIngredient } from '../../../types/types';
 type TCardProps = {
   item: TIngredient;
   openDetails: () => void;
-  keyData: number;
+  cyData: number;
 }
 
-export default function Card({ item, openDetails, keyData }: TCardProps): JSX.Element {
+export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Element {
   const cartIngredients = useSelector(store => store.cart.cartIngredients);
   const buns = useSelector(store => store.cart.bunIngredients);
   const counter = [...cartIngredients, ...buns].filter(el => el._id === item._id).length;
@@ -38,10 +38,10 @@ export default function Card({ item, openDetails, keyData }: TCardProps): JSX.El
       style={{ opacity }}
       data-cy={
         item.type === 'bun' ? 
-          `card-bun-${keyData}` : 
+          `card-bun-${cyData}` : 
           item.type === 'main' ? 
-          `card-main-${keyData}` : 
-          `card-sauce-${keyData}`
+          `card-main-${cyData}` : 
+          `card-sauce-${cyData}`
       }
     >
 
