@@ -94,12 +94,14 @@ export default function Feed(): JSX.Element {
                             <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
                             {orders.slice(0, ORDERS_TO_DISPLAY).map((order, index) => {
                                 return (
+                                    <div key={index} data-cy={`feed-order-${index}`}>
                                     <OrderElement
-                                        key={index}
+                                        
                                         onClick={() => onClick(order)}
                                         order={order}
                                         from='feed'
                                     />
+                                    </div>
                                 )
                             })}
                         </div>
