@@ -6,7 +6,7 @@
 
 describe('drag ingredients and order the burger', function () {
   before(function () {
-    cy.visit('http://localhost:3000');
+    cy.visit('https://spaceburger.nomoredomains.rocks/');
   });
 
   it('drag n drop the bun in the cart', function () {
@@ -68,7 +68,7 @@ describe('drag ingredients and order the burger', function () {
     cy.findByText('Оформить заказ').click({ force: true })
   });
 
-  it('click to close modal window', function () {
+  it('click to close modal window (10 secs wait from a server)', function () {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(18000)
     cy.get('[data-cy=modal-close]').click({ force: true })

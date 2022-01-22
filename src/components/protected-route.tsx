@@ -32,16 +32,15 @@ export default function ProtectedRoute({ children, ...rest }: IProtectedRoute): 
       <Route
         {...rest}
         render={({ location }) =>
-          user.username ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/login',
-                state: { from: location }
-              }}
-            />
-          )
+          user.username ? (children)
+            : (
+              <Redirect
+                to={{
+                  pathname: '/login',
+                  state: { from: location }
+                }}
+              />
+            )
         }
       />) : (<Loader />)
   );

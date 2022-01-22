@@ -1,3 +1,7 @@
+@import "../../styles/mixins.scss";
+
+@include linkDefault;
+
 .header{
     justify-content: center;
     background: #1C1C21;
@@ -34,15 +38,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.link {
-    text-decoration: none;
-    color: #8585AD;
-
-    &:visited {
-        color: #8585AD;
-    }
 }
 
 .activeLink {
