@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 @mixin centerItem {
     position: absolute;
     top: 50%;
@@ -11,14 +13,21 @@
                  0px 4px 32px rgba(51, 51, 255, 0.5);
 }
 
+@mixin modalShadow {
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 
+              0 16px 24px rgba(0, 0, 0, 0.04),
+              0 4px 8px rgba(0, 0, 0, 0.04), 
+              0 0 1px rgba(0, 0, 0, 0.04);
+}
+
 @mixin sidebar {
     &::-webkit-scrollbar {
-        width: 8px;
-        background-color: #2f2f37;
+        width: 10px;
+        background-color: $color-sidebar-main;
       }
 
     &::-webkit-scrollbar-thumb {
-        background-color: #545AA7;
+        background-color: $color-sidebar-thumb;
       }
 }
 
