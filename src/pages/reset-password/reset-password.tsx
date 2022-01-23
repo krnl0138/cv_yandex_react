@@ -1,4 +1,4 @@
-import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './reset-password.module.scss';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../types/hooks';
@@ -8,78 +8,65 @@ import { PASSWORD_FORGOT_RESTORE } from '../../services/actions/forgot-password'
 import { resetPassword } from '../../services/actions/auth/password';
 
 export default function ResetPassword(): JSX.Element {
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isPasswordForgotten = useSelector(store => store.forgotPassword.isPasswordForgotten);
 
-    const user = useSelector(store => store.user);
+  const user = useSelector(store => store.user);
 
-    const [form, setForm] = useState({ password: '', token: '' });
+  const [form, setForm] = useState({ password: '', token: '' });
 
-    const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
-        const formValue = e.currentTarget.value;
-        const formName = e.currentTarget.name;
-        setForm(prev => ({...prev, [formName]: formValue }))
-    };
+  const onFormChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const formValue = e.currentTarget.value;
+    const formName = e.currentTarget.name;
+    setForm(prev => ({ ...prev, [formName]: formValue }));
+  };
 
-    const onFormSubmit = (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        dispatch({ type: PASSWORD_FORGOT_RESTORE });
-        dispatch(resetPassword(form));
-        history.replace({ pathname: '/login' });
-    }
+  const onFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch({ type: PASSWORD_FORGOT_RESTORE });
+    dispatch(resetPassword(form));
+    history.replace({ pathname: '/login' });
+  };
 
-    if (!isPasswordForgotten) {
-        return (
-            <Redirect to={{ pathname: '/' }} />
-        )
-    }
+  if (!isPasswordForgotten) {
+    return <Redirect to={{ pathname: '/' }} />;
+  }
 
-    if (user.username) {
-        return (
-            <Redirect to={{ pathname: '/' }} />
-        )
-    }
+  if (user.username) {
+    return <Redirect to={{ pathname: '/' }} />;
+  }
 
-    return (
-        <div className={styles.main}>
+  return (
+    <div className={styles.main}>
+      <p className="text text_type_main-large">Восстановление пароля</p>
 
-            <p className="text text_type_main-large">
-                Восстановление пароля
-            </p>
+      <form onSubmit={onFormSubmit} className={styles.form}>
+        <PasswordInput onChange={onFormChange} value={form.password} name={'password'} />
 
-            <form onSubmit={onFormSubmit} className={styles.form}>
-                <PasswordInput
-                    onChange={onFormChange}
-                    value={form.password}
-                    name={'password'}
-                />
-
-                <div className={styles.formChild}>
-                    <Input
-                        type={'text'}
-                        placeholder={'Введите код из письма'}
-                        onChange={onFormChange}
-                        value={form.token}
-                        name={'token'}
-                        error={false}
-                        errorText={'Ошибка'}
-                        size={'default'}
-                    />
-                </div>
-
-                <div className={styles.formChild}>
-                    <Button type="primary" size="large">
-                        Сохранить
-                    </Button>
-                </div>
-
-            </form>
-
-            <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
-                Вспомнили пароль? <Link to={{ pathname: '/login' }}>Войти</Link>
-            </p>
-
+        <div className={styles.formChild}>
+          <Input
+            type={'text'}
+            placeholder={'Введите код из письма'}
+            onChange={onFormChange}
+            value={form.token}
+            name={'token'}
+            error={false}
+            errorText={'Ошибка'}
+            size={'default'}
+          />
         </div>
-    )
+
+        <div className={styles.formChild}>
+          <Button type="primary" size="large">
+            Сохранить
+          </Button>
+        </div>
+      </form>
+
+      <p className={`${styles.link} text text_type_main-default text_color_inactive`}>
+        Вспомнили пароль? <Link to={{ pathname: '/login' }}>Войти</Link>
+      </p>
+    </div>
+  );
 }

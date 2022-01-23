@@ -2,14 +2,14 @@ import styles from './burger-ingredients-card.module.scss';
 import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from '../../../types/hooks';
-import { useDrag } from "react-dnd";
+import { useDrag } from 'react-dnd';
 import { TIngredient } from '../../../types/types';
 
 type TCardProps = {
   item: TIngredient;
   openDetails: () => void;
   cyData: number;
-}
+};
 
 export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Element {
   const cartIngredients = useSelector(store => store.cart.cartIngredients);
@@ -20,13 +20,13 @@ export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Ele
     type: 'ingredient',
     item: item,
     collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.5 : 1
-    })
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
   });
 
   const [, bunRef] = useDrag({
     type: 'bun',
-    item: item
+    item: item,
   });
 
   return (
@@ -37,25 +37,23 @@ export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Ele
       key={item._id}
       style={{ opacity }}
       data-cy={
-        item.type === 'bun' ? 
-          `card-bun-${cyData}` : 
-          item.type === 'main' ? 
-          `card-main-${cyData}` : 
-          `card-sauce-${cyData}`
+        item.type === 'bun'
+          ? `card-bun-${cyData}`
+          : item.type === 'main'
+          ? `card-main-${cyData}`
+          : `card-sauce-${cyData}`
       }
     >
-
-      {
-        counter > 0 &&
-        (< Counter count={item.type === 'bun' ? counter + 1 : counter} size="default" />)
-      }
+      {counter > 0 && <Counter count={item.type === 'bun' ? counter + 1 : counter} size="default" />}
 
       <img className="p-2 pb-4" src={item.image} alt={item.name} />
       <span className={styles.price}>
         <p className="text text_type_digits-default mr-2">{item.price}</p>
         <CurrencyIcon type="primary" />
       </span>
-      <p className="text text_type_main-default pb-5 pt-5" style={{ fontWeight: 700 }}>{item.name}</p>
+      <p className="text text_type_main-default pb-5 pt-5" style={{ fontWeight: 700 }}>
+        {item.name}
+      </p>
     </div>
-  )
+  );
 }

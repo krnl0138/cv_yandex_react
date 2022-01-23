@@ -1,26 +1,26 @@
-@use "../../styles/scss/abstracts/mixins" as *;
+@use '../../styles/scss/abstracts/mixins' as *;
 
-.card{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    width: 100%;
-  }
+.card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: 100%;
+}
 
 .order {
-    @include textShadow;
+  @include textShadow;
 }
 
 .info {
-    display: flex;
-    margin: auto;
+  display: flex;
+  margin: auto;
 
-    text-align: center;
-    list-style: none;
-    padding: 0;
-    
-    & > li {
-        margin: 10px;
-    }
+  text-align: center;
+  list-style: none;
+  padding: 0;
+
+  & > li {
+    margin: 10px;
+  }
 }

@@ -4,27 +4,24 @@
   min-width: 50%;
 }
 
-.ingredientsTypeBar { 
-    display: flex;
-    justify-content: space-evenly; 
+.ingredientsTypeBar {
+  display: flex;
+  justify-content: space-evenly;
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+  }
 }
 
 .ingredientsTabs {
-    overflow-y: scroll;
-    height: 60vh;
-    text-align: center;
+  overflow-y: scroll;
+  height: 60vh;
+  text-align: center;
 
-    @include sidebar;
-    
-    &Element {
-      display: flex;
-      flex-wrap: wrap;
-    }
-}
+  @include sidebar;
 
-
-@media (max-width: 1400px) { 
-  .ingredientsTypeBar {
-    flex-direction: column;
+  &Element {
+    display: flex;
+    flex-wrap: wrap;
   }
 }

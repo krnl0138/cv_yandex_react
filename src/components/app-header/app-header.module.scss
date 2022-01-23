@@ -1,50 +1,50 @@
-@use "../../styles/scss/abstracts/mixins" as *;
+@use '../../styles/scss/abstracts/mixins' as *;
 @use '../../styles/scss/abstracts/variables' as *;
 
 @include linkDefault;
 
-.header{
-    justify-content: center;
-    background: $color-background-header;
-    text-align: center;
+.header {
+  justify-content: center;
+  background: $color-background-header;
+  text-align: center;
 
-    position: relative;
+  position: relative;
 }
 
 .nav {
+  display: flex;
+  align-items: center;
+
+  max-width: 70vw;
+  margin: 0 auto;
+
+  &_element {
     display: flex;
     align-items: center;
 
-    max-width: 70vw;
-    margin: 0 auto;
+    background: $color-background-header;
+    border-radius: 40%;
 
-    &_element {
-        display: flex;
-        align-items: center;
-    
-        background: $color-background-header;
-        border-radius: 40%;
-    
-        &_left {
-            display: flex;
-        }
-        
-        &_right {
-            margin-left: auto;
-        }
+    &_left {
+      display: flex;
     }
+
+    &_right {
+      margin-left: auto;
+    }
+  }
 }
 
 .center {
-    @include centerItem;
+  @include centerItem;
 }
 
 .activeLink {
+  text-decoration: none;
+  color: $color-default-white;
+
+  &:visited {
     text-decoration: none;
     color: $color-default-white;
-
-    &:visited {
-        text-decoration: none;
-        color: $color-default-white;
-    }
+  }
 }

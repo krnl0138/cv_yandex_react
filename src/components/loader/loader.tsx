@@ -1,4 +1,4 @@
-import styles from './loader.module.scss'
+import styles from './loader.module.scss';
 import React from 'react';
 
 export default function Loader(): JSX.Element {
@@ -6,5 +6,5 @@ export default function Loader(): JSX.Element {
     <div className={styles.main}>
       <div className={styles.loader}></div>
     </div>
-  )
+  );
 }

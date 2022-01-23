@@ -1,7 +1,7 @@
 @use '../../styles/scss/abstracts/mixins' as *;
 
 .main {
-    @include centerItem;
+  @include centerItem;
 
-    text-align: center;
+  text-align: center;
 }

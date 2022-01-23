@@ -1,35 +1,38 @@
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import React, { ReactNode, useEffect } from 'react';
-import styles from "./modal.module.scss";
-import ModalOverlay from "../modal-overlay/modal-overlay";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './modal.module.scss';
+import ModalOverlay from '../modal-overlay/modal-overlay';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 interface IModalProps {
-    onClose: () => void;
-    children: ReactNode;
+  onClose: () => void;
+  children: ReactNode;
 }
 
 export default function Modal({ children, onClose }: IModalProps): JSX.Element {
-    const modalRoot = document.getElementById("react-modals") as HTMLElement;
+  const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
-    useEffect(() => {
-        const closeModal = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') { onClose() }
-        }
+  useEffect(() => {
+    const closeModal = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
 
-        window.addEventListener('keydown', closeModal)
-        return () => window.removeEventListener('keydown', closeModal)
-    }, [onClose])
+    window.addEventListener('keydown', closeModal);
+    return () => window.removeEventListener('keydown', closeModal);
+  }, [onClose]);
 
-    return ReactDOM.createPortal(
-        <>
-            <ModalOverlay onClose={onClose} />
-            <div className={styles.modal}>
-                <span onClick={onClose} className={styles.modalCloseIcon} data-cy="modal-close">
-                    <CloseIcon type="primary" />
-                </span>
-                {children}
-            </div>
-        </>, modalRoot
-    );
+  return ReactDOM.createPortal(
+    <>
+      <ModalOverlay onClose={onClose} />
+      <div className={styles.modal}>
+        <span onClick={onClose} className={styles.modalCloseIcon} data-cy="modal-close">
+          <CloseIcon type="primary" />
+        </span>
+        {children}
+      </div>
+    </>,
+    modalRoot
+  );
 }

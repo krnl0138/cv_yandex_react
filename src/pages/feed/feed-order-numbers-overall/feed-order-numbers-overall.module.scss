@@ -1,17 +1,17 @@
 @use '../../../styles/scss/abstracts/mixins' as *;
 
 .ordersAllTime {
-    padding: 20px 50px 20px;
+  padding: 20px 50px 20px;
 }
 
 .ordersAllTimeNumber {
-    @include textShadow;
+  @include textShadow;
 }
 
 .ordersToday {
-    padding: 50px;
+  padding: 50px;
 }
 
 .ordersTodayNumber {
-    @include textShadow;
+  @include textShadow;
 }

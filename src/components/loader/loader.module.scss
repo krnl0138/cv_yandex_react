@@ -6,13 +6,13 @@
 
 .loader {
   margin-bottom: 30px;
-  
+
   &:after {
     display: block;
-    content: " ";
+    content: ' ';
     width: 100px;
     height: 100px;
-    border: 8px solid #F2F2F3;
+    border: 8px solid #f2f2f3;
     border-radius: 30%;
     animation: loader 1.5s linear infinite;
   }

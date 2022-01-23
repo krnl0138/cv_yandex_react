@@ -15,33 +15,35 @@ export default function ProtectedRoute({ children, ...rest }: IProtectedRoute): 
   const user = useSelector(store => store.user);
 
   const init = useCallback(async () => {
-    await dispatch(getUserData())
-    setUserLoaded(true)
-  }, [dispatch])
+    await dispatch(getUserData());
+    setUserLoaded(true);
+  }, [dispatch]);
 
   useEffect(() => {
     init();
   }, [init]);
 
   if (!isUserLoaded) {
-    return null
+    return null;
   }
 
-  return (
-    isUserLoaded ? (
-      <Route
-        {...rest}
-        render={({ location }) =>
-          user.username ? (children)
-            : (
-              <Redirect
-                to={{
-                  pathname: '/login',
-                  state: { from: location }
-                }}
-              />
-            )
-        }
-      />) : (<Loader />)
+  return isUserLoaded ? (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        user.username ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  ) : (
+    <Loader />
   );
 }

@@ -2,78 +2,77 @@
 @use '../../styles/scss/abstracts/variables' as *;
 
 .main {
-    display: flex;
+  display: flex;
 }
 
 .left {
-    display: flex;
-    justify-content: flex-end;
-    width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
 }
 
 .right {
-    display: flex;
-    width: 50%;
+  display: flex;
+  width: 50%;
 }
 
 .orders {
-    height: 90vh;
-    overflow-y: overlay;
-    overflow-x: hidden;
-    
-    margin-top: 40px;
+  height: 90vh;
+  overflow-y: overlay;
+  overflow-x: hidden;
 
-    @include sidebar;
+  margin-top: 40px;
+
+  @include sidebar;
 }
 
-
 .feedHeading {
-    align-self: center;
+  align-self: center;
 }
 
 .stats {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    margin: 40px 30px 0 0;
+  margin: 40px 30px 0 0;
 }
 
 .ordersStats {
-    display: flex;
+  display: flex;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .ordersReady {
-    padding: 50px;
-    margin-right: 100px;
+  padding: 50px;
+  margin-right: 100px;
 }
 
 .ordersPrep {
-    padding: 50px;
+  padding: 50px;
 }
 
 .ordersAllTime {
-    padding: 20px 50px 20px;
+  padding: 20px 50px 20px;
 }
 
 .ordersAllTimeNumber {
-    @include textShadow;
+  @include textShadow;
 }
 
 .ordersToday {
-    padding: 50px;
+  padding: 50px;
 }
 
 .ordersTodayNumber {
-    @include textShadow;
+  @include textShadow;
 }
 
 .ordersDone {
-    color: $color-orders-done;
+  color: $color-orders-done;
 }
 
 .wrapper {
-    display: flex;
-    /* columns: 2 auto; */
+  display: flex;
+  /* columns: 2 auto; */
 }

@@ -2,81 +2,80 @@
 @use '../../styles/scss/abstracts/variables' as *;
 
 .main {
-    margin: 10vh 35vw 0;
+  margin: 10vh 35vw 0;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .mainModal {
-    margin: 0 20px;
+  margin: 0 20px;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .orderNumber {
-    text-align: center;
+  text-align: center;
 }
 
 .orderIngredients {
-    overflow-y: overlay;
-    overflow-x: hidden;
-    margin-left: -30px;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  margin-left: -30px;
 
-    @include sidebar;
+  @include sidebar;
 }
 
-
 .orderIngredientRow {
-    position: relative;
+  position: relative;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .ingIcon {
-    transform: scale(0.8);
+  transform: scale(0.8);
 }
 
 .ingIconSpan::before {
-    content: "";
-    position: absolute;
-    height:60px;
-    width:60px;
-    border-radius: 50%;
-    background-color: yellow;
-    margin-left: 39px;
-    margin-top: 5px;
+  content: '';
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: yellow;
+  margin-left: 39px;
+  margin-top: 5px;
 
-    background-color: transparent;
+  background-color: transparent;
 
-    border: 2px solid rgb(163, 40, 219);
+  border: 2px solid rgb(163, 40, 219);
 }
 
 .ingValue {
-    display: flex;
-    margin-left: auto;
-    margin-right: 25px;
+  display: flex;
+  margin-left: auto;
+  margin-right: 25px;
 }
 
 .orderValue {
-    display: flex;
+  display: flex;
 }
 
 .statusDone {
-    color: $color-status-done;
+  color: $color-status-done;
 }
 
 .statusCancelled {
-    color: $color-status-cancelled;
+  color: $color-status-cancelled;
 }
 
 .statusInProcess {
-    color: #fff;
+  color: #fff;
 }

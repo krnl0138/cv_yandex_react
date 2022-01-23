@@ -1,43 +1,42 @@
 @use '../../styles/scss/abstracts/mixins' as *;
 
 .main {
-    min-width: 50%;
+  min-width: 50%;
 }
 .constructor {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    font-weight: 300;
-    height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-weight: 300;
+  height: 60vh;
 }
 
 .middle {
-    overflow-y: overlay;
-    overflow-x: hidden;
-    min-height: 10vh;
+  overflow-y: overlay;
+  overflow-x: hidden;
+  min-height: 10vh;
 
-    @include sidebar;
+  @include sidebar;
 }
 
-
 .middleIngredients {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .dragIcon {
-    height: 24px;
-    width: 24px;
+  height: 24px;
+  width: 24px;
 }
 
 .orderSection {
-    display: flex;
-    justify-content: flex-end;
-    overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
 }
 
 .price {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
 }

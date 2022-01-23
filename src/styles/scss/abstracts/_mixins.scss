@@ -1,60 +1,62 @@
 @use './variables' as *;
 
 @mixin centerItem {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @mixin textShadow {
-    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 
-                 0px 0px 8px rgba(51, 51, 255, 0.25), 
-                 0px 4px 32px rgba(51, 51, 255, 0.5);
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25),
+    0px 4px 32px rgba(51, 51, 255, 0.5);
 }
 
 @mixin modalShadow {
-  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 
-              0 16px 24px rgba(0, 0, 0, 0.04),
-              0 4px 8px rgba(0, 0, 0, 0.04), 
-              0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
+    0 0 1px rgba(0, 0, 0, 0.04);
 }
 
 @mixin sidebar {
-    &::-webkit-scrollbar {
-        width: 10px;
-        background-color: $color-sidebar-main;
-      }
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color-sidebar-main;
+  }
 
-    &::-webkit-scrollbar-thumb {
-        background-color: $color-sidebar-thumb;
-      }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-sidebar-thumb;
+  }
 }
 
 @mixin basePageMainBlock {
-    .main {
-        @include centerItem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+  .main {
+    @include centerItem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 @mixin baseFormMargin {
-    .form {
-        margin-top: 24px;
-        margin-bottom: 80px;
-    }
-    
-    .formChild {
-        margin-top: 24px;
-    }
+  .form {
+    margin-top: 24px;
+    margin-bottom: 80px;
+  }
+
+  .formChild {
+    margin-top: 24px;
+  }
 }
 
 @mixin linkDefault {
-    a, a:link, a:visited, a:focus, a:hover, a:active {
-        text-decoration: none;
-        color: #8585AD;
-    }
+  a,
+  a:link,
+  a:visited,
+  a:focus,
+  a:hover,
+  a:active {
+    text-decoration: none;
+    color: #8585ad;
+  }
 }
