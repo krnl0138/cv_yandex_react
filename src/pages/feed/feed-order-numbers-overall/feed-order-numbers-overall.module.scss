@@ -1,4 +1,4 @@
-@import '../../../styles/mixins.scss';
+@use '../../../styles/scss/abstracts/mixins' as *;
 
 .ordersAllTime {
     padding: 20px 50px 20px;

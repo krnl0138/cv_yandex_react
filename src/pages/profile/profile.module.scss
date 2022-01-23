@@ -1,9 +1,9 @@
+@use '../../styles/scss/abstracts/mixins' as *;
+@use '../../styles/scss/abstracts/variables' as *;
+
 .main {
+    @include centerItem;
     display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -80%);
 }
 
 .nav {
@@ -16,10 +16,10 @@
 .navChild {
     text-decoration: none;
     margin: 16px 0;
-    color: #F2F2F3;
+    color: $color-link-main;
 
     &:visited {
-        color: #8585AD;
+        color: $color-link-visited;
     }
 }
 
@@ -29,10 +29,10 @@
 }
 
 .activeLink {
-    color: #F2F2F3;
+    color: $color-link-main;
     
     &:visited {
-        color: #F2F2F3;
+        color: $color-link-main;
     }
 }
 

@@ -1,4 +1,5 @@
-@import '../../styles/mixins.scss';
+@use '../../styles/scss/abstracts/mixins' as *;
+@use '../../styles/scss/abstracts/variables' as *;
 
 .main {
     display: flex;
@@ -22,14 +23,7 @@
     
     margin-top: 40px;
 
-    &::-webkit-scrollbar {
-        width: 10px;
-        background-color: #2f2f37;
-        margin-left: 20px;
-      }
-    &::-webkit-scrollbar-thumb {
-        background-color: #6b70aa;
-      }
+    @include sidebar;
 }
 
 
@@ -76,7 +70,7 @@
 }
 
 .ordersDone {
-    color: #00CED1;
+    color: $color-orders-done;
 }
 
 .wrapper {

@@ -1,10 +1,11 @@
-@import "../../styles/mixins.scss";
+@use "../../styles/scss/abstracts/mixins" as *;
+@use '../../styles/scss/abstracts/variables' as *;
 
 @include linkDefault;
 
 .header{
     justify-content: center;
-    background: #1C1C21;
+    background: $color-background-header;
     text-align: center;
 
     position: relative;
@@ -21,7 +22,7 @@
         display: flex;
         align-items: center;
     
-        background: #1C1C21;
+        background: $color-background-header;
         border-radius: 40%;
     
         &_left {
@@ -35,21 +36,15 @@
 }
 
 .center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    @include centerItem;
 }
 
 .activeLink {
     text-decoration: none;
-    color: #fff;
+    color: $color-default-white;
 
     &:visited {
         text-decoration: none;
-        color: #fff;
+        color: $color-default-white;
     }
-}
-
-.burger {
-    color: red;
 }

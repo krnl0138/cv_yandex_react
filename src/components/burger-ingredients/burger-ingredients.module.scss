@@ -1,8 +1,7 @@
-@import '../../styles/mixins.scss';
+@use '../../styles/scss/abstracts/mixins' as *;
 
 .main {
   min-width: 50%;
-  // zoom: 85%;
 }
 
 .ingredientsTypeBar { 
