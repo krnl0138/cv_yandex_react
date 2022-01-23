@@ -10,10 +10,18 @@ interface IBurgerConstructorBunProps {
   bunDropRef: ConnectDropTarget;
 }
 
-export function BurgerConstructorBun({ bun, type, bunDropRef }: IBurgerConstructorBunProps): JSX.Element {
+export function BurgerConstructorBun({
+  bun,
+  type,
+  bunDropRef,
+}: IBurgerConstructorBunProps): JSX.Element {
   if (!bun) {
     return (
-      <div ref={bunDropRef} className="ml-8 mr-8" data-cy={type === 'top' ? 'burger-constructor-bun-top' : ''}>
+      <div
+        ref={bunDropRef}
+        className="ml-8 mr-8"
+        data-cy={type === 'top' ? 'burger-constructor-bun-top' : ''}
+      >
         <ConstructorElement
           type={type}
           isLocked={true}

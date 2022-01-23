@@ -69,7 +69,6 @@ export default function OrderView({ order, modal }: IOrderViewProps): JSX.Elemen
     [ingredientsData, ingredientsInOrder]
   );
 
-  // let orderNumber = '';
   const getOrderNumberFromLocation = useCallback(() => {
     const l = location.pathname;
     if (l.startsWith('/profile/orders/')) {
@@ -106,7 +105,9 @@ export default function OrderView({ order, modal }: IOrderViewProps): JSX.Elemen
     <Loader />
   ) : (
     <div className={modal ? styles.mainModal : styles.main}>
-      <p className={`${styles.orderNumber} text text_type_digits-medium mb-10`}>#{resultedOrder.number}</p>
+      <p className={`${styles.orderNumber} text text_type_digits-medium mb-10`}>
+        #{resultedOrder.number}
+      </p>
       <p className={` ${styles.orderName} text text_type_main-medium mb-5`}>{resultedOrder.name}</p>
 
       <p className={`${styles[status.color]} text text_type_main-default mb-15`}>{status.value}</p>

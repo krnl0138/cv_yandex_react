@@ -63,7 +63,13 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
       setIngredientsInOrder([...matchedIngs]);
       setDoneIngredients(true);
     }
-  }, [ingredientsData, order.ingredients, ingredientsInOrder.length, order.status, matchOrderStatus]);
+  }, [
+    ingredientsData,
+    order.ingredients,
+    ingredientsInOrder.length,
+    order.status,
+    matchOrderStatus,
+  ]);
 
   return (
     <div className={styles.main} onClick={onClick}>
@@ -78,7 +84,9 @@ export default function OrderElement({ onClick, order, from }: IOrderElementProp
         <p className="text text_type_main-medium mb-4">{order.name}</p>
 
         {from === 'profile' && (
-          <p className={`${styles[status.color]} text text_type_main-default mb-4`}>{status.value}</p>
+          <p className={`${styles[status.color]} text text_type_main-default mb-4`}>
+            {status.value}
+          </p>
         )}
 
         <span className={`${styles.row} mt-3 mb-5`}>

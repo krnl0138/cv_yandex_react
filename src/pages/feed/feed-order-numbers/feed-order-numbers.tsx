@@ -23,7 +23,9 @@ export const FeedOrderNumbers = ({ ordersMarkup, status }: IFeedOrderNumbers): J
       <div className={styles.ordersReady}>
         <p className="text text_type_main-medium mb-5">Готовы:</p>
 
-        <div className={styles.wrapper}>{ordersMarkup.length > 0 ? renderOrderMarkup() : <Loader />}</div>
+        <div className={styles.wrapper}>
+          {ordersMarkup.length > 0 ? renderOrderMarkup() : <Loader />}
+        </div>
       </div>
     );
   } else if (status === 'pending') {

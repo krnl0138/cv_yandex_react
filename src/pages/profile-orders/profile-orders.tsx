@@ -93,7 +93,14 @@ export default function ProfileOrders(): JSX.Element {
             .reverse()
             .map((order, index) => {
               // for some reason returned reversed
-              return <OrderElement key={index} onClick={() => onClick(order)} order={order} from="profile" />;
+              return (
+                <OrderElement
+                  key={index}
+                  onClick={() => onClick(order)}
+                  order={order}
+                  from="profile"
+                />
+              );
             })
         )}
       </div>

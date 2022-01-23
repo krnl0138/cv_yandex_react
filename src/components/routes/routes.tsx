@@ -27,7 +27,10 @@ import OrderView from '../order-view/order-view';
 import ProtectedRoute from '../protected-route';
 
 import { RootState } from '../../services/reducers/index';
-import { SET_VISIBLE_ORDER_DETAILS, SET_VISIBLE_INGREDIENT_DETAILS } from '../../services/actions/modals';
+import {
+  SET_VISIBLE_ORDER_DETAILS,
+  SET_VISIBLE_INGREDIENT_DETAILS,
+} from '../../services/actions/modals';
 
 import type { TOrder } from '../../types/types';
 

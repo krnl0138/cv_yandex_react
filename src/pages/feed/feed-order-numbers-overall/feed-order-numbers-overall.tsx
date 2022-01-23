@@ -6,7 +6,10 @@ interface IFeedOrderNumbersOverall {
   quantity: number;
 }
 
-export const FeedOrderNumbersOverall = ({ quantity, period }: IFeedOrderNumbersOverall): JSX.Element => {
+export const FeedOrderNumbersOverall = ({
+  quantity,
+  period,
+}: IFeedOrderNumbersOverall): JSX.Element => {
   if (period === 'today') {
     return (
       <div className={styles.ordersToday}>

@@ -44,7 +44,9 @@ export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Ele
           : `card-sauce-${cyData}`
       }
     >
-      {counter > 0 && <Counter count={item.type === 'bun' ? counter + 1 : counter} size="default" />}
+      {counter > 0 && (
+        <Counter count={item.type === 'bun' ? counter + 1 : counter} size="default" />
+      )}
 
       <img className="p-2 pb-4" src={item.image} alt={item.name} />
       <span className={styles.price}>

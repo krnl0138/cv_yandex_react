@@ -11,7 +11,10 @@ interface IBurgerConstructorMiddleProps {
   index: number;
 }
 
-export function BurgerConstructorMiddle({ item, index }: IBurgerConstructorMiddleProps): JSX.Element {
+export function BurgerConstructorMiddle({
+  item,
+  index,
+}: IBurgerConstructorMiddleProps): JSX.Element {
   const dispatch = useDispatch();
 
   const [{ opacity }, dragRef] = useDrag({

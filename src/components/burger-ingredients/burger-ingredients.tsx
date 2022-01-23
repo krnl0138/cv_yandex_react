@@ -46,7 +46,10 @@ export default function BurgerIngredients(): JSX.Element {
         const openDetails = () => {
           dispatch({ type: SET_ACTIVE_INGREDIENT, activeIngredient: ingredient });
           dispatch({ type: SET_VISIBLE_INGREDIENT_DETAILS, value: true });
-          history.push({ pathname: `/ingredients/${ingredient._id}`, state: { background: location } });
+          history.push({
+            pathname: `/ingredients/${ingredient._id}`,
+            state: { background: location },
+          });
         };
         return <Card item={ingredient} openDetails={openDetails} key={index} cyData={index} />;
       });
