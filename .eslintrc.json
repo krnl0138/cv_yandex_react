@@ -20,6 +20,13 @@
   },
   "plugins": ["react", "@typescript-eslint", "cypress"],
   "rules": {
-    "quotes": ["error", "single", { "avoidEscape": true }]
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true,
+        "allowTemplateLiterals": true
+      }
+    ]
   }
 }
