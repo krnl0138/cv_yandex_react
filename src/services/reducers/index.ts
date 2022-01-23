@@ -39,21 +39,21 @@ const rootReducer = combineReducers({
   forgotPassword: forgotPasswordReducer,
   user: userReducer,
   ws: wsReducer,
-})
+});
 
 export const store = createStore(rootReducer, enhancer);
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
 
-export type TApplicationActions = 
-  TCartActions | 
-  TForgotPasswordActions | 
-  TIngredientsActions |
-  TIngredientDetailsActions |
-  TModalsActions |
-  TOrderDetailsActions |
-  TWsActions |
-  TUserActions |
-  TAuthActions;
+export type TApplicationActions =
+  | TCartActions
+  | TForgotPasswordActions
+  | TIngredientsActions
+  | TIngredientDetailsActions
+  | TModalsActions
+  | TOrderDetailsActions
+  | TWsActions
+  | TUserActions
+  | TAuthActions;
 
 // Typed thunks
 export type AppThunk<TReturn = void> = ActionCreator<
@@ -61,4 +61,4 @@ export type AppThunk<TReturn = void> = ActionCreator<
 >;
 
 // Typed dispatch
-export type AppDispatch = Dispatch<TApplicationActions>
+export type AppDispatch = Dispatch<TApplicationActions>;

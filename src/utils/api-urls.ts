@@ -1,4 +1,4 @@
-import { getCookie } from "./cookies";
+import { getCookie } from './cookies';
 
 const HTTPS_API_URL = 'https://norma.nomoreparties.space/api';
 const WS_API_URL = 'wss://norma.nomoreparties.space/orders';

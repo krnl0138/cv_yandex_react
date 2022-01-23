@@ -41,65 +41,66 @@ export interface IResetOrderNumber {
 }
 
 export type TOrderDetailsActions =
-  IPostOrderRequest |
-  IPostOrderRequestSuccess |
-  IPostOrderRequestFailed |
-  IGetOrderRequest |
-  IGetOrderRequestSuccess |
-  IGetOrderRequestFailed |
-  IResetOrderNumber;
+  | IPostOrderRequest
+  | IPostOrderRequestSuccess
+  | IPostOrderRequestFailed
+  | IGetOrderRequest
+  | IGetOrderRequestSuccess
+  | IGetOrderRequestFailed
+  | IResetOrderNumber;
 
-export const postOrder: AppThunk = (ingredientsIDs: TIngredientsIDs) =>
-  async (dispatch: AppDispatch) => {
+export const postOrder: AppThunk =
+  (ingredientsIDs: TIngredientsIDs) => async (dispatch: AppDispatch) => {
     dispatch({ type: POST_ORDER_REQUEST });
 
     const opts = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + getCookie('accessToken')
+        Authorization: 'Bearer ' + getCookie('accessToken'),
       },
-      body: JSON.stringify({ 'ingredients': ingredientsIDs })
-    }
+      body: JSON.stringify({ ingredients: ingredientsIDs }),
+    };
 
     try {
       const res = await fetch(POST_ORDER_URL, opts);
       const data = await checkResponse(res);
       if (typeof data.order.number === 'number') {
-        dispatch({ type: POST_ORDER_REQUEST_SUCCESS, orderNumber: data.order.number, ingredientsIDs: ingredientsIDs });
-        dispatch({ type: CLEAR_CART_INGREDIENT })
+        dispatch({
+          type: POST_ORDER_REQUEST_SUCCESS,
+          orderNumber: data.order.number,
+          ingredientsIDs: ingredientsIDs,
+        });
+        dispatch({ type: CLEAR_CART_INGREDIENT });
       }
-    }
-    catch (e) {
-      dispatch({ type: POST_ORDER_REQUEST_FAILED })
+    } catch (e) {
+      dispatch({ type: POST_ORDER_REQUEST_FAILED });
       console.log(e);
     }
-  }
+  };
 
 function isOrder(obj: any): obj is TOrder {
-  return obj
+  return obj;
 }
 
-export const getOrder: AppThunk = (orderNumber: string) =>
-  async (dispatch: AppDispatch) => {
-    dispatch({ type: GET_ORDER_REQUEST });
+export const getOrder: AppThunk = (orderNumber: string) => async (dispatch: AppDispatch) => {
+  dispatch({ type: GET_ORDER_REQUEST });
 
-    const opts = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    }
+  const opts = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
 
-    try {
-      const res = await fetch(`${GET_ORDER_URL}/${orderNumber}`, opts);
-      const data = await checkResponse(res);
-      if (isOrder(data.orders[0])) {
-        dispatch({ type: GET_ORDER_REQUEST_SUCCESS, order: data.orders[0] });
-      }
+  try {
+    const res = await fetch(`${GET_ORDER_URL}/${orderNumber}`, opts);
+    const data = await checkResponse(res);
+    if (isOrder(data.orders[0])) {
+      dispatch({ type: GET_ORDER_REQUEST_SUCCESS, order: data.orders[0] });
     }
-    catch (e) {
-      dispatch({ type: POST_ORDER_REQUEST_FAILED })
-      console.log(e);
-    }
+  } catch (e) {
+    dispatch({ type: POST_ORDER_REQUEST_FAILED });
+    console.log(e);
   }
+};

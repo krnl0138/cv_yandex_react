@@ -6,7 +6,7 @@ import {
   GET_ORDER_REQUEST_SUCCESS,
   GET_ORDER_REQUEST_FAILED,
   RESET_ORDER_NUMBER,
-  TOrderDetailsActions
+  TOrderDetailsActions,
 } from '../actions/order-details';
 
 import type { TOrder } from '../../types/types';
@@ -25,59 +25,59 @@ const initialState: IState = {
   isLoading: false,
   hasError: false,
   order: {},
-}
+};
 
 export const orderDetailsReducer = (state = initialState, action: TOrderDetailsActions): IState => {
   switch (action.type) {
     case POST_ORDER_REQUEST: {
       return {
         ...state,
-        isLoading: true
-      }
+        isLoading: true,
+      };
     }
     case POST_ORDER_REQUEST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         orderNumber: action.orderNumber,
-        ingredientsIDs: action.ingredientsIDs
-      }
+        ingredientsIDs: action.ingredientsIDs,
+      };
     }
     case POST_ORDER_REQUEST_FAILED: {
       return {
         ...state,
         isLoading: false,
         hasError: true,
-      }
+      };
     }
     case GET_ORDER_REQUEST: {
       return {
         ...state,
-        isLoading: true
-      }
+        isLoading: true,
+      };
     }
     case GET_ORDER_REQUEST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
         order: action.order,
-      }
+      };
     }
     case GET_ORDER_REQUEST_FAILED: {
       return {
         ...state,
         isLoading: false,
         hasError: true,
-      }
+      };
     }
     case RESET_ORDER_NUMBER: {
       return {
         ...state,
         orderNumber: null,
-      }
+      };
     }
     default: {
       return state;
     }
   }
-}
+};

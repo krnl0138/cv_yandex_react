@@ -7,18 +7,21 @@ interface IState {
 
 const initialState: IState = {
   activeIngredient: null,
-}
+};
 
-export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions): IState => {
+export const ingredientDetailsReducer = (
+  state = initialState,
+  action: TIngredientDetailsActions
+): IState => {
   switch (action.type) {
     case SET_ACTIVE_INGREDIENT: {
       return {
         ...state,
-        activeIngredient: action.activeIngredient
-      }
+        activeIngredient: action.activeIngredient,
+      };
     }
     default: {
       return state;
     }
   }
-}
+};

@@ -4,7 +4,8 @@ export function setCookie(
   props?: {
     expires?: string | number | Date;
     [propName: string]: any;
-  }): void {
+  }
+): void {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -31,11 +32,11 @@ export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
-      // eslint-disable-next-line
-      name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') +
-      '=([^;]*)'
+        // eslint-disable-next-line
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') +
+        '=([^;]*)'
     )
-  )
+  );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 

@@ -20,7 +20,10 @@ export interface IGetIngredientsRequestError {
   readonly type: typeof GET_INGREDIENTS_REQUEST_ERROR;
 }
 
-export type TIngredientsActions = IGetIngredientsRequest | IGetIngredientsRequestSuccess | IGetIngredientsRequestError;
+export type TIngredientsActions =
+  | IGetIngredientsRequest
+  | IGetIngredientsRequestSuccess
+  | IGetIngredientsRequestError;
 
 // not working for an array, is there a way to validate data?
 function isIngArray(obj: any): obj is Array<TIngredient> {
@@ -35,11 +38,11 @@ export const getIngredients: AppThunk = () => {
       const res = await fetch(GET_INGREDIENTS_URL);
       const data = await checkResponse(res);
       if (isIngArray(data.data)) {
-        dispatch({ type: GET_INGREDIENTS_REQUEST_SUCCESS, ingredientsData: data.data })
+        dispatch({ type: GET_INGREDIENTS_REQUEST_SUCCESS, ingredientsData: data.data });
       }
     } catch (e) {
       dispatch({ type: GET_INGREDIENTS_REQUEST_ERROR });
       console.log(e);
     }
-  }
+  };
 };
