@@ -9,11 +9,7 @@ type TCardProps = {
   item: TIngredient;
   openDetails: () => void;
   cyData: number;
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 6758ee54fe1c91a3e584b76cc5d1b680752be022
 
 export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Element {
   const cartIngredients = useSelector(store => store.cart.cartIngredients);
@@ -41,19 +37,11 @@ export default function Card({ item, openDetails, cyData }: TCardProps): JSX.Ele
       key={item._id}
       style={{ opacity }}
       data-cy={
-<<<<<<< HEAD
         item.type === 'bun'
           ? `card-bun-${cyData}`
           : item.type === 'main'
           ? `card-main-${cyData}`
           : `card-sauce-${cyData}`
-=======
-        item.type === 'bun' ? 
-          `card-bun-${cyData}` : 
-          item.type === 'main' ? 
-          `card-main-${cyData}` : 
-          `card-sauce-${cyData}`
->>>>>>> 6758ee54fe1c91a3e584b76cc5d1b680752be022
       }
     >
       {counter > 0 && (
