@@ -38,8 +38,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "deploy-script": "npm run build && scp -r ./build/* krnl0138@51.250.6.141:/home/krnl0138/stellar-frontend",
-    "sass:watch": "sass --watch src/styles/scss:src/styles/css",
-    "sass:build": "sass --update src/styles/scss:src/styles/css"
+    "sass:watch": "sass --watch src/styles/scss/main.scss:src/styles/css/index.css",
+    "sass:build": "sass --update src/styles/scss/main.scss:src/styles/css/index.css"
   },
   "eslintConfig": {
     "extends": [

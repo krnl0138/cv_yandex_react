@@ -17,12 +17,6 @@
     "jsx": "react-jsx",
     "types": ["cypress", "@testing-library/cypress"]
   },
-  "include": [
-    "src",
-    // "./src/*.ts",
-    "declarations",
-    "setupTests.ts"
-  ],
+  "include": ["src", "declarations", "setupTests.ts"],
   "exclude": ["src/**/*.test.ts"]
-  // "exclude": ["**/*.spec.ts"]
 }
