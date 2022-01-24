@@ -1,15 +1,7 @@
-@use '../../styles/scss/abstracts/mixins' as *;
-@use '../../styles/scss/abstracts/variables' as *;
+@use '../../../styles/scss/abstracts/mixins' as *;
+@use '../../../styles/scss/abstracts/variables' as *;
 
 @include linkDefault;
-
-.header {
-  justify-content: center;
-  background: $color-background-header;
-  text-align: center;
-
-  position: relative;
-}
 
 .nav {
   display: flex;
@@ -35,10 +27,6 @@
       margin-left: auto;
     }
   }
-}
-
-.center {
-  @include centerItem;
 }
 
 .activeLink {

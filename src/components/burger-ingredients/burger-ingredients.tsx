@@ -77,7 +77,7 @@ export default function BurgerIngredients(): JSX.Element {
         <p className="text text_type_main-medium mb-5" ref={refBun}>
           Булки
         </p>
-        <div className={styles.ingredientsTabsElement}> {ingredientsList('bun')} </div>
+        <div className={styles.ingredientsTabsElement}>{ingredientsList('bun')}</div>
 
         <p className="text text_type_main-medium mb-5 mt-10" ref={refSauce}>
           Соусы

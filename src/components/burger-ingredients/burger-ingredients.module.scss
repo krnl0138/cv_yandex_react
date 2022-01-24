@@ -1,4 +1,5 @@
 @use '../../styles/scss/abstracts/mixins' as *;
+@use '../../styles/scss/abstracts/variables' as *;
 
 .main {
   min-width: 50%;
@@ -8,14 +9,32 @@
   display: flex;
   justify-content: space-evenly;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
+  }
+
+  & > div {
+    width: 100%;
+    @media (max-width: 1200px) {
+      width: auto;
+    }
+  }
+
+  & > div > span {
+    font-size: 20px;
+    @media (max-width: 1850px) {
+      font-size: 16px;
+    }
+    @media (max-width: 1400px) {
+      font-size: 14px;
+    }
   }
 }
 
 .ingredientsTabs {
   overflow-y: scroll;
-  height: 60vh;
+  overflow-x: clip;
+  height: $height-page-default;
   text-align: center;
 
   @include sidebar;
@@ -23,5 +42,11 @@
   &Element {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    @media (max-width: 900px) {
+      // flex-direction: column;
+      // align-items: center;
+    }
   }
 }
