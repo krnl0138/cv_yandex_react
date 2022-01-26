@@ -1,10 +1,17 @@
 @use '../../styles/scss/abstracts/mixins' as *;
+@use '../../styles/scss/abstracts/variables' as *;
 
 .main {
   display: flex;
 
   max-width: 70vw;
   margin: 0 auto;
+
+  @media (max-width: $small_screen_size) {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+  }
 }
 
 .left {
@@ -14,6 +21,16 @@
 
   margin-top: 11vh;
   margin-left: auto;
+
+  @media (max-width: $small_screen_size) {
+    display: block;
+    position: static;
+    margin-top: 10px;
+    margin-left: 20px;
+
+    // margin: 0;
+    width: auto;
+  }
 }
 
 .right {
@@ -30,6 +47,13 @@
   margin-left: auto;
 
   @include sidebar;
+
+  @media (max-width: $small_screen_size) {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    height: 92vh;
+  }
 }
 
 .nav {

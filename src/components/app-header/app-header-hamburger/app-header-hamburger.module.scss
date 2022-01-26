@@ -1,0 +1,99 @@
+@use '../../../styles/scss/abstracts/mixins' as *;
+@use '../../../styles/scss/abstracts/variables' as *;
+
+@include linkDefault;
+ul {
+  list-style: none;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: $color-background-header;
+}
+
+.logo {
+  display: inline-block;
+  font-size: 60px;
+}
+
+.nav {
+  top: 80px; //same as header height from .hamb padding
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: transparent;
+  overflow: hidden;
+  max-height: 0;
+
+  opacity: 0.95;
+  z-index: 1000;
+
+  transition: max-height 0.5s ease-out;
+}
+
+.menu {
+  &_element {
+    display: flex;
+    justify-content: flex-end;
+    background: $color-background-header;
+    padding: 50px 40px;
+  }
+
+  &_element:hover {
+    color: #f2f2f3;
+  }
+}
+
+.hamb {
+  cursor: pointer;
+  padding: 40px 20px;
+
+  &Line {
+    background: white;
+    display: block;
+    height: 2px;
+    position: relative;
+    width: 24px;
+  }
+
+  &Line::before,
+  &Line::after {
+    background: white;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    width: 100%;
+  }
+  &Line::before {
+    top: 5px;
+  }
+  &Line::after {
+    top: -5px;
+  }
+}
+
+.sideMenu {
+  display: none;
+
+  &:checked ~ nav {
+    max-height: 100%;
+  }
+  &:checked ~ .hamb .hamb-line {
+    background: transparent;
+  }
+  &:checked ~ .hamb .hamb-line::before {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+  &:checked ~ .hamb .hamb-line::after {
+    transform: rotate(45deg);
+    top: 0;
+  }
+}

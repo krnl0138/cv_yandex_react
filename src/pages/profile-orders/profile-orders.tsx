@@ -77,10 +77,6 @@ export default function ProfileOrders(): JSX.Element {
           >
             Выход
           </Link>
-
-          <p className={`text text_type_main-small text_color_inactive ${styles.navParagraph}`}>
-            В этом разделе вы можете изменить свои персональные данные
-          </p>
         </nav>
       </div>
 

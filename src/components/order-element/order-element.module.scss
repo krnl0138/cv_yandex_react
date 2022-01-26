@@ -1,3 +1,5 @@
+@use '../../styles/scss/abstracts/variables' as *;
+
 .main {
   max-width: 580px;
 
@@ -9,10 +11,14 @@
 
   /* hot fix */
   margin-right: 20px;
+
+  @media (max-width: $small_screen_size) {
+    max-width: 100%;
+  }
 }
 
 .content {
-  position: relative;
+  // position: relative;
 
   display: flex;
   flex-direction: column;
