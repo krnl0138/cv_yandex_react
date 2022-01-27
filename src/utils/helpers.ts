@@ -1,6 +1,8 @@
 import { TOKEN_REFRESH_POST_URL } from './api-urls';
 import { setCookie, getCookie } from './cookies';
 import { TRequestOptions } from '../types/types';
+import { useMediaQuery } from 'react-responsive';
+import { MOBILE_SCREEN_SIZE, SMALL_SCREEN_SIZE } from './constants';
 
 export const checkResponse = (res: Response): Promise<any> => {
   if (res.ok) {
@@ -53,3 +55,14 @@ export const fetchWithRefresh = async (url: string, options: TRequestOptions): P
     }
   }
 };
+
+export function getBreakpoints() {
+  return {
+    isMobileScreen: useMediaQuery({ maxDeviceWidth: MOBILE_SCREEN_SIZE }),
+    isSmallScreen: useMediaQuery({
+      maxDeviceWidth: SMALL_SCREEN_SIZE - 1,
+      minDeviceWidth: MOBILE_SCREEN_SIZE + 1,
+    }),
+    isDesktopScreen: useMediaQuery({ minDeviceWidth: SMALL_SCREEN_SIZE }),
+  };
+}
