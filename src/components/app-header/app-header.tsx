@@ -1,12 +1,7 @@
 import styles from './app-header.module.scss';
 import React from 'react';
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, NavLink } from 'react-router-dom';
+import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 import { SMALL_SCREEN_SIZE, MOBILE_SCREEN_SIZE } from '../../utils/constants';
 import { useMediaQuery } from 'react-responsive';
 import { AppHeaderHamburger } from './app-header-hamburger/app-header-hamburger';

@@ -1,7 +1,7 @@
 @use '../../../styles/scss/abstracts/variables' as *;
 
 .card {
-  // position: relative;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
