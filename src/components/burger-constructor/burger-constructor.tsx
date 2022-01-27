@@ -9,7 +9,7 @@ import { SET_VISIBLE_ORDER_DETAILS } from '../../services/actions/modals';
 import { addCartIngredientBun, ADD_CART_INGREDIENT } from '../../services/actions/cart';
 import { BurgerConstructorMiddle } from './burger-constructor-middle/burger-constructor-middle';
 import { BurgerConstructorBun } from './burger-constructor-bun/burger-constructor-bun';
-import { TBun } from '../../types/types';
+import { IBun } from '../../types/types';
 
 export default function BurgerConstructor(): JSX.Element {
   const dispatch = useDispatch();
@@ -45,14 +45,14 @@ export default function BurgerConstructor(): JSX.Element {
 
   const [, bunDropTop] = useDrop({
     accept: 'bun',
-    drop(ingredient: TBun) {
+    drop(ingredient: IBun) {
       dispatch(addCartIngredientBun(ingredient));
     },
   });
 
   const [, bunDropBottom] = useDrop({
     accept: 'bun',
-    drop(ingredient: TBun) {
+    drop(ingredient: IBun) {
       dispatch(addCartIngredientBun(ingredient));
     },
   });

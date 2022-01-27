@@ -1,4 +1,4 @@
-import { TBun, TIngredient, TOrder } from '../types/types';
+import { IBun, TIngredient, TOrder } from '../types/types';
 
 export const ingredientTestExample: TIngredient = {
   _id: '60666c42cc7b410027a1a9b1',
@@ -15,7 +15,7 @@ export const ingredientTestExample: TIngredient = {
   __v: 0,
 };
 
-export const ingredientBunTestExample: TBun = {
+export const ingredientBunTestExample: IBun = {
   _id: '60666c42cc7b410027a1a9b1',
   name: 'Краторная булка N-200i',
   type: 'bun',
