@@ -5,8 +5,13 @@ import { useSelector, useDispatch } from '../../types/hooks';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { patchUserData } from '../../services/actions/auth/user-data';
 import { logout } from '../../services/actions/auth/logout';
+import { useMediaQuery } from 'react-responsive';
+import { SMALL_SCREEN_SIZE } from '../../utils/constants';
 
 export default function Profile(): JSX.Element {
+  const isSmallScreen = useMediaQuery({ maxDeviceWidth: SMALL_SCREEN_SIZE });
+  const isOtherScreen = useMediaQuery({ minDeviceWidth: SMALL_SCREEN_SIZE });
+
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
   const [form, setForm] = useState({
@@ -97,9 +102,11 @@ export default function Profile(): JSX.Element {
           Выход
         </Link>
 
-        <p className={`text text_type_main-small text_color_inactive ${styles.navParagraph}`}>
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
+        {isOtherScreen && (
+          <p className={`text text_type_main-small text_color_inactive ${styles.navParagraph}`}>
+            В этом разделе вы можете изменить свои персональные данные
+          </p>
+        )}
       </nav>
 
       <form onSubmit={onFormSubmit} onClick={onClick} className={styles.form}>
@@ -145,6 +152,12 @@ export default function Profile(): JSX.Element {
           </div>
         )}
       </form>
+
+      {isSmallScreen && (
+        <p className={`text text_type_main-small text_color_inactive ${styles.navParagraphSmall}`}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      )}
     </div>
   );
 }

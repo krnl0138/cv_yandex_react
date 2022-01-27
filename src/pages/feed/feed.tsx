@@ -95,8 +95,8 @@ export default function Feed(): JSX.Element {
   ) : (
     <div className={styles.main}>
       <div className={styles.left}>
+        <p className={`${styles.feedHeading} text text_type_main-large mb-3 mt-9`}>Лента заказов</p>
         <div className={styles.orders}>
-          <p className={`${styles.feedHeading} text text_type_main-large mb-6`}>Лента заказов</p>
           {orders.slice(0, ORDERS_TO_DISPLAY).map((order, index) => {
             return (
               <div key={index} data-cy={`feed-order-${index}`}>

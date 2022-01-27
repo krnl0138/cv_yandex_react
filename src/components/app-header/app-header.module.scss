@@ -18,7 +18,7 @@
   max-width: 75vw;
   margin: 0 auto;
 
-  @media (max-width: 1424px) {
+  @media (max-width: $desktop_screen_size) {
     max-width: 100vw;
   }
 
@@ -37,8 +37,12 @@
   }
 }
 
-.center {
-  @include centerItem;
+.logo {
+  margin: 0 auto;
+}
+
+.pushRight {
+  margin-left: auto;
 }
 
 .activeLink {

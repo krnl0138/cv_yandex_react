@@ -1,17 +1,24 @@
 @use '../../../styles/scss/abstracts/mixins' as *;
+@use '../../../styles/scss/abstracts/variables' as *;
 
 .ordersAllTime {
   padding: 20px 50px 20px;
-}
 
-.ordersAllTimeNumber {
-  @include textShadow;
+  &Number {
+    @include textShadow;
+    @media (max-width: $medium_screen_size) {
+      font-size: 72px;
+    }
+  }
 }
 
 .ordersToday {
   padding: 50px;
-}
 
-.ordersTodayNumber {
-  @include textShadow;
+  &Number {
+    @include textShadow;
+    @media (max-width: $medium_screen_size) {
+      font-size: 72px;
+    }
+  }
 }
