@@ -10,6 +10,11 @@
   gap: 10px;
   font-weight: 300;
   height: $height-page-default;
+
+  @media (max-width: $small-screen-size) {
+    height: 50vh;
+    align-items: center;
+  }
 }
 
 .middle {

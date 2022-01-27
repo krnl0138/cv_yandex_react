@@ -57,8 +57,8 @@ export const AppHeaderHamburger = (): JSX.Element => {
       <nav className={styles.nav} ref={mainRef}>
         <ul className={styles.menu} onClick={onClick}>
           <Link to={{ pathname: '/' }} className={`${styles.menu_element} ${styles.link}`}>
+            <p className={`text text_type_main-default ${styles.menu_text}`}>Конструктор</p>
             <BurgerIcon type="secondary" />
-            <p className={`text text_type_main-default pl-2`}>Конструктор</p>
           </Link>
 
           <Link
@@ -66,13 +66,13 @@ export const AppHeaderHamburger = (): JSX.Element => {
             className={`${styles.menu_element} ${styles.link}`}
             data-cy="feed-page-link"
           >
+            <p className={`text text_type_main-default ${styles.menu_text}`}>Лента заказов</p>
             <ListIcon type="secondary" />
-            <p className={`text text_type_main-default pl-2`}>Лента заказов</p>
           </Link>
 
           <Link to={{ pathname: '/profile' }} className={`${styles.menu_element} ${styles.link}`}>
+            <p className={`text text_type_main-default ${styles.menu_text}`}>Профиль</p>
             <ProfileIcon type="secondary" />
-            <p className={`text text_type_main-default pl-2`}>Профиль</p>
           </Link>
         </ul>
       </nav>
